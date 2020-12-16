@@ -2,20 +2,40 @@
   "name": "x-tailwind-react-native",
   "version": "1.0.0",
   "description": "simple, expressive API for tailwindcss + react-native",
+  "author": "Jared Henderson <jared@netrivet.com>",
   "main": "dist/index.js",
+  "license": "MIT",
   "scripts": {
-    "test": "fldev test"
+    "test": "fldev test",
+    "lint": "fldev lint",
+    "lint:fix": "fldev lint:fix",
+    "ts:check": "fldev ts:check",
+    "format": "fldev format",
+    "compile": "fldev ts:compile"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "bin": {
+    "xtrn-create-config": "./dist/create-config.js"
+  },
+  "dependencies": {
+    "css-to-react-native": "^3.0.0"
+  },
   "peerDependencies": {
     "react-native": "^0.63.0"
   },
   "devDependencies": {
     "@friends-library/dev": "^4.1.15",
+    "@types/css": "0.0.31",
     "@types/react-native": "^0.63.41",
+    "css": "^3.0.0",
+    "postcss": "^8.2.1",
     "react-native": "^0.63.4",
-    "tailwindcss": "^2.0.2"
-  }
+    "tailwindcss": "^2.0.2",
+    "x-chalk": "^1.0.1"
+  },
+  "keywords": [
+    "tailwind",
+    "tailwindcss",
+    "react-native",
+    "classnames"
+  ]
 }

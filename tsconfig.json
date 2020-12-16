@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "strict": true,
-    "noUncheckedIndexedAccess": true
-  }
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "declaration": true
+  },
+  "exclude": ["./dist","**/*.spec.ts"]
 }
