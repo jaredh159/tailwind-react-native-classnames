@@ -1,0 +1,5 @@
+.DS_Store
+dist/
+node_modules/
+jest.config.js
+tw-rn-styles.json
