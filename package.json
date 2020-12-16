@@ -1,0 +1,21 @@
+{
+  "name": "x-tailwind-react-native",
+  "version": "1.0.0",
+  "description": "simple, expressive API for tailwindcss + react-native",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "fldev test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "peerDependencies": {
+    "react-native": "^0.63.0"
+  },
+  "devDependencies": {
+    "@friends-library/dev": "^4.1.15",
+    "@types/react-native": "^0.63.41",
+    "react-native": "^0.63.4",
+    "tailwindcss": "^2.0.2"
+  }
+}
