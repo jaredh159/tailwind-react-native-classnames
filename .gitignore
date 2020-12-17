@@ -2,4 +2,4 @@
 dist/
 node_modules/
 jest.config.js
-styles.json
+tw-rn-styles.json

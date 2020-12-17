@@ -1,55 +1,62 @@
 import { ViewStyle, TextStyle, Platform } from 'react-native';
-
-type Input =
-  | string
-  | string[]
-  | false
-  | null
-  | undefined
-  | { [k: string]: boolean }
-  | ViewStyle
-  | TextStyle;
+import { parseInputs } from './helpers';
+import { TailwindFn, ConfigStyles, ClassInput, TailwindColorFn } from './types';
 
 function makeTw(styles: ConfigStyles): TailwindFn {
-  return (...inputs: Input[]) => {
-    const style: any = {};
-    const input = inputs[0] as string;
-    Object.assign(style, styles[input]);
-    return useVariables(style);
+  const fn = (...inputs: ClassInput[]) => {
+    let rnStyleObj: { [key: string]: string | number } = {};
+    const [classNames, rnStyles] = parseInputs(inputs);
+    classNames.forEach((className) => {
+      if (styles[className]) {
+        rnStyleObj = { ...rnStyleObj, ...styles[className] };
+      } else if (process?.env?.JEST_WORKER_ID === undefined) {
+        console.warn(`\`${className}\` is not a valid Tailwind class name`);
+      }
+    });
+    return { ...replaceVariables(rnStyleObj), ...rnStyles };
   };
-}
 
-type ConfigStyles = Record<string, Record<string, string | number>>;
+  fn.t = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
+    let str = ``;
+    strings.forEach((string, i) => {
+      str += string + (values[i] || ``);
+    });
+    return fn(str);
+  };
 
-interface TailwindFn {
-  (...inputs: Input[]): any;
+  return fn;
 }
 
 function create(
   configStyles: ConfigStyles,
-): [tailwind: TailwindFn, getColor: (colorSlug: string) => string] {
-  return [makeTw(configStyles), (slug) => slug];
+): [tailwind: TailwindFn, getColor: TailwindColorFn] {
+  const tw = makeTw(configStyles);
+  return [
+    tw,
+    (colorSlug) => {
+      const style = tw(`bg-${colorSlug}`);
+      return typeof style.backgroundColor === `string`
+        ? style.backgroundColor
+        : undefined;
+    },
+  ];
 }
 
-const [baseTailwind, getColor] = create(require(`../styles.json`));
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const [baseTailwind, baseGetColor] = create(require(`../tw-rn-styles.json`));
 
 export default baseTailwind;
-export { getColor, create };
+const t = baseTailwind.t;
+export { baseGetColor as getColor, create, t };
 
-const useVariables = (object: any) => {
-  const newObject: Record<string, any> = {};
-
-  for (const [key, value] of Object.entries(object)) {
-    if (!key.startsWith('--')) {
-      if (typeof value === 'string') {
-        newObject[key] = value.replace(/var\(([a-zA-Z-]+)\)/, (_, name) => {
-          return object[name];
-        });
-      } else {
-        newObject[key] = value;
-      }
+function replaceVariables(styles: Record<string, any>): Record<string, any> {
+  const merged: Record<string, any> = {};
+  for (const [key, value] of Object.entries(styles)) {
+    if (typeof value === `string` && value.includes(`var(--`)) {
+      merged[key] = value.replace(/var\(([a-z-]+)\)/, (_, varName) => styles[varName]);
+    } else if (!key.startsWith(`--`)) {
+      merged[key] = value;
     }
   }
-
-  return newObject;
-};
+  return merged;
+}

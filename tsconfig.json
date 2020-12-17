@@ -5,6 +5,7 @@
     "skipLibCheck": true,
     "rootDir": "./src",
     "outDir": "./dist",
+    "lib": ["ES2019"],
     "declaration": true
   },
   "exclude": ["./dist","**/*.spec.ts"]
