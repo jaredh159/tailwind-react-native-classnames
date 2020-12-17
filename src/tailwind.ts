@@ -1,7 +1,7 @@
 import { parseInputs } from './helpers';
 import { TailwindFn, Styles, ClassInput } from './types';
 
-function create(styles: Styles): TailwindFn {
+export default function create(styles: Styles): TailwindFn {
   const getStyle = (...inputs: ClassInput[]): { [key: string]: string | number } => {
     let rnStyleObj: { [key: string]: string | number } = {};
     const [classNames, rnStyles] = parseInputs(inputs);
@@ -32,10 +32,6 @@ function create(styles: Styles): TailwindFn {
 
   return tailwind;
 }
-
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const tailwind = create(require(`../tw-rn-styles.json`));
-export default tailwind;
 
 function replaceVariables(styles: Record<string, any>): Record<string, any> {
   const merged: Record<string, any> = {};

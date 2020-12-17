@@ -1,5 +1,5 @@
 import { describe, it, test } from '@jest/globals';
-import tw from '../tailwind';
+import tw from '../';
 
 jest.mock(`react-native`, () => ({
   Platform: { OS: `ios` },
