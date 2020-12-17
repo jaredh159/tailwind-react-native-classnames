@@ -1,9 +1,8 @@
-import { ViewStyle, TextStyle, Platform } from 'react-native';
 import { parseInputs } from './helpers';
-import { TailwindFn, ConfigStyles, ClassInput, TailwindColorFn } from './types';
+import { TailwindFn, Styles, ClassInput } from './types';
 
-function makeTw(styles: ConfigStyles): TailwindFn {
-  const fn = (...inputs: ClassInput[]) => {
+function create(styles: Styles): TailwindFn {
+  const getStyle = (...inputs: ClassInput[]) => {
     let rnStyleObj: { [key: string]: string | number } = {};
     const [classNames, rnStyles] = parseInputs(inputs);
     classNames.forEach((className) => {
@@ -16,38 +15,26 @@ function makeTw(styles: ConfigStyles): TailwindFn {
     return { ...replaceVariables(rnStyleObj), ...rnStyles };
   };
 
-  fn.t = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
+  const tailwind = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
     let str = ``;
     strings.forEach((string, i) => {
       str += string + (values[i] || ``);
     });
-    return fn(str);
+    return getStyle(str);
   };
 
-  return fn;
-}
+  tailwind.style = getStyle;
+  tailwind.color = (color: string) => {
+    const style = getStyle(`bg-${color}`);
+    return typeof style.backgroundColor === `string` ? style.backgroundColor : undefined;
+  };
 
-function create(
-  configStyles: ConfigStyles,
-): [tailwind: TailwindFn, getColor: TailwindColorFn] {
-  const tw = makeTw(configStyles);
-  return [
-    tw,
-    (colorSlug) => {
-      const style = tw(`bg-${colorSlug}`);
-      return typeof style.backgroundColor === `string`
-        ? style.backgroundColor
-        : undefined;
-    },
-  ];
+  return tailwind;
 }
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const [baseTailwind, baseGetColor] = create(require(`../tw-rn-styles.json`));
-
-export default baseTailwind;
-const t = baseTailwind.t;
-export { baseGetColor as getColor, create, t };
+const tailwind = create(require(`../tw-rn-styles.json`));
+export default tailwind;
 
 function replaceVariables(styles: Record<string, any>): Record<string, any> {
   const merged: Record<string, any> = {};

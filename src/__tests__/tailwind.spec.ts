@@ -1,5 +1,5 @@
 import { describe, it, test } from '@jest/globals';
-import tw, { getColor, t } from '../tailwind';
+import tw from '../tailwind';
 
 jest.mock(`react-native`, () => ({
   Platform: { OS: `ios` },
@@ -13,42 +13,42 @@ jest.mock(`react-native`, () => ({
 
 describe(`t template literal helper`, () => {
   it('handles single class name', () => {
-    expect(t`pt-12`).toEqual({ paddingTop: 48 });
+    expect(tw`pt-12`).toEqual({ paddingTop: 48 });
   });
 
   it('handles double class name', () => {
-    expect(t`pt-12 pb-12`).toEqual({ paddingTop: 48, paddingBottom: 48 });
+    expect(tw`pt-12 pb-12`).toEqual({ paddingTop: 48, paddingBottom: 48 });
   });
 
   it('supports template literal substitution', () => {
     let num = 12;
-    expect(t`pt-${num}`).toEqual({ paddingTop: 48 });
+    expect(tw`pt-${num}`).toEqual({ paddingTop: 48 });
   });
 });
 
-describe(`tw()`, () => {
+describe(`tw.style()`, () => {
   it(`respects platform psuedo-class prefix`, () => {
-    const style = tw(`ios:pt-12 android:pt-0`);
+    const style = tw.style(`ios:pt-12 android:pt-0`);
     expect(style).toEqual({ paddingTop: 48 });
   });
 
   it(`handles single class name`, () => {
-    expect(tw(`text-blue-500`)).toEqual({ color: `rgba(59, 130, 246, 1)` });
+    expect(tw.style(`text-blue-500`)).toEqual({ color: `rgba(59, 130, 246, 1)` });
   });
 
   it(`get styles for multiple classes`, () => {
-    expect(tw(`text-blue-500 bg-blue-100`)).toEqual({
+    expect(tw.style(`text-blue-500 bg-blue-100`)).toEqual({
       color: `rgba(59, 130, 246, 1)`,
       backgroundColor: `rgba(219, 234, 254, 1)`,
     });
   });
 
   it(`ignores unknown classes`, () => {
-    expect(tw(`text-blue-500 unknown`)).toEqual({ color: `rgba(59, 130, 246, 1)` });
+    expect(tw.style(`text-blue-500 unknown`)).toEqual({ color: `rgba(59, 130, 246, 1)` });
   });
 
   it(`supports color opacity`, () => {
-    const styles = tw(
+    const styles = tw.style(
       `text-blue-500 text-opacity-50 bg-blue-100`,
       `bg-opacity-50 border-blue-100 border-opacity-50`,
     );
@@ -63,7 +63,7 @@ describe(`tw()`, () => {
   });
 
   it(`ignores non-string values when transforming CSS variables`, () => {
-    expect(tw(`bg-blue-500 p-12`)).toEqual({
+    expect(tw.style(`bg-blue-500 p-12`)).toEqual({
       backgroundColor: `rgba(59, 130, 246, 1)`,
       paddingBottom: 48,
       paddingLeft: 48,
@@ -73,14 +73,13 @@ describe(`tw()`, () => {
   });
 });
 
-describe(`getColor()`, () => {
+describe(`tw.color()`, () => {
   test(`returns rgba formatted color for known color`, () => {
-    // getColor()
-    const color = getColor(`blue-100`);
+    const color = tw.color(`blue-100`);
     expect(color).toBe(`rgba(219, 234, 254, 1)`);
   });
 
   test(`returns undefined for unknown color`, () => {
-    expect(getColor(`center`)).toBeUndefined();
+    expect(tw.color(`center`)).toBeUndefined();
   });
 });
