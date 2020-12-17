@@ -4,3 +4,4 @@ jest.config.js
 .vscode/
 tsconfig.json
 src/
+.github
