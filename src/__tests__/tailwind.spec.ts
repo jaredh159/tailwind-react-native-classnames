@@ -6,7 +6,6 @@ jest.mock(`react-native`, () => ({
 }));
 
 // TODO: rest of tests passing from rn-tailwind
-// tw`` template literal syntax API
 // documentation
 // release
 // reddit
@@ -44,7 +43,7 @@ describe(`tw.style()`, () => {
   });
 
   it(`ignores unknown classes`, () => {
-    expect(tw.style(`text-blue-500 unknown`)).toEqual({ color: `rgba(59, 130, 246, 1)` });
+    expect(tw.style(`unknown`)).toEqual({});
   });
 
   it(`supports color opacity`, () => {
