@@ -9,10 +9,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
-      - name: lint
-        run: npm run lint
       - name: ts
         run: npm run ts:check
+      - name: compile
+        run: npm run compile
+      - name: create-styles
+        run: node ./dist/create-styles.js
+      - name: lint
+        run: npm run lint
       - name: test
         run: npm run test
       - name: prettier
