@@ -2,7 +2,7 @@ import { parseInputs } from './helpers';
 import { TailwindFn, Styles, ClassInput } from './types';
 
 function create(styles: Styles): TailwindFn {
-  const getStyle = (...inputs: ClassInput[]) => {
+  const getStyle = (...inputs: ClassInput[]): { [key: string]: string | number } => {
     let rnStyleObj: { [key: string]: string | number } = {};
     const [classNames, rnStyles] = parseInputs(inputs);
     classNames.forEach((className) => {
@@ -15,6 +15,7 @@ function create(styles: Styles): TailwindFn {
     return { ...replaceVariables(rnStyleObj), ...rnStyles };
   };
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
   const tailwind = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
     let str = ``;
     strings.forEach((string, i) => {

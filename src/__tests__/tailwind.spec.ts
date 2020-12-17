@@ -11,16 +11,16 @@ jest.mock(`react-native`, () => ({
 // reddit
 
 describe(`t template literal helper`, () => {
-  it('handles single class name', () => {
+  it(`handles single class name`, () => {
     expect(tw`pt-12`).toEqual({ paddingTop: 48 });
   });
 
-  it('handles double class name', () => {
+  it(`handles double class name`, () => {
     expect(tw`pt-12 pb-12`).toEqual({ paddingTop: 48, paddingBottom: 48 });
   });
 
-  it('supports template literal substitution', () => {
-    let num = 12;
+  it(`supports template literal substitution`, () => {
+    const num = 12;
     expect(tw`pt-${num}`).toEqual({ paddingTop: 48 });
   });
 });
