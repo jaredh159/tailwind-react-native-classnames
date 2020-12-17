@@ -15,7 +15,7 @@
     "prepublishOnly": "npm run compile && node ./dist/create-config.js"
   },
   "bin": {
-    "xtrn-create-config": "./dist/create-config.js"
+    "trnc-create-styles": "./dist/create-styles.js"
   },
   "dependencies": {
     "css-to-react-native": "^3.0.0"
