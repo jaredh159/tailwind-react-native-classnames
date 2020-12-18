@@ -1,18 +1,26 @@
 import { parseInputs } from './helpers';
-import { TailwindFn, Styles, ClassInput } from './types';
+import { TailwindFn, TwStyles, RnStyle, ClassInput } from './types';
 
-export default function create(styles: Styles): TailwindFn {
-  const getStyle = (...inputs: ClassInput[]): { [key: string]: string | number } => {
-    let rnStyleObj: { [key: string]: string | number } = {};
-    const [classNames, rnStyles] = parseInputs(inputs);
+export default function create(styles: TwStyles): TailwindFn {
+  const getStyle = (...inputs: ClassInput[]): RnStyle => {
+    let style: RnStyle = {};
+    const [classNames, userRnStyle] = parseInputs(inputs);
+    let letterSpacingClass: string | null = null;
     classNames.forEach((className) => {
-      if (styles[className]) {
-        rnStyleObj = { ...rnStyleObj, ...styles[className] };
-      } else if (process?.env?.JEST_WORKER_ID === undefined) {
+      if (isSupportedFontVariant(className)) {
+        addFontVariant(className, style);
+      } else if (isLetterSpacingClass(className)) {
+        letterSpacingClass = className;
+      } else if (styles[className]) {
+        style = { ...style, ...styles[className] };
+      } else if (shouldWarn()) {
         console.warn(`\`${className}\` is not a valid Tailwind class name`);
       }
     });
-    return { ...replaceVariables(rnStyleObj), ...rnStyles };
+    if (letterSpacingClass) {
+      addLetterSpacing(letterSpacingClass, style, styles);
+    }
+    return { ...replaceVariables(style), ...userRnStyle };
   };
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
@@ -43,4 +51,58 @@ function replaceVariables(styles: Record<string, any>): Record<string, any> {
     }
   }
   return merged;
+}
+
+function isLetterSpacingClass(className: string): boolean {
+  return !!className.match(/^tracking-(tighter|tight|normal|wide|wider|widest)$/);
+}
+
+function isSupportedFontVariant(className: string): boolean {
+  return !!className.match(/^(oldstyle|lining|tabular|proportional)-nums$/);
+}
+
+function addLetterSpacing(
+  letterSpacingClass: string,
+  style: RnStyle,
+  styles: TwStyles,
+): void {
+  if (`fontSize` in style === false) {
+    warn(`\`tracking-<x>\` classes require font-size to be set`);
+    return;
+  }
+
+  const fontSize = style.fontSize;
+  if (typeof fontSize !== `number` || Number.isNaN(fontSize)) {
+    // should never happen
+    return;
+  }
+
+  const letterSpacingValue = styles[letterSpacingClass]?.letterSpacing;
+  if (typeof letterSpacingValue !== `string`) {
+    // should never happen
+    return;
+  }
+
+  const emVal = Number.parseFloat(letterSpacingValue);
+  const pxVal = emVal * fontSize;
+  style.letterSpacing = Math.round((pxVal + Number.EPSILON) * 100) / 100;
+}
+
+function warn(msg: string): void {
+  if (!shouldWarn()) {
+    return;
+  }
+  console.warn(msg);
+}
+
+function shouldWarn(): boolean {
+  return process?.env?.JEST_WORKER_ID === undefined;
+}
+
+function addFontVariant(variant: string, style: RnStyle): void {
+  if (Array.isArray(style.fontVariant)) {
+    style.fontVariant.push(variant);
+  } else {
+    style.fontVariant = [variant];
+  }
 }

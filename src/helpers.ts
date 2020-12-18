@@ -1,11 +1,11 @@
 import { Platform } from 'react-native';
-import { ClassInput } from './types';
+import { ClassInput, RnStyle } from './types';
 
 export function parseInputs(
   inputs: ClassInput[],
-): [classNames: string[], rnStyles: { [key: string]: string | number }] {
+): [classNames: string[], rnStyles: RnStyle] {
   let classNames: string[] = [];
-  const styles: { [key: string]: string | number } = {};
+  const styles: RnStyle = {};
 
   inputs.forEach((input) => {
     if (typeof input === `string`) {
@@ -35,7 +35,7 @@ function unique(className: string, index: number, classes: string[]): boolean {
 }
 
 function accountForPlatform(className: string): string {
-  return className.replace(/^(ios|android):(.*)/, (_, os, className) =>
+  return className.replace(/^(ios|android|windows|macos|web):(.*)/, (_, os, className) =>
     Platform.OS === os ? className : ``,
   );
 }
