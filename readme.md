@@ -6,9 +6,11 @@
 import { View, Text } from 'react-native';
 import tw from 'tailwind-react-native-classnames';
 
-<View style={tw`p-4 android:pt-2 bg-red-300 flex-row`}>
-  <Text style={tw`text-md tracking-wide`}>Hello World</Text>
-</View>;
+const MyComponent = () => (
+  <View style={tw`p-4 android:pt-2 bg-red-300 flex-row`}>
+    <Text style={tw`text-md tracking-wide`}>Hello World</Text>
+  </View>
+);
 ```
 
 ## API
@@ -64,7 +66,7 @@ The `tw` function also has a method `color` that can be used to get back a strin
 a tailwind color. Especially useful if you're using a customized color pallette.
 
 ```js
-tw.color('bg-blue-100');
+tw.color('blue-100');
 // -> "rgba(219, 234, 254, 1)"
 ```
 
@@ -73,9 +75,11 @@ You can import the main `tw` function and reach for `tw.style` only when you nee
 ```jsx
 import tw from 'tailwind-react-native-classnames';
 
-<View style={tw`bg-blue-100`}>
-  <Text style={tw.style('text-md', invalid && 'text-red-500')}>{msg}</Text>
-</View>;
+const MyComponent = () => (
+  <View style={tw`bg-blue-100`}>
+    <Text style={tw.style('text-md', invalid && 'text-red-500')}>Hello</Text>
+  </View>
+);
 ```
 
 ...or if the tagged template function isn't your jam, just import `tw.style` as `tw`:
@@ -83,9 +87,9 @@ import tw from 'tailwind-react-native-classnames';
 ```jsx
 import { style as tw } from 'tailwind-react-native-classnames';
 
-// ...
-<View style={tw('bg-blue-100', invalid && 'text-red-500')}></View>;
-// ...
+const MyComponent = () => (
+  <View style={tw('bg-blue-100', invalid && 'text-red-500')}></View>
+);
 ```
 
 ## Installation
