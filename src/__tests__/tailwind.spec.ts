@@ -10,7 +10,7 @@ jest.mock(`react-native`, () => ({
 // release
 // reddit
 
-describe(`t template literal helper`, () => {
+describe(`template literal syntax`, () => {
   it(`handles single class name`, () => {
     expect(tw`pt-12`).toEqual({ paddingTop: 48 });
   });
@@ -69,6 +69,53 @@ describe(`tw.style()`, () => {
       paddingRight: 48,
       paddingTop: 48,
     });
+  });
+
+  describe(`font-variant-numeric support`, () => {
+    test(`oldstyle-nums`, () => {
+      expect(tw`oldstyle-nums`).toEqual({ fontVariant: [`oldstyle-nums`] });
+    });
+
+    test(`lining-nums`, () => {
+      expect(tw`lining-nums`).toEqual({ fontVariant: [`lining-nums`] });
+    });
+
+    test(`tabular-nums`, () => {
+      expect(tw`tabular-nums`).toEqual({ fontVariant: [`tabular-nums`] });
+    });
+
+    test(`proportional-nums`, () => {
+      expect(tw`proportional-nums`).toEqual({ fontVariant: [`proportional-nums`] });
+    });
+
+    test(`multiple font variants`, () => {
+      expect(tw`oldstyle-nums lining-nums tabular-nums proportional-nums`).toEqual({
+        fontVariant: [
+          `oldstyle-nums`,
+          `lining-nums`,
+          `tabular-nums`,
+          `proportional-nums`,
+        ],
+      });
+    });
+  });
+
+  it(`handles relative letter-spacing`, () => {
+    expect(tw`text-xs tracking-tighter`).toMatchObject({ letterSpacing: -0.6 });
+    expect(tw`text-base tracking-tighter`).toMatchObject({ letterSpacing: -0.8 });
+    expect(tw`text-base tracking-tight`).toMatchObject({ letterSpacing: -0.4 });
+    expect(tw`text-base tracking-normal`).toMatchObject({ letterSpacing: 0 });
+    expect(tw`text-base tracking-wide`).toMatchObject({ letterSpacing: 0.4 });
+    expect(tw`text-base tracking-wider`).toMatchObject({ letterSpacing: 0.8 });
+    expect(tw`text-base tracking-widest`).toMatchObject({ letterSpacing: 1.6 });
+  });
+
+  test(`letter-spacing with no font-size has no effect`, () => {
+    expect(tw`tracking-wide`).toEqual({});
+  });
+
+  test(`letter-spacing not dependent on className order`, () => {
+    expect(tw`tracking-wide text-base`).toMatchObject({ letterSpacing: 0.4 });
   });
 });
 
