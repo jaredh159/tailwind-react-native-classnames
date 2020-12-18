@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import * as fs from 'fs';
-import { red, yellow } from 'x-chalk';
+import { red, yellow, magenta, log, c, gray } from 'x-chalk';
 import postcss from 'postcss';
 import { parse, Rule, Declaration } from 'css';
 
@@ -10,15 +10,34 @@ import cssToReactNative from 'css-to-react-native';
 // @ts-ignore
 import * as tailwind from 'tailwindcss';
 
+magenta(`\nStarting generation of tailwind styles...`);
+
 postcss([tailwind])
   .process(`@tailwind components;\n@tailwind utilities;`, { from: undefined })
   .then(({ css }) => {
     const styles = toStyleObject(css);
-    fs.writeFileSync(
-      `${process.cwd()}/tw-rn-styles.json`,
-      JSON.stringify(styles, null, 2),
+    const path = `${process.cwd()}/tw-rn-styles.json`;
+    fs.writeFileSync(path, JSON.stringify(styles, null, 2));
+    log(c`{green Success!} {gray Styles file generated at} {cyan ${path}}`);
+    gray(
+      `Commit this file and use it to create a customized version of the tailwind fn:\n`,
     );
+    log(SAMPLE_CODE);
+  })
+  .catch((err) => {
+    red(`Error generating tailwind styles file\n`);
+    console.error(err);
   });
+
+const SAMPLE_CODE = `
+\`\`\`js
+import { create } from 'tailwind-react-native-classnames';
+import styles from './path/to/your/tw-rn-styles.json';
+
+const customTailwind = create(styles);
+export default customTailwind;
+\`\`\`
+`;
 
 function toStyleObject(css: string): Record<string, Record<string, string | number>> {
   const { stylesheet } = parse(css);
