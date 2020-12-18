@@ -5,11 +5,6 @@ jest.mock(`react-native`, () => ({
   Platform: { OS: `ios` },
 }));
 
-// TODO: rest of tests passing from rn-tailwind
-// documentation
-// release
-// reddit
-
 describe(`template literal syntax`, () => {
   it(`handles single class name`, () => {
     expect(tw`pt-12`).toEqual({ paddingTop: 48 });
