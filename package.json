@@ -18,7 +18,8 @@
     "trnc-create-styles": "./dist/create-styles.js"
   },
   "dependencies": {
-    "css-to-react-native": "^3.0.0"
+    "css-to-react-native": "^3.0.0",
+    "postcss": "^8.2.1"
   },
   "peerDependencies": {
     "react-native": "^0.63.0"
@@ -28,7 +29,6 @@
     "@types/css": "0.0.31",
     "@types/react-native": "^0.63.41",
     "css": "^3.0.0",
-    "postcss": "^8.2.1",
     "react-native": "^0.63.4",
     "tailwindcss": "^2.0.2",
     "x-chalk": "^1.0.1"
