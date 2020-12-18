@@ -17,12 +17,13 @@ postcss([tailwind])
   .then(({ css }) => {
     const styles = toStyleObject(css);
     const path = `${process.cwd()}/tw-rn-styles.json`;
+    const exists = fs.existsSync(path);
     fs.writeFileSync(path, JSON.stringify(styles, null, 2));
     log(c`{green Success!} {gray Styles file generated at} {cyan ${path}}`);
     gray(
-      `Commit this file and use it to create a customized version of the tailwind fn:\n`,
+      `Commit this file and use it to create a customized version of the tailwind function\n`,
     );
-    log(SAMPLE_CODE);
+    !exists && log(SAMPLE_CODE);
   })
   .catch((err) => {
     red(`Error generating tailwind styles file\n`);
