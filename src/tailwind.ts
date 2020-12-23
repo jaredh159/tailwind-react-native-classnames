@@ -9,6 +9,8 @@ export default function create(styles: TwStyles): TailwindFn {
     classNames.forEach((className) => {
       if (isSupportedFontVariant(className)) {
         addFontVariant(className, style);
+      } else if (isBoxShadowClass(className)) {
+        addBoxShadow(className, style);
       } else if (isLetterSpacingClass(className)) {
         letterSpacingClass = className;
       } else if (styles[className]) {
@@ -106,3 +108,66 @@ function addFontVariant(variant: string, style: RnStyle): void {
     style.fontVariant = [variant];
   }
 }
+
+function isBoxShadowClass(className: string): className is keyof typeof boxShadowMap {
+  return className in boxShadowMap;
+}
+
+function addBoxShadow(className: string, style: RnStyle): void {
+  if (isBoxShadowClass(className)) {
+    const shadow = boxShadowMap[className];
+    style.shadowOffset = {
+      width: 0,
+      height: shadow.offsetHeight,
+    };
+    style.shadowRadius = shadow.radius;
+    style.shadowColor = `rgba(0, 0, 0, ${shadow.colorOpacity})`;
+    style.shadowOpacity = 1;
+    style.elevation = shadow.elevation;
+  }
+}
+
+const boxShadowMap = {
+  'shadow-sm': {
+    offsetHeight: 1,
+    radius: 2,
+    colorOpacity: 0.05,
+    elevation: 1,
+  },
+  shadow: {
+    offsetHeight: 1,
+    radius: 3,
+    colorOpacity: 0.1,
+    elevation: 2,
+  },
+  'shadow-md': {
+    offsetHeight: 4,
+    radius: 6,
+    colorOpacity: 0.1,
+    elevation: 3,
+  },
+  'shadow-lg': {
+    offsetHeight: 10,
+    radius: 15,
+    colorOpacity: 0.1,
+    elevation: 4,
+  },
+  'shadow-xl': {
+    offsetHeight: 20,
+    radius: 25,
+    colorOpacity: 0.1,
+    elevation: 5,
+  },
+  'shadow-2xl': {
+    offsetHeight: 25,
+    radius: 50,
+    colorOpacity: 0.25,
+    elevation: 6,
+  },
+  'shadow-none': {
+    offsetHeight: 0,
+    radius: 0,
+    colorOpacity: 0.0,
+    elevation: 0,
+  },
+};

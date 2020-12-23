@@ -211,7 +211,7 @@ describe(`box-shadow classes`, () => {
         height: 0,
       },
       shadowRadius: 0,
-      shadowColor: `#0000`,
+      shadowColor: `rgba(0, 0, 0, 0)`,
       shadowOpacity: 1,
       elevation: 0,
     });
