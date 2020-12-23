@@ -129,12 +129,12 @@ describe(`box-shadow classes`, () => {
   test(`.shadow-sm`, () => {
     expect(tw`shadow-sm`).toEqual({
       shadowOffset: {
-        width: 0,
+        width: 1,
         height: 1,
       },
-      shadowRadius: 2,
-      shadowColor: `rgba(0, 0, 0, 0.05)`,
-      shadowOpacity: 1,
+      shadowColor: `#000`,
+      shadowRadius: 1,
+      shadowOpacity: 0.025,
       elevation: 1,
     });
   });
@@ -142,12 +142,12 @@ describe(`box-shadow classes`, () => {
   test(`.shadow`, () => {
     expect(tw`shadow`).toEqual({
       shadowOffset: {
-        width: 0,
+        width: 1,
         height: 1,
       },
-      shadowRadius: 3,
-      shadowColor: `rgba(0, 0, 0, 0.1)`,
-      shadowOpacity: 1,
+      shadowColor: `#000`,
+      shadowRadius: 1,
+      shadowOpacity: 0.075,
       elevation: 2,
     });
   });
@@ -155,12 +155,12 @@ describe(`box-shadow classes`, () => {
   test(`.shadow-md`, () => {
     expect(tw`shadow-md`).toEqual({
       shadowOffset: {
-        width: 0,
-        height: 4,
+        width: 1,
+        height: 1,
       },
-      shadowRadius: 6,
-      shadowColor: `rgba(0, 0, 0, 0.1)`,
-      shadowOpacity: 1,
+      shadowColor: `#000`,
+      shadowRadius: 3,
+      shadowOpacity: 0.125,
       elevation: 3,
     });
   });
@@ -168,39 +168,39 @@ describe(`box-shadow classes`, () => {
   test(`.shadow-lg`, () => {
     expect(tw`shadow-lg`).toEqual({
       shadowOffset: {
-        width: 0,
-        height: 10,
+        width: 1,
+        height: 1,
       },
-      shadowRadius: 15,
-      shadowColor: `rgba(0, 0, 0, 0.1)`,
-      shadowOpacity: 1,
-      elevation: 4,
+      shadowColor: `#000`,
+      shadowOpacity: 0.15,
+      shadowRadius: 8,
+      elevation: 8,
     });
   });
 
   test(`.shadow-xl`, () => {
     expect(tw`shadow-xl`).toEqual({
       shadowOffset: {
-        width: 0,
-        height: 20,
+        width: 1,
+        height: 1,
       },
-      shadowRadius: 25,
-      shadowColor: `rgba(0, 0, 0, 0.1)`,
-      shadowOpacity: 1,
-      elevation: 5,
+      shadowColor: `#000`,
+      shadowOpacity: 0.19,
+      shadowRadius: 20,
+      elevation: 12,
     });
   });
 
   test(`.shadow-2xl`, () => {
     expect(tw`shadow-2xl`).toEqual({
       shadowOffset: {
-        width: 0,
-        height: 25,
+        width: 1,
+        height: 1,
       },
-      shadowRadius: 50,
-      shadowColor: `rgba(0, 0, 0, 0.25)`,
-      shadowOpacity: 1,
-      elevation: 6,
+      shadowColor: `#000`,
+      shadowOpacity: 0.25,
+      shadowRadius: 30,
+      elevation: 16,
     });
   });
 
@@ -210,9 +210,9 @@ describe(`box-shadow classes`, () => {
         width: 0,
         height: 0,
       },
+      shadowColor: `#000`,
       shadowRadius: 0,
-      shadowColor: `rgba(0, 0, 0, 0)`,
-      shadowOpacity: 1,
+      shadowOpacity: 0,
       elevation: 0,
     });
   });

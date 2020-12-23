@@ -116,58 +116,51 @@ function isBoxShadowClass(className: string): className is keyof typeof boxShado
 function addBoxShadow(className: string, style: RnStyle): void {
   if (isBoxShadowClass(className)) {
     const shadow = boxShadowMap[className];
-    style.shadowOffset = {
-      width: 0,
-      height: shadow.offsetHeight,
-    };
+    style.shadowOffset = { width: 1, height: 1 };
+    style.shadowColor = `#000`;
+    style.shadowOpacity = shadow.opacity;
     style.shadowRadius = shadow.radius;
-    style.shadowColor = `rgba(0, 0, 0, ${shadow.colorOpacity})`;
-    style.shadowOpacity = 1;
     style.elevation = shadow.elevation;
+    if (className === `shadow-none`) {
+      style.shadowOffset = { width: 0, height: 0 };
+    }
   }
 }
 
 const boxShadowMap = {
   'shadow-sm': {
-    offsetHeight: 1,
-    radius: 2,
-    colorOpacity: 0.05,
+    radius: 1,
+    opacity: 0.025,
     elevation: 1,
   },
   shadow: {
-    offsetHeight: 1,
-    radius: 3,
-    colorOpacity: 0.1,
+    radius: 1,
+    opacity: 0.075,
     elevation: 2,
   },
   'shadow-md': {
-    offsetHeight: 4,
-    radius: 6,
-    colorOpacity: 0.1,
+    radius: 3,
+    opacity: 0.125,
     elevation: 3,
   },
   'shadow-lg': {
-    offsetHeight: 10,
-    radius: 15,
-    colorOpacity: 0.1,
-    elevation: 4,
+    radius: 8,
+    opacity: 0.15,
+    elevation: 8,
   },
   'shadow-xl': {
-    offsetHeight: 20,
-    radius: 25,
-    colorOpacity: 0.1,
-    elevation: 5,
+    radius: 20,
+    opacity: 0.19,
+    elevation: 12,
   },
   'shadow-2xl': {
-    offsetHeight: 25,
-    radius: 50,
-    colorOpacity: 0.25,
-    elevation: 6,
+    radius: 30,
+    opacity: 0.25,
+    elevation: 16,
   },
   'shadow-none': {
-    offsetHeight: 0,
     radius: 0,
-    colorOpacity: 0.0,
+    opacity: 0.0,
     elevation: 0,
   },
 };
