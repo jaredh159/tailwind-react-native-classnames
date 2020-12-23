@@ -12,7 +12,7 @@
     "ts:check": "fldev ts:check",
     "format": "fldev format",
     "compile": "fldev ts:compile",
-    "prepublishOnly": "npm run compile && node ./dist/create-config.js"
+    "prepublishOnly": "npm run compile && node ./dist/create-styles.js"
   },
   "bin": {
     "trnc-create-styles": "./dist/create-styles.js"
