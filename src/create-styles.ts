@@ -3,6 +3,7 @@ import * as fs from 'fs';
 import { red, yellow, magenta, log, c, gray } from 'x-chalk';
 import postcss from 'postcss';
 import { parse, Rule, Declaration } from 'css';
+import { preProcessTwStyle } from './create';
 
 // @ts-ignore
 import cssToReactNative from 'css-to-react-native';
@@ -52,7 +53,6 @@ function toStyleObject(css: string): Record<string, Record<string, string | numb
     if (rule.type === `rule` && `selectors` in rule) {
       for (const selector of rule.selectors || []) {
         const utility = selector.replace(/^\./, ``).replace(`\\/`, `/`);
-
         if (isUtilitySupported(utility, rule)) {
           styles[utility] = getStyles(rule);
         }
@@ -65,12 +65,14 @@ function toStyleObject(css: string): Record<string, Record<string, string | numb
   styles[`line-through`] = { textDecorationLine: `line-through` };
   styles[`no-underline`] = { textDecorationLine: `none` };
 
+  addElevation(styles);
+
   return styles;
 }
 
 function getStyles(rule: Rule): Record<string, string | number> {
   const declarations = (rule.declarations || []) as Declaration[];
-  const styles = declarations
+  let styles = declarations
     .filter(({ property, value = `` }) => {
       if (property === `line-height` && !value.endsWith(`rem`)) {
         return false;
@@ -83,7 +85,15 @@ function getStyles(rule: Rule): Record<string, string | number> {
       }
 
       return [property, value];
+    })
+    .map(([property = ``, value = ``]) => {
+      return preProcessTwStyle(property, value);
     });
+
+  // hack, should fix this
+  if (styles[0]?.[0] === `--tw-shadow` && styles[1]?.[0] === `box-shadow`) {
+    styles = [[`box-shadow`, styles[0]?.[1]]];
+  }
 
   return cssToReactNative(styles);
 }
@@ -101,9 +111,11 @@ function isUtilitySupported(utility: string, rule: Rule): boolean {
       `antialiased`,
       `subpixel-antialiased`,
       `sr-only`,
+      `shadow-inner`,
       `not-sr-only`,
+      `ring`,
     ].includes(utility) ||
-    /^(space|placeholder|from|via|to|divide)-/.test(utility) ||
+    /^(space|placeholder|from|via|to|divide|ring)-/.test(utility) ||
     /^-?(scale|rotate|translate|skew)-/.test(utility)
   ) {
     return false;
@@ -196,7 +208,6 @@ const unsupportedProperties = new Set([
   `background-image`,
   `border-collapse`,
   `table-layout`,
-  `box-shadow`,
   `transition-property`,
   `transition-duration`,
   `transition-timing-function`,
@@ -221,4 +232,25 @@ function remToPx(value: string): string {
     return `0px`;
   }
   return `${parsed * 16}px`;
+}
+
+function addElevation(styles: Record<string, Record<string, string | number>>): void {
+  const elevationMap = {
+    'shadow-sm': 1,
+    shadow: 2,
+    'shadow-md': 3,
+    'shadow-lg': 4,
+    'shadow-xl': 5,
+    'shadow-2xl': 6,
+    'shadow-none': 0,
+  };
+
+  for (const [kls, elevation] of Object.entries(elevationMap)) {
+    if (kls in styles) {
+      styles[kls] = {
+        ...styles[kls],
+        elevation,
+      };
+    }
+  }
 }
