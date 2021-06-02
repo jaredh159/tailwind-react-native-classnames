@@ -95,7 +95,7 @@ const MyComponent = () => (
 ## Installation
 
 ```bash
-$ npm install tailwind-react-native-classnames
+npm install tailwind-react-native-classnames
 ```
 
 ## Customization
@@ -107,7 +107,7 @@ package exposes a cli command to generate a style-map which can then be used to 
 your own custom-scoped `tw` function, like so:
 
 ```bash
-$ npx trnc-create-styles
+npx trnc-create-styles
 ```
 
 This command will create a `tw-rn-styles.json` file in the root of your project dir. This
