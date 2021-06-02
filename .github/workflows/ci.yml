@@ -1,6 +1,6 @@
 name: basic-ci
 
-on: 
+on:
   - push
   - pull_request
 
