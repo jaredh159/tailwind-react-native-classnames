@@ -33,6 +33,14 @@
     "react-native": "^0.63.4",
     "tailwindcss": "^2.0.2"
   },
+  "homepage": "https://github.com/jaredh159/tailwind-react-native-classnames",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jaredh159/tailwind-react-native-classnames.git"
+  },
+  "bugs": {
+    "url": "https://github.com/jaredh159/tailwind-react-native-classnames/issues"
+  },
   "keywords": [
     "tailwind",
     "tailwindcss",
