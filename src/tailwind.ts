@@ -1,9 +1,9 @@
 import { parseInputs } from './helpers';
-import { TailwindFn, TwStyles, RnStyle, ClassInput } from './types';
+import { TailwindFn, ConfigStyles, Style, ClassInput } from './types';
 
-export default function create(styles: TwStyles): TailwindFn {
-  const getStyle = (...inputs: ClassInput[]): RnStyle => {
-    let style: RnStyle = {};
+export default function create(styles: ConfigStyles): TailwindFn {
+  const getStyle = (...inputs: ClassInput[]): Style => {
+    let style: Style = {};
     const [classNames, userRnStyle] = parseInputs(inputs);
     let letterSpacingClass: string | null = null;
     classNames.forEach((className) => {
@@ -65,8 +65,8 @@ function isSupportedFontVariant(className: string): boolean {
 
 function addLetterSpacing(
   letterSpacingClass: string,
-  style: RnStyle,
-  styles: TwStyles,
+  style: Style,
+  styles: ConfigStyles,
 ): void {
   if (`fontSize` in style === false) {
     warn(`\`tracking-<x>\` classes require font-size to be set`);
@@ -101,7 +101,7 @@ function shouldWarn(): boolean {
   return process?.env?.JEST_WORKER_ID === undefined;
 }
 
-function addFontVariant(variant: string, style: RnStyle): void {
+function addFontVariant(variant: string, style: Style): void {
   if (Array.isArray(style.fontVariant)) {
     style.fontVariant.push(variant);
   } else {
@@ -113,7 +113,7 @@ function isBoxShadowClass(className: string): className is keyof typeof boxShado
   return className in boxShadowMap;
 }
 
-function addBoxShadow(className: string, style: RnStyle): void {
+function addBoxShadow(className: string, style: Style): void {
   if (isBoxShadowClass(className)) {
     const shadow = boxShadowMap[className];
     style.shadowOffset = { width: 1, height: 1 };

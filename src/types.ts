@@ -6,13 +6,14 @@ export type ClassInput =
   | undefined
   | { [k: string]: boolean | string | number };
 
-export type TwStyles = Record<string, Record<string, string | number>>;
-export type RnStyle = {
-  [key: string]: string[] | string | number | { [key: string]: number };
+export type ConfigStyles = Record<string, Record<string, string | number>>;
+
+export type Style = {
+  [key: string]: string[] | string | number | Style;
 };
 
 export interface TailwindFn {
-  (strings: TemplateStringsArray, ...values: (string | number)[]): RnStyle;
-  style: (...inputs: ClassInput[]) => RnStyle;
+  (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
+  style: (...inputs: ClassInput[]) => Style;
   color: (color: string) => string | undefined;
 }

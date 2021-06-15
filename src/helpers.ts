@@ -1,11 +1,11 @@
 import { Platform } from 'react-native';
-import { ClassInput, RnStyle } from './types';
+import { ClassInput, Style } from './types';
 
 export function parseInputs(
   inputs: ClassInput[],
-): [classNames: string[], rnStyles: RnStyle] {
+): [classNames: string[], rnStyles: Style] {
   let classNames: string[] = [];
-  const styles: RnStyle = {};
+  const styles: Style = {};
 
   inputs.forEach((input) => {
     if (typeof input === `string`) {
