@@ -3,3 +3,4 @@ dist/
 node_modules/
 jest.config.js
 tw-rn-styles.json
+*.swp
