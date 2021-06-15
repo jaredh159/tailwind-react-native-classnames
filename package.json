@@ -29,9 +29,11 @@
   "devDependencies": {
     "@friends-library/dev": "~4.3.1",
     "@types/css": "0.0.31",
+    "@types/css-to-react-native": "^3.0.0",
     "@types/react-native": "^0.63.41",
+    "@types/tailwindcss": "^2.0.5",
     "react-native": "^0.63.4",
-    "tailwindcss": "^2.0.2"
+    "tailwindcss": "^2.1.4"
   },
   "homepage": "https://github.com/jaredh159/tailwind-react-native-classnames",
   "repository": {

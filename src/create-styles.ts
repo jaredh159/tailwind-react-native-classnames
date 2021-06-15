@@ -3,15 +3,14 @@ import * as fs from 'fs';
 import { red, yellow, magenta, log, c, gray } from 'x-chalk';
 import postcss from 'postcss';
 import { parse, Rule, Declaration } from 'css';
-
-// @ts-ignore
+import tailwind from 'tailwindcss';
 import cssToReactNative from 'css-to-react-native';
-
-// @ts-ignore
-import * as tailwind from 'tailwindcss';
+import { Style } from './types';
+import { fontFamilyStyle, isFontFamilyRule } from './font-family';
 
 magenta(`\nStarting generation of tailwind styles...`);
 
+// @ts-ignore
 postcss([tailwind])
   .process(`@tailwind components;\n@tailwind utilities;`, { from: undefined })
   .then(({ css }) => {
@@ -40,23 +39,28 @@ export default customTailwind;
 \`\`\`
 `;
 
-function toStyleObject(css: string): Record<string, Record<string, string | number>> {
+function toStyleObject(css: string): Style {
   const { stylesheet } = parse(css);
   if (!stylesheet) {
     red(`Failed to parse CSS`);
     process.exit(1);
   }
 
-  const styles: Record<string, Record<string, string | number>> = {};
+  const styles: Style = {};
   for (const rule of stylesheet.rules) {
     if (rule.type === `rule` && `selectors` in rule) {
       for (const selector of rule.selectors || []) {
         const utility = selector.replace(/^\./, ``).replace(`\\/`, `/`);
 
-        if (isUtilitySupported(utility, rule)) {
+        if (isFontFamilyRule(rule)) {
+          const fontFamily = fontFamilyStyle((rule as any).declarations?.[0]?.value);
+          if (fontFamily) {
+            styles[utility] = fontFamily;
+          }
+        } else if (isUtilitySupported(utility, rule)) {
           try {
             styles[utility] = getStyles(rule);
-          } catch (e) {
+          } catch {
             // ¯\_(ツ)_/¯
           }
         }
@@ -72,16 +76,16 @@ function toStyleObject(css: string): Record<string, Record<string, string | numb
   return styles;
 }
 
-function getStyles(rule: Rule): Record<string, string | number> {
+function getStyles(rule: Rule): Style {
   const declarations = (rule.declarations || []) as Declaration[];
-  const styles = declarations
+  const styles: [string, string][] = declarations
     .filter(({ property, value = `` }) => {
       if (property === `line-height` && !value.endsWith(`rem`)) {
         return false;
       }
       return true;
     })
-    .map(({ property, value = `` }) => {
+    .map(({ property = ``, value = `` }) => {
       if (value.endsWith(`rem`)) {
         return [property, remToPx(value)];
       }
@@ -116,6 +120,10 @@ function isUtilitySupported(utility: string, rule: Rule): boolean {
   // Skip utilities with unsupported properties
   for (const { property, value = `` } of (rule.declarations || []) as Declaration[]) {
     if (property && unsupportedProperties.has(property)) {
+      return false;
+    }
+
+    if (property?.includes(`backdrop`)) {
       return false;
     }
 
@@ -185,7 +193,6 @@ const unsupportedProperties = new Set([
   `place-content`,
   `place-items`,
   `place-self`,
-  `font-family`,
   `list-style-type`,
   `list-style-position`,
   `text-decoration`,
