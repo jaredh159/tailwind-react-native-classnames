@@ -27,7 +27,7 @@
     "react-native": "^0.63.0"
   },
   "devDependencies": {
-    "@friends-library/dev": "^4.1.16",
+    "@friends-library/dev": "~4.3.1",
     "@types/css": "0.0.31",
     "@types/react-native": "^0.63.41",
     "react-native": "^0.63.4",
