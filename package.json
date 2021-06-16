@@ -1,6 +1,6 @@
 {
   "name": "tailwind-react-native-classnames",
-  "version": "1.3.0-beta.1",
+  "version": "1.3.0",
   "description": "simple, expressive API for tailwindcss + react-native",
   "author": "Jared Henderson <jared@netrivet.com>",
   "main": "dist/index.js",
