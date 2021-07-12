@@ -66,6 +66,40 @@ describe(`tw.style()`, () => {
     });
   });
 
+  describe(`margin-auto support`, () => {
+    test(`direction-specific margin-<dir>: "auto"`, () => {
+      expect(tw.style(`mt-auto mb-auto ml-auto mr-auto`)).toEqual({
+        marginTop: `auto`,
+        marginBottom: `auto`,
+        marginLeft: `auto`,
+        marginRight: `auto`,
+      });
+    });
+
+    test(`mx-auto returns both directions`, () => {
+      expect(tw.style(`mx-auto`)).toEqual({
+        marginLeft: `auto`,
+        marginRight: `auto`,
+      });
+    });
+
+    test(`my-auto returns both directions`, () => {
+      expect(tw.style(`my-auto`)).toEqual({
+        marginTop: `auto`,
+        marginBottom: `auto`,
+      });
+    });
+
+    test(`m-auto returns all four directions`, () => {
+      expect(tw.style(`m-auto`)).toEqual({
+        marginTop: `auto`,
+        marginBottom: `auto`,
+        marginLeft: `auto`,
+        marginRight: `auto`,
+      });
+    });
+  });
+
   describe(`font-variant-numeric support`, () => {
     test(`oldstyle-nums`, () => {
       expect(tw`oldstyle-nums`).toEqual({ fontVariant: [`oldstyle-nums`] });

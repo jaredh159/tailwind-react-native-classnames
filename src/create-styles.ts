@@ -147,6 +147,10 @@ function isUtilitySupported(utility: string, rule: Rule): boolean {
       return false;
     }
 
+    if (value === `auto` && property?.match(/^margin(-(top|bottom|left|right))?$/)) {
+      return true;
+    }
+
     if (
       value === `auto` ||
       value.endsWith(`vw`) ||
