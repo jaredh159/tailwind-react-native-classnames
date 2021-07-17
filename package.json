@@ -24,7 +24,7 @@
     "x-chalk": "^1.0.1"
   },
   "peerDependencies": {
-    "react-native": "^0.63.0"
+    "react-native": ">=0.63.0"
   },
   "devDependencies": {
     "@friends-library/dev": "~4.3.1",
