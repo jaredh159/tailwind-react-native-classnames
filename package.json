@@ -21,6 +21,7 @@
     "css": "^3.0.0",
     "css-to-react-native": "^3.0.0",
     "postcss": "^8.2.1",
+    "tailwindcss": "^2.0.0",
     "x-chalk": "^1.0.1"
   },
   "peerDependencies": {
@@ -32,8 +33,7 @@
     "@types/css-to-react-native": "^3.0.0",
     "@types/react-native": "^0.63.41",
     "@types/tailwindcss": "^2.0.5",
-    "react-native": "^0.63.4",
-    "tailwindcss": "^2.1.4"
+    "react-native": "^0.63.4"
   },
   "homepage": "https://github.com/jaredh159/tailwind-react-native-classnames",
   "repository": {
