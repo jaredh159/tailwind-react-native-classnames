@@ -50,7 +50,7 @@ function toStyleObject(css: string): Style {
   for (const rule of stylesheet.rules) {
     if (rule.type === `rule` && `selectors` in rule) {
       for (const selector of rule.selectors || []) {
-        const utility = selector.replace(/^\./, ``).replace(`\\/`, `/`);
+        const utility = selector.replace(/^\./, ``).replace(`\\`, ``);
 
         if (isFontFamilyRule(rule)) {
           const fontFamily = fontFamilyStyle((rule as any).declarations?.[0]?.value);
