@@ -36,7 +36,11 @@ export default function create(styles: ConfigStyles): TailwindFn {
 
   tailwind.style = getStyle;
   tailwind.color = (color: string) => {
-    const style = getStyle(`bg-${color}`);
+    const prefixed = color
+      .split(/\s+/)
+      .map((util) => `bg-${util}`)
+      .join(` `);
+    const style = getStyle(prefixed);
     return typeof style.backgroundColor === `string` ? style.backgroundColor : undefined;
   };
 

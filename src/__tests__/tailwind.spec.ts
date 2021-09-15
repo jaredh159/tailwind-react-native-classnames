@@ -154,6 +154,11 @@ describe(`tw.color()`, () => {
     expect(color).toBe(`rgba(219, 234, 254, 1)`);
   });
 
+  test(`merges in opacity`, () => {
+    const color = tw.color(`blue-100 opacity-50`);
+    expect(color).toBe(`rgba(219, 234, 254, 0.5)`);
+  });
+
   test(`returns undefined for unknown color`, () => {
     expect(tw.color(`center`)).toBeUndefined();
   });
