@@ -1,39 +1,31 @@
 {
   "name": "tailwind-react-native-classnames",
-  "version": "1.5.0",
+  "version": "2.0.0-alpha.1",
   "description": "simple, expressive API for tailwindcss + react-native",
   "author": "Jared Henderson <jared@netrivet.com>",
   "main": "dist/index.js",
   "license": "MIT",
   "scripts": {
-    "test": "fldev test",
+    "test": "jest",
+    "test:watch": "jest --watch",
     "lint": "fldev lint",
     "lint:fix": "fldev lint:fix",
     "ts:check": "fldev ts:check",
     "format": "fldev format",
-    "compile": "fldev ts:compile",
-    "prepublishOnly": "rm -rf ./dist && npm run compile && node ./dist/create-styles.js"
-  },
-  "bin": {
-    "trnc-create-styles": "./dist/create-styles.js"
-  },
-  "dependencies": {
-    "css": "^3.0.0",
-    "css-to-react-native": "^3.0.0",
-    "postcss": "^8.2.1",
-    "tailwindcss": "^2.0.0",
-    "x-chalk": "^1.0.1"
+    "compile": "fldev ts:compile"
   },
   "peerDependencies": {
     "react-native": ">=0.63.0"
   },
   "devDependencies": {
-    "@friends-library/dev": "~4.3.1",
-    "@types/css": "0.0.31",
-    "@types/css-to-react-native": "^3.0.0",
-    "@types/react-native": "^0.63.41",
-    "@types/tailwindcss": "^2.0.5",
-    "react-native": "^0.63.4"
+    "@friends-library/dev": "~4.4.1",
+    "@types/lodash.get": "^4.4.6",
+    "@types/react-native": "^0.64.12",
+    "@types/tailwindcss": "^2.2.1",
+    "metro-react-native-babel-preset": "^0.66.2",
+    "react-native": "^0.64.2",
+    "tailwindcss": "^2.2.7",
+    "ts-jest": "^27.0.5"
   },
   "homepage": "https://github.com/jaredh159/tailwind-react-native-classnames",
   "repository": {
@@ -48,5 +40,9 @@
     "tailwindcss",
     "react-native",
     "classnames"
-  ]
+  ],
+  "dependencies": {
+    "lodash.get": "^4.4.2",
+    "x-ts-utils": "^1.2.0"
+  }
 }

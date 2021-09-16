@@ -6,14 +6,112 @@ export type ClassInput =
   | undefined
   | { [k: string]: boolean | string | number };
 
-export type ConfigStyles = Record<string, Record<string, string | number>>;
+export const PLATFORMS = [`ios`, `android`, `windows`, `macos`, `web`] as const;
+export type Platform = typeof PLATFORMS[number];
 
+export interface RnWindow {
+  fontScale: number;
+  height: number;
+  width: number;
+  scale: number; // always 1 or 2
+}
+export type ColorStyleType =
+  | 'bg'
+  | 'text'
+  | 'border'
+  | 'borderTop'
+  | 'borderLeft'
+  | 'borderRight'
+  | 'borderBottom'
+  | 'shadow';
+
+export type Direction =
+  | 'All'
+  | 'Horizontal'
+  | 'Vertical'
+  | 'Left'
+  | 'Right'
+  | 'Top'
+  | 'TopLeft'
+  | 'TopRight'
+  | 'Bottom'
+  | 'BottomLeft'
+  | 'BottomRight';
+
+export type RnColorScheme = 'light' | 'dark' | null | undefined;
+
+// @TODO -- maybe try to use RN real view/text types
 export type Style = {
-  [key: string]: string[] | string | number | Style;
+  [key: string]: string[] | string | number | boolean | Style;
 };
 
 export interface TailwindFn {
   (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
   style: (...inputs: ClassInput[]) => Style;
   color: (color: string) => string | undefined;
+  setWindow: (window: RnWindow) => void;
+  setColorScheme: (colorScheme: RnColorScheme) => void;
+}
+
+export enum ConfigType {
+  fontSize = `fontSize`,
+  lineHeight = `lineHeight`,
+}
+
+export type NullStyle = {
+  kind: 'null';
+};
+
+export type CompleteStyle = {
+  kind: 'complete';
+  style: Style;
+};
+
+// export type UnconfiguredStyle = {
+//   kind: 'unconfigured';
+//   configType: ConfigType;
+//   value: string;
+// };
+
+export type OrderedStyle = {
+  kind: `ordered`;
+  order: number;
+  styleIr: StyleIR;
+};
+
+export type DependentStyle = {
+  kind: 'dependent';
+  complete: (style: Style) => string | void;
+};
+
+export type ErrorStyle = {
+  kind: 'error';
+  error?: string;
+};
+
+export type StyleIR =
+  | NullStyle
+  | OrderedStyle
+  | DependentStyle
+  | CompleteStyle
+  | ErrorStyle;
+
+export enum Unit {
+  rem = `rem`,
+  em = `em`,
+  px = `px`,
+  percent = `%`,
+  none = `<no-css-unit>`,
+}
+
+export function fail(error: string): { success: false; error: string } {
+  return { success: false, error };
+}
+
+export function error(error?: string): ErrorStyle {
+  return { kind: `error`, error };
+}
+
+export function complete(style: Style): CompleteStyle {
+  return { kind: `complete`, style };
 }

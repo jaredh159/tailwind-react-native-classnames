@@ -1,7 +1,0 @@
-.DS_Store
-node_modules/
-jest.config.js
-.vscode/
-tsconfig.json
-src/
-.github

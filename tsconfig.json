@@ -8,7 +8,9 @@
     "rootDir": "./src",
     "outDir": "./dist",
     "lib": ["ES2019"],
-    "declaration": true
+    "target": "ES2019",
+    "declaration": true,
+    "moduleResolution": "node"
   },
   "exclude": ["./dist","**/*.spec.ts"]
 }

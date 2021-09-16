@@ -1,0 +1,108 @@
+# Key
+
+- ✅ = Implemented, exists in tailwindcss AND RN
+- 😎 = Implemented, but is RN ONLY
+- 🚨 = No tailwindcss equivalent, not implemented
+
+## RN Styles
+
+- ✅ alignContent
+- ✅ alignItems
+- ✅ alignSelf
+- ✅ aspectRatio
+- 🚨 backfaceVisibility
+- ✅ backgroundColor
+- ✅ borderBottomColor
+- 🚨 borderBottomEndRadius
+- ✅ borderBottomLeftRadius
+- ✅ borderBottomRightRadius
+- 🚨 borderBottomStartRadius
+- ✅ borderBottomWidth
+- ✅ borderColor
+- 🚨 borderEndColor
+- 🚨 borderEndWidth
+- ✅ borderLeftColor
+- ✅ borderLeftWidth
+- ✅ borderRadius
+- ✅ borderRightColor
+- ✅ borderRightWidth
+- 🚨 borderStartColor
+- 🚨 borderStartWidth
+- ✅ borderStyle
+- ✅ borderTopColor
+- 🚨 borderTopEndRadius
+- ✅ borderTopLeftRadius
+- ✅ borderTopRightRadius
+- 🚨 borderTopStartRadius
+- ✅ borderTopWidth
+- ✅ borderWidth
+- ✅ bottom
+- ✅ color
+- 😎 direction (added: `direction-inherit`, `direction-ltr`, `direction-rtl`)
+- ✅ display
+- 😎 elevation (android-only)
+- 🚨 end
+- 🚨 flex (RN implementation does not match web/tailwindcss)
+- 🚨 flexBasis
+- ✅ flexDirection
+- ✅ flexGrow
+- ✅ flexShrink
+- ✅ flexWrap
+- ✅ fontFamily
+- ✅ fontSize
+- ✅ fontStyle
+- ✅ fontVariant
+- ✅ fontWeight (😎 added: `font-100/200...900`)
+- ✅ height
+- 😎 includeFontPadding (android, added: `include-font-padding`, `remove-font-padding`)
+- ✅ justifyContent
+- ✅ left
+- ✅ letterSpacing
+- ✅ lineHeight
+- ✅ margin
+- ✅ marginBottom
+- 🚨 marginEnd
+- ✅ marginHorizontal
+- ✅ marginLeft
+- ✅ marginRight
+- 🚨 marginStart
+- ✅ marginTop
+- ✅ marginVertical
+- ✅ maxHeight
+- ✅ maxWidth
+- ✅ minHeight
+- ✅ minWidth
+- ✅ opacity
+- ✅ overflow
+- 🚨 overlayColor (android only)
+- ✅ padding
+- ✅ paddingBottom
+- 🚨 paddingEnd
+- ✅ paddingHorizontal
+- ✅ paddingLeft
+- ✅ paddingRight
+- 🚨 paddingStart
+- ✅ paddingTop
+- ✅ paddingVertical
+- ✅ position
+- 🚨 resizeMode // maybe TODO? add classes?
+- ✅ right
+- ✅ shadowColor `shadow-red-200`
+- ✅ shadowOffset (ios only) `shadow-offset-width|height-1|[3px]`
+- ✅ shadowOpacity (ios only) `shadow-opacity-70`
+- ✅ shadowRadius `shadow-radius-1[3px]`
+- 🚨 start
+- ✅ textAlign
+- 🚨 textAlignVertical (android only)
+- 🚨 textDecorationColor (ios only)
+- ✅ textDecorationLine
+- 🚨 textDecorationStyle (ios only)
+- 🚨 textShadowColor
+- 🚨 textShadowOffset
+- 🚨 textShadowRadius
+- ✅ textTransform
+- 🚨 tintColor
+- ✅ top
+- ✅ width
+- 🚨 writingDirection
+- ✅ zIndex

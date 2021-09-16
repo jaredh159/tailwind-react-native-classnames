@@ -1,0 +1,112 @@
+import { StyleIR, complete, DependentStyle } from './types';
+
+const defaultStyles: Array<[string, StyleIR]> = [
+  [`items-center`, complete({ alignItems: `center` })],
+  [`items-start`, complete({ alignItems: `flex-start` })],
+  [`items-end`, complete({ alignItems: `flex-end` })],
+  [`items-baseline`, complete({ alignItems: `baseline` })],
+  [`items-stretch`, complete({ alignItems: `stretch` })],
+  [`justify-start`, complete({ justifyContent: `flex-start` })],
+  [`justify-end`, complete({ justifyContent: `flex-end` })],
+  [`justify-center`, complete({ justifyContent: `center` })],
+  [`justify-between`, complete({ justifyContent: `space-between` })],
+  [`justify-around`, complete({ justifyContent: `space-around` })],
+  [`justify-evenly`, complete({ justifyContent: `space-evenly` })],
+  [`content-start`, complete({ alignContent: `flex-start` })],
+  [`content-end`, complete({ alignContent: `flex-end` })],
+  [`content-between`, complete({ alignContent: `space-between` })],
+  [`content-around`, complete({ alignContent: `space-around` })],
+  [`content-stretch`, complete({ alignContent: `stretch` })],
+  [`content-center`, complete({ alignContent: `center` })],
+  [`self-auto`, complete({ alignSelf: `auto` })],
+  [`self-start`, complete({ alignSelf: `flex-start` })],
+  [`self-end`, complete({ alignSelf: `flex-end` })],
+  [`self-center`, complete({ alignSelf: `center` })],
+  [`self-stretch`, complete({ alignSelf: `stretch` })],
+  [`self-baseline`, complete({ alignSelf: `baseline` })],
+
+  [`direction-inherit`, complete({ direction: `inherit` })],
+  [`direction-ltr`, complete({ direction: `ltr` })],
+  [`direction-rtl`, complete({ direction: `rtl` })],
+
+  [`hidden`, complete({ display: `none` })],
+  [`flex`, complete({ display: `flex` })],
+
+  [`flex-row`, complete({ flexDirection: `row` })],
+  [`flex-row-reverse`, complete({ flexDirection: `row-reverse` })],
+  [`flex-col`, complete({ flexDirection: `col` })],
+  [`flex-col-reverse`, complete({ flexDirection: `col-reverse` })],
+  [`flex-wrap`, complete({ flexWrap: `wrap` })],
+  [`flex-wrap-reverse`, complete({ flexWrap: `wrap-reverse` })],
+  [`flex-nowrap`, complete({ flexWrap: `nowrap` })],
+
+  [`overflow-hidden`, complete({ overflow: `hidden` })],
+  [`overflow-visible`, complete({ overflow: `visible` })],
+  [`overflow-scroll`, complete({ overflow: `scroll` })],
+
+  [`absolute`, complete({ position: `absolute` })],
+  [`relative`, complete({ position: `relative` })],
+
+  [`italic`, complete({ fontStyle: `italic` })],
+  [`not-italic`, complete({ fontStyle: `normal` })],
+
+  [`oldstyle-nums`, fontVariant(`oldstyle-nums`)],
+  [`small-caps`, fontVariant(`small-caps`)], //  @TODO: RN only
+  [`lining-nums`, fontVariant(`lining-nums`)],
+  [`tabular-nums`, fontVariant(`tabular-nums`)],
+  [`proportional-nums`, fontVariant(`proportional-nums`)],
+
+  [`font-thin`, complete({ fontWeight: `100` })],
+  [`font-100`, complete({ fontWeight: `100` })], // not in tailwindcss
+  [`font-extralight`, complete({ fontWeight: `200` })],
+  [`font-200`, complete({ fontWeight: `200` })], // not in tailwindcss
+  [`font-light`, complete({ fontWeight: `300` })],
+  [`font-300`, complete({ fontWeight: `300` })], // not in tailwindcss
+  [`font-normal`, complete({ fontWeight: `normal` })],
+  [`font-400`, complete({ fontWeight: `400` })], // not in tailwindcss
+  [`font-medium`, complete({ fontWeight: `500` })],
+  [`font-500`, complete({ fontWeight: `500` })], // not in tailwindcss
+  [`font-semibold`, complete({ fontWeight: `600` })],
+  [`font-600`, complete({ fontWeight: `600` })], // not in tailwindcss
+  [`font-bold`, complete({ fontWeight: `bold` })],
+  [`font-700`, complete({ fontWeight: `700` })], // not in tailwindcss
+  [`font-extrabold`, complete({ fontWeight: `800` })],
+  [`font-800`, complete({ fontWeight: `800` })], // not in tailwindcss
+  [`font-black`, complete({ fontWeight: `900` })],
+  [`font-900`, complete({ fontWeight: `900` })], // not in tailwindcss
+
+  [`include-font-padding`, complete({ includeFontPadding: true })],
+  [`remove-font-padding`, complete({ includeFontPadding: false })],
+
+  // not sure if RN supports `max-width: none;`, but this should be equivalent
+  [`max-w-none`, complete({ maxWidth: `99999%` })],
+
+  [`text-left`, complete({ textAlign: `left` })],
+  [`text-center`, complete({ textAlign: `center` })],
+  [`text-right`, complete({ textAlign: `right` })],
+  [`text-justify`, complete({ textAlign: `justify` })],
+  [`text-auto`, complete({ textAlign: `auto` })], // RN only
+
+  [`underline`, complete({ textDecorationLine: `underline` })],
+  [`line-through`, complete({ textDecorationLine: `line-through` })],
+  [`no-underline`, complete({ textDecorationLine: `none` })],
+
+  [`uppercase`, complete({ textTransform: `uppercase` })],
+  [`lowercase`, complete({ textTransform: `lowercase` })],
+  [`capitalize`, complete({ textTransform: `capitalize` })],
+  [`normal-case`, complete({ textTransform: `none` })],
+];
+
+export default defaultStyles;
+
+function fontVariant(type: string): DependentStyle {
+  return {
+    kind: `dependent`,
+    complete(style) {
+      if (!style.fontVariant || !Array.isArray(style.fontVariant)) {
+        style.fontVariant = [];
+      }
+      style.fontVariant.push(type);
+    },
+  };
+}
