@@ -3,12 +3,18 @@ import lineHeight from './resolve/line-height';
 import spacing from './resolve/spacing';
 import screens from './screens';
 import { TwConfig } from './tw-config';
-import { RnWindow, StyleIR, Platform, PLATFORMS, RnColorScheme, complete } from './types';
+import { RnWindow, StyleIR, Platform, PLATFORMS, RnColorScheme } from './types';
 import { Platform as RnPlatform } from 'react-native';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
-import { getCompleteStyle, getDirection, unconfiggedStyle, warn } from './helpers';
+import {
+  getCompleteStyle,
+  getDirection,
+  unconfiggedStyle,
+  warn,
+  complete,
+} from './helpers';
 import { inset } from './resolve/inset';
 import flexGrowShrink from './resolve/flex-grow-shrink';
 import { widthHeight, minMaxWidthHeight } from './resolve/width-height';

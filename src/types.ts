@@ -86,7 +86,3 @@ export enum Unit {
   percent = `%`,
   none = `<no-css-unit>`,
 }
-
-export function complete(style: Style): CompleteStyle {
-  return { kind: `complete`, style };
-}

@@ -1,5 +1,6 @@
 import { TwTheme } from '../tw-config';
-import { complete, StyleIR } from '../types';
+import { StyleIR } from '../types';
+import { complete } from '../helpers';
 
 export default function flexGrowShrink(
   type: 'Grow' | 'Shrink',

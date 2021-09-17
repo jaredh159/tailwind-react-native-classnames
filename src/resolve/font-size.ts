@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
-import { Style, complete, StyleIR } from '../types';
-import { getCompleteStyle, getStyle, mergeStyle } from '../helpers';
+import { Style, StyleIR } from '../types';
+import { getCompleteStyle, complete, getStyle, mergeStyle } from '../helpers';
 
 export default function fontSize(
   value: string,

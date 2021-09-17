@@ -1,4 +1,5 @@
-import { StyleIR, complete, DependentStyle } from './types';
+import { StyleIR, DependentStyle } from './types';
+import { complete } from './helpers';
 
 const defaultStyles: Array<[string, StyleIR]> = [
   [`items-center`, complete({ alignItems: `center` })],

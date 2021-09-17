@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
-import { ColorStyleType, complete, Direction, StyleIR } from '../types';
-import { parseAndConsumeDirection, getCompleteStyle } from '../helpers';
+import { ColorStyleType, Direction, StyleIR } from '../types';
+import { parseAndConsumeDirection, complete, getCompleteStyle } from '../helpers';
 import { color } from './color';
 
 export function border(value: string, theme?: TwTheme): StyleIR | null {

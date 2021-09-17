@@ -1,4 +1,8 @@
-import { Unit, Style, Direction, CompleteStyle, complete } from './types';
+import { Unit, Style, Direction, CompleteStyle } from './types';
+
+export function complete(style: Style): CompleteStyle {
+  return { kind: `complete`, style };
+}
 
 export function parseNumericValue(
   value: string,

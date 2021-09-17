@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
-import { Unit, StyleIR, complete } from '../types';
-import { parseNumericValue, toStyleVal } from '../helpers';
+import { Unit, StyleIR } from '../types';
+import { parseNumericValue, complete, toStyleVal } from '../helpers';
 
 export default function lineHeight(
   value: string,

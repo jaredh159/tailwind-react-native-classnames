@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
-import { complete, StyleIR } from '../types';
-import { getCompleteStyle, parseStyleVal, unconfiggedStyle } from '../helpers';
+import { StyleIR } from '../types';
+import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle } from '../helpers';
 
 export function widthHeight(
   type: 'width' | 'height',
