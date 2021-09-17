@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
 import { complete, error, StyleIR } from '../types';
-import { parseNumericValue, parseUnconfigged, toStyleVal } from './helpers';
+import { parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
 
 type Inset = 'bottom' | 'top' | 'left' | 'right' | 'inset';
 type InsetDir = null | 'x' | 'y';

@@ -17,7 +17,7 @@ import fontFamily from './resolve/font-family';
 import { aspectRatio } from './resolve/aspect-ratio';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
-import { getDirection, unconfiggedStyle } from './resolve/helpers';
+import { getDirection, unconfiggedStyle } from './helpers';
 import { inset } from './resolve/inset';
 import flexGrowShrink from './resolve/flex-grow-shrink';
 import { widthHeight, minMaxWidthHeight } from './resolve/width-height';
@@ -112,8 +112,8 @@ export default class ClassParser {
             prop,
             spacingDirection,
             this.isNegative,
-            this.config.theme?.[prop],
             this.rest,
+            this.config.theme?.[prop],
           );
         }
       }
@@ -150,11 +150,12 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`leading-`)) {
-      return lineHeight(theme?.lineHeight, this.rest);
+      ir = lineHeight(this.rest, theme?.lineHeight);
+      if (ir.kind !== `error`) return ir;
     }
 
     if (this.consumePeeked(`text-`)) {
-      ir = fontSize(theme?.fontSize, this.rest);
+      ir = fontSize(this.rest, theme?.fontSize);
       if (ir.kind !== `error`) return ir;
 
       ir = color(`text`, this.rest, theme?.textColor);
@@ -167,7 +168,7 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`font-`)) {
-      ir = fontFamily(theme?.fontFamily, this.rest);
+      ir = fontFamily(this.rest, theme?.fontFamily);
       if (ir.kind !== `error`) return ir;
     }
 
@@ -299,10 +300,6 @@ export default class ClassParser {
 
   private peekSlice(begin: number, end: number): string {
     return this.string.slice(this.position + begin, this.position + end);
-  }
-
-  private peekChar(distance: number): string {
-    return this.string[this.position + distance] ?? ``;
   }
 
   private consumePeeked(string: string): boolean {

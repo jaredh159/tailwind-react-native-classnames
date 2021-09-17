@@ -1,5 +1,5 @@
 import { error, StyleIR } from '../types';
-import { parseNumericValue } from './helpers';
+import { parseNumericValue } from '../helpers';
 
 export function aspectRatio(numericValue: string): StyleIR {
   const parseResult = parseNumericValue(numericValue, true);

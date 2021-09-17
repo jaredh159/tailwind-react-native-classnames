@@ -2,15 +2,11 @@ import { TwTheme } from '../tw-config';
 import { error, complete, StyleIR } from '../types';
 
 export default function fontFamily(
+  value: string,
   config?: TwTheme['fontFamily'],
-  value?: string,
 ): StyleIR {
   if (!config) {
     return error(`Unexpected missing font family theme config`);
-  }
-
-  if (!value) {
-    return error(`Unexpected missing value for font family`);
   }
 
   const configValue = config[value];
@@ -19,7 +15,7 @@ export default function fontFamily(
   }
 
   if (typeof configValue === `string`) {
-    return complete({ fontaFamily: configValue });
+    return complete({ fontFamily: configValue });
   }
 
   const firstFamily = configValue.shift();

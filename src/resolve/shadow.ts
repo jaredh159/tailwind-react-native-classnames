@@ -1,5 +1,5 @@
 import { error, StyleIR } from '../types';
-import { parseUnconfigged } from './helpers';
+import { parseUnconfigged } from '../helpers';
 
 export function shadowOpacity(value: string): StyleIR {
   const percentage = parseInt(value, 10);

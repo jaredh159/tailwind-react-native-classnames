@@ -1,13 +1,10 @@
 import { TwTheme } from '../tw-config';
 import { Style, error, complete, StyleIR } from '../types';
-import { mergeNumericValue } from './helpers';
+import { mergeNumericValue } from '../helpers';
 
-export default function fontSize(config?: TwTheme['fontSize'], value?: string): StyleIR {
+export default function fontSize(value: string, config?: TwTheme['fontSize']): StyleIR {
   if (!config) {
     return error(`Unexpected missing font size theme config`);
-  }
-  if (!value) {
-    return error(`Unexpected missing value for font size`);
   }
 
   const configValue = config[value];

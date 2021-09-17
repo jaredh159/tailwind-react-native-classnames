@@ -1,19 +1,16 @@
 import { TwTheme } from '../tw-config';
 import { Direction, error, Unit, StyleIR } from '../types';
-import { parseNumericValue, toStyleVal } from './helpers';
+import { parseNumericValue, toStyleVal } from '../helpers';
 
 export default function spacing(
   type: 'margin' | 'padding',
   direction: Direction,
   isNegative: boolean,
+  value: string,
   config?: TwTheme['margin'] | TwTheme['padding'],
-  value?: string,
 ): StyleIR {
   if (!config) {
     return error(`Unexpected missing theme.${type} config`);
-  }
-  if (!value) {
-    return error(`Unexpected missing value for ${type}`);
   }
 
   let numericValue = ``;

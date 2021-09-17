@@ -178,8 +178,11 @@ describe(`tw`, () => {
     });
   });
 
-  test(`font-family w/ default config`, () => {
+  test(`font-family`, () => {
     expect(tw`font-sans`).toMatchObject({ fontFamily: `ui-sans-serif` });
+    tw = create({ theme: { fontFamily: { sans: `font1`, serif: [`font2`, `font3`] } } });
+    expect(tw`font-sans`).toMatchObject({ fontFamily: `font1` });
+    expect(tw`font-serif`).toMatchObject({ fontFamily: `font2` });
   });
 
   test(`negated values`, () => {
@@ -189,6 +192,7 @@ describe(`tw`, () => {
   test(`arbitrary value`, () => {
     expect(tw`mt-[333px]`).toMatchObject({ marginTop: 333 });
     expect(tw`mt-[-333px]`).toMatchObject({ marginTop: -333 });
+    expect(tw`-mt-[333px]`).toMatchObject({ marginTop: -333 });
   });
 
   test(`aspect-ratio`, () => {

@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
 import { DependentStyle, error, StyleIR, Unit } from '../types';
-import { parseNumericValue, unconfiggedStyle } from './helpers';
+import { parseNumericValue, unconfiggedStyle } from '../helpers';
 
 export function letterSpacing(
   value: string,

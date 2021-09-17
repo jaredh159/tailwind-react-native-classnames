@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
 import { complete, error, StyleIR } from '../types';
-import { parseNumericValue } from './helpers';
+import { parseNumericValue } from '../helpers';
 
 export function opacity(value: string, config?: TwTheme['opacity']): StyleIR {
   const configValue = config?.[value];

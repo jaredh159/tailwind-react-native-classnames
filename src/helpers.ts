@@ -8,7 +8,7 @@ import {
   error,
   complete,
   StyleIR,
-} from '../types';
+} from './types';
 
 export function parseNumericValue(
   value: string,
@@ -239,7 +239,7 @@ function consoleWarn(...args: any[]): void {
   console.warn(...args);
 }
 
-function noopWarn(...args: any[]): void {
+function noopWarn(..._: any[]): void {
   // ¯\_(ツ)_/¯
 }
 

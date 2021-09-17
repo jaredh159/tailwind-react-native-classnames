@@ -1,6 +1,6 @@
 import { ColorStyleType, complete, error, StyleIR } from '../types';
 import { TwColors } from '../tw-config';
-import { warn } from './helpers';
+import { warn } from '../helpers';
 
 export function color(type: ColorStyleType, value: string, config?: TwColors): StyleIR {
   if (!config) {

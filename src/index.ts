@@ -12,7 +12,7 @@ import { TwConfig } from './tw-config';
 import Cache from './cache';
 import ClassParser from './parse-class';
 import { parseInputs } from './parse-inputs';
-import { warn } from './resolve/helpers';
+import { warn } from './helpers';
 
 export function create(customConfig: TwConfig = {}): TailwindFn {
   const config = resolveConfig(customConfig as any) as TwConfig;

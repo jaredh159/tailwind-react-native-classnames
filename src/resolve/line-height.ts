@@ -1,16 +1,13 @@
 import { TwTheme } from '../tw-config';
 import { error, Unit, StyleIR } from '../types';
-import { parseNumericValue, numericStyle } from './helpers';
+import { parseNumericValue, numericStyle } from '../helpers';
 
 export default function lineHeight(
+  value: string,
   config?: TwTheme['lineHeight'],
-  value?: string,
 ): StyleIR {
   if (!config) {
     return error(`Unexpected missing line height theme config`);
-  }
-  if (!value) {
-    return error(`Unexpected missing value for line height`);
   }
 
   const configValue = config[value];
