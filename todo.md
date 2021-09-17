@@ -2,6 +2,7 @@
 
 ## Pre v2.0.0 Release
 
+- [ ] `bg-[#fea123]`
 - [ ] check all TODO comments
 - [ ] unify helper functions/usage
 - [ ] figure out warn strategy

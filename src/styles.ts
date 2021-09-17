@@ -34,8 +34,8 @@ const defaultStyles: Array<[string, StyleIR]> = [
 
   [`flex-row`, complete({ flexDirection: `row` })],
   [`flex-row-reverse`, complete({ flexDirection: `row-reverse` })],
-  [`flex-col`, complete({ flexDirection: `col` })],
-  [`flex-col-reverse`, complete({ flexDirection: `col-reverse` })],
+  [`flex-col`, complete({ flexDirection: `column` })],
+  [`flex-col-reverse`, complete({ flexDirection: `column-reverse` })],
   [`flex-wrap`, complete({ flexWrap: `wrap` })],
   [`flex-wrap-reverse`, complete({ flexWrap: `wrap-reverse` })],
   [`flex-nowrap`, complete({ flexWrap: `nowrap` })],
