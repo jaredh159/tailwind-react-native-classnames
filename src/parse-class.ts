@@ -155,8 +155,9 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`text-`)) {
-      ir = fontSize(this.rest, theme?.fontSize);
-      if (ir.kind !== `error`) return ir;
+      // @TODO temp
+      const fsIr = fontSize(this.rest, theme?.fontSize);
+      if (fsIr) return fsIr;
 
       ir = color(`text`, this.rest, theme?.textColor);
       if (ir.kind !== `error`) return ir;

@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
 import { error, Unit, StyleIR } from '../types';
-import { parseNumericValue, numericStyle } from '../helpers';
+import { parseNumericValue, toStyleVal } from '../helpers';
 
 export default function lineHeight(
   value: string,
@@ -35,6 +35,8 @@ export default function lineHeight(
     };
   }
 
-  const completeResult = numericStyle(`lineHeight`, number, unit);
-  return completeResult.success ? completeResult.value : error(completeResult.error);
+  return {
+    kind: `complete`,
+    style: { lineHeight: toStyleVal(number, unit) },
+  };
 }

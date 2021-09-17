@@ -1,46 +1,38 @@
 import { TwTheme } from '../tw-config';
-import { Style, error, complete, StyleIR } from '../types';
-import { mergeNumericValue } from '../helpers';
+import { Style, complete, StyleIR } from '../types';
+import { getCompleteStyle, getStyle, mergeStyle } from '../helpers';
 
-export default function fontSize(value: string, config?: TwTheme['fontSize']): StyleIR {
-  if (!config) {
-    return error(`Unexpected missing font size theme config`);
-  }
-
-  const configValue = config[value];
+export default function fontSize(
+  value: string,
+  config?: TwTheme['fontSize'],
+): StyleIR | null {
+  const configValue = config?.[value];
   if (!configValue) {
-    return error(`Missing font size info for size: \`${value}\``);
+    return null;
   }
 
-  let errorMsg: string | undefined;
-  const style: Style = {};
   if (typeof configValue === `string`) {
-    errorMsg = mergeNumericValue(`fontSize`, configValue, style);
-    return errorMsg ? error(errorMsg) : complete(style);
+    return getCompleteStyle(`fontSize`, configValue);
   }
 
+  let style: Style = {};
   const [fontSize, rest] = configValue;
-  if (typeof fontSize !== `string`) {
-    return error(`Unexpected fontSize config format`);
+  const fontSizeStyle = getStyle(`fontSize`, fontSize);
+  if (fontSizeStyle) {
+    style = fontSizeStyle;
   }
-
-  errorMsg = mergeNumericValue(`fontSize`, fontSize, style);
-  if (errorMsg) return error(errorMsg);
 
   if (typeof rest === `string`) {
-    errorMsg = mergeNumericValue(`lineHeight`, rest, style);
-    return errorMsg ? error(errorMsg) : complete(style);
+    return complete(mergeStyle(`lineHeight`, rest, style));
   }
 
   const { lineHeight, letterSpacing } = rest;
   if (lineHeight) {
-    errorMsg = mergeNumericValue(`lineHeight`, lineHeight, style);
-    if (errorMsg) return error(errorMsg);
+    mergeStyle(`lineHeight`, lineHeight, style);
   }
 
   if (letterSpacing) {
-    errorMsg = mergeNumericValue(`letterSpacing`, letterSpacing, style);
-    if (errorMsg) return error(errorMsg);
+    mergeStyle(`letterSpacing`, letterSpacing, style);
   }
 
   return complete(style);

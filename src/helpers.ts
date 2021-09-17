@@ -54,53 +54,29 @@ export function parseNumericValue(
   }
 }
 
-export function configured(style: Style): { success: true; value: CompleteStyle } {
-  return { success: true, value: { kind: `complete`, style } };
+export function getCompleteStyle(
+  prop: string,
+  value: string | number | undefined,
+): CompleteStyle | null {
+  const styleVal = parseStyleVal(value);
+  return styleVal === null ? null : complete({ [prop]: styleVal });
 }
 
-export function mergeNumericValue(
+export function mergeStyle(
   prop: string,
-  value: string,
+  value: string | number | undefined,
   style: Style,
-): string | undefined {
-  const parsed = parseNumericValue(value);
-  if (!parsed.success) {
-    return parsed.error;
+): Style {
+  const styleVal = parseStyleVal(value);
+  if (styleVal !== null) {
+    style[prop] = styleVal;
   }
-  const result = numericStyle(prop, ...parsed.value);
-  if (result.success) {
-    Object.assign(style, result.value.style);
-    return;
-  }
-  return result.error;
+  return style;
 }
 
-export function mergeNumericStyle(
-  prop: string,
-  number: number,
-  unit: Unit,
-  style: Style,
-): string | undefined {
-  const result = numericStyle(prop, number, unit);
-  if (result.success) {
-    Object.assign(style, result.value.style);
-    return;
-  }
-  return result.error;
-}
-
-export function numericStyle(
-  prop: string,
-  number: number,
-  unit: Unit,
-): Result<CompleteStyle> {
-  switch (unit) {
-    case Unit.rem:
-    case Unit.px:
-      return configured({ [prop]: number * (unit === Unit.rem ? 16 : 1) });
-    default:
-      return fail(`unhandled unit ${unit} to numericStyle`);
-  }
+export function getStyle(prop: string, value: string | number | undefined): Style | null {
+  const styleVal = parseStyleVal(value);
+  return styleVal === null ? null : { [prop]: styleVal };
 }
 
 export function parseStyleVal(
@@ -131,6 +107,7 @@ export function toStyleVal(
     case Unit.percent:
       return `${isNegative ? `-` : ``}${number}%`;
     default:
+      // @TODO return null instead of throw...
       throw new Error(`Unimplemented toStyleVal() unit: ${unit}`);
   }
 }
