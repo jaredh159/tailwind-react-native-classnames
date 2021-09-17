@@ -40,6 +40,10 @@ function spacingStyle(
   type: 'margin' | 'padding',
 ): StyleIR | null {
   const pixels = toStyleVal(number, unit);
+  if (pixels === null) {
+    return null;
+  }
+
   switch (direction) {
     case `All`:
       return {

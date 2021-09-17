@@ -8,7 +8,7 @@
 - [√] remove error type
 - [√] consider removing result type
 - [√] figure out warn strategy
-- [ ] make `toStyleVal` not throw
+- [√] make `toStyleVal` not throw
 - [ ] multi-utility caching
 - [ ] restore v1 shadox-X utilities (overridable)
 - [ ] register custom utilities

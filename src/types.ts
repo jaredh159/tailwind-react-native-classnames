@@ -77,6 +77,11 @@ export type DependentStyle = {
   complete: (style: Style) => string | void;
 };
 
+/**
+ * An "Intermediate Representation" of a style object,
+ * that may, or may not require some post-processing,
+ * merging with other styles, etc.
+ */
 export type StyleIR = NullStyle | OrderedStyle | DependentStyle | CompleteStyle;
 
 export enum Unit {

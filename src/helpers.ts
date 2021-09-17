@@ -89,7 +89,7 @@ export function toStyleVal(
   number: number,
   unit: Unit,
   isNegative = false,
-): string | number {
+): string | number | null {
   switch (unit) {
     case Unit.rem:
       return number * 16 * (isNegative ? -1 : 1);
@@ -100,8 +100,7 @@ export function toStyleVal(
     case Unit.none:
       return number * (isNegative ? -1 : 1);
     default:
-      // @TODO return null instead of throw...
-      throw new Error(`Unimplemented toStyleVal() unit: ${unit}`);
+      return null;
   }
 }
 
