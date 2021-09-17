@@ -25,6 +25,8 @@ export function color(type: ColorStyleType, value: string, config?: TwColors): S
     group.DEFAULT !== undefined
   ) {
     color = group.DEFAULT;
+  } else if (value.startsWith(`[`)) {
+    color = value.slice(1, -1);
   } else {
     const configColor = config[value];
     if (typeof configColor !== `string`) {
@@ -73,7 +75,7 @@ function addOpacity(color: string, opacity: number): string {
     color = color.replace(/^rgb\(/, `rgba(`).replace(/\)$/, `, 1)`);
   }
   // @TODO: support hls/hlsa if anyone opens an issue...
-  return color.replace(/, \d*\.?(\d+)\)$/, `, ${opacity})`);
+  return color.replace(/, ?\d*\.?(\d+)\)$/, `, ${opacity})`);
 }
 
 const STYLE_PROPS = {

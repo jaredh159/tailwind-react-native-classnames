@@ -62,6 +62,16 @@ describe(`colors`, () => {
     });
   });
 
+  test(`arbitrary color values`, () => {
+    expect(tw`bg-[#012]`).toMatchObject({ backgroundColor: `#012` });
+    expect(tw`bg-[rgba(3,4,5,0.1)]`).toMatchObject({
+      backgroundColor: `rgba(3,4,5,0.1)`,
+    });
+    expect(tw`bg-[#012] bg-opacity-50`).toMatchObject({
+      backgroundColor: `rgba(0, 17, 34, 0.5)`,
+    });
+  });
+
   test(`non-group dashed custom colors`, () => {
     tw = create({
       theme: { colors: { 'indigo-lighter': `#b3bcf5`, indigo: `#5c6ac4` } },
