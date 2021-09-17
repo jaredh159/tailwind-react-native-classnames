@@ -1,6 +1,6 @@
 {
-  "name": "tailwind-react-native-classnames",
-  "version": "3.0.0-alpha.0",
+  "name": "@jaredh/twrn",
+  "version": "2.0.0-alpha.1",
   "description": "simple, expressive API for tailwindcss + react-native",
   "author": "Jared Henderson <jared@netrivet.com>",
   "main": "dist/index.js",
@@ -12,8 +12,10 @@
     "lint:fix": "fldev lint:fix",
     "ts:check": "fldev ts:check",
     "format": "fldev format",
+    "format:check": "fldev format --check",
     "compile": "fldev ts:compile",
-    "publish": "bash ./publish.sh $@"
+    "prepublishOnly": "npm run compile",
+    "npub:precheck": "npm run lint && npm run format:check && npm run ts:check && npm run test"
   },
   "peerDependencies": {
     "react-native": ">=0.63.0"
