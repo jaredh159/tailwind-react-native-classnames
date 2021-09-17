@@ -1,47 +1,40 @@
-import { Result } from 'x-ts-utils';
-import { Unit, fail, Style, Direction, CompleteStyle, complete } from './types';
+import { Unit, Style, Direction, CompleteStyle, complete } from './types';
 
 export function parseNumericValue(
   value: string,
   fractions = false,
-): Result<[number, Unit]> {
+): [number, Unit] | null {
   if (fractions && value.includes(`/`)) {
     const [numerator = ``, denominator = ``] = value.split(`/`, 2);
     const parsedNumerator = parseNumericValue(numerator);
     const parsedDenominator = parseNumericValue(denominator);
-    if (!parsedNumerator.success || !parsedDenominator.success) {
-      return fail(`Invalid value: ${value}`);
+    if (!parsedNumerator || !parsedDenominator) {
+      return null;
     }
-    return {
-      success: true,
-      value: [
-        parsedNumerator.value[0] / parsedDenominator.value[0],
-        parsedDenominator.value[1],
-      ],
-    };
+    return [parsedNumerator[0] / parsedDenominator[0], parsedDenominator[1]];
   }
 
   const number = parseFloat(value);
   if (Number.isNaN(number)) {
-    return fail(`Invalid value: ${value}`);
+    return null;
   }
 
   const match = value.match(/(([a-z]{2,}|%))$/);
   if (!match) {
-    return { success: true, value: [number, Unit.none] };
+    return [number, Unit.none];
   }
 
   switch (match?.[1]) {
     case `rem`:
-      return { success: true, value: [number, Unit.rem] };
+      return [number, Unit.rem];
     case `px`:
-      return { success: true, value: [number, Unit.px] };
+      return [number, Unit.px];
     case `em`:
-      return { success: true, value: [number, Unit.em] };
+      return [number, Unit.em];
     case `%`:
-      return { success: true, value: [number, Unit.percent] };
+      return [number, Unit.percent];
     default:
-      return fail(`Unknown/missing css unit: ${value}`);
+      return null;
   }
 }
 
@@ -81,8 +74,8 @@ export function parseStyleVal(
     return null;
   }
   const parsed = parseNumericValue(String(value), fractions);
-  if (parsed.success) {
-    return toStyleVal(...parsed.value, isNegative);
+  if (parsed) {
+    return toStyleVal(...parsed, isNegative);
   } else {
     return null;
   }
@@ -109,11 +102,11 @@ export function toStyleVal(
 }
 
 export function toPx(value: string): number | undefined {
-  const parseResult = parseNumericValue(value);
-  if (!parseResult.success) {
+  const parsed = parseNumericValue(value);
+  if (!parsed) {
     return undefined;
   }
-  const [number, unit] = parseResult.value;
+  const [number, unit] = parsed;
   switch (unit) {
     case Unit.rem:
       return number * 16;
@@ -186,11 +179,11 @@ function unconfiggedStyleVal(
   }
 
   const parsed = parseNumericValue(value, parseFraction);
-  if (!parsed.success) {
+  if (!parsed) {
     return null;
   }
 
-  let [number, unit] = parsed.value;
+  let [number, unit] = parsed;
   if (parseFraction) {
     unit = Unit.percent;
     number *= 100;
@@ -198,7 +191,7 @@ function unconfiggedStyleVal(
 
   // not sure if this is the right approach, but this allows arbitrary
   // non-bracket numbers, like top-73 and it INFERS the meaning to be
-  // tailwind's default scale for inset, which is 1 = 0.25rem
+  // tailwind's default scale for spacing, which is 1 = 0.25rem
   if (unit === Unit.none) {
     number = number / 4;
     unit = Unit.rem;

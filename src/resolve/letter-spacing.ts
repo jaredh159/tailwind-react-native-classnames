@@ -9,12 +9,12 @@ export function letterSpacing(
 ): StyleIR | null {
   const configValue = config?.[value];
   if (configValue) {
-    const parseConfig = parseNumericValue(configValue, isNegative);
-    if (!parseConfig.success) {
+    const parsed = parseNumericValue(configValue, isNegative);
+    if (!parsed) {
       return null;
     }
 
-    const [number, unit] = parseConfig.value;
+    const [number, unit] = parsed;
     if (unit === Unit.em) {
       return relativeLetterSpacing(number);
     }

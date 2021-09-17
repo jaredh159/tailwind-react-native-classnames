@@ -5,14 +5,14 @@ import { parseNumericValue } from '../helpers';
 export function opacity(value: string, config?: TwTheme['opacity']): StyleIR | null {
   const configValue = config?.[value];
   if (configValue) {
-    const configResult = parseNumericValue(String(configValue));
-    if (configResult.success) {
-      return complete({ opacity: configResult.value[0] });
+    const parsedConfig = parseNumericValue(String(configValue));
+    if (parsedConfig) {
+      return complete({ opacity: parsedConfig[0] });
     }
   }
-  const arbitraryResult = parseNumericValue(value);
-  if (arbitraryResult.success) {
-    return complete({ opacity: arbitraryResult.value[0] / 100 });
+  const parsedArbitrary = parseNumericValue(value);
+  if (parsedArbitrary) {
+    return complete({ opacity: parsedArbitrary[0] / 100 });
   }
 
   return null;

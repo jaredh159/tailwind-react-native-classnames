@@ -46,7 +46,6 @@
     "classnames"
   ],
   "dependencies": {
-    "lodash.get": "^4.4.2",
-    "x-ts-utils": "^1.2.0"
+    "lodash.get": "^4.4.2"
   }
 }

@@ -87,10 +87,6 @@ export enum Unit {
   none = `<no-css-unit>`,
 }
 
-export function fail(error: string): { success: false; error: string } {
-  return { success: false, error };
-}
-
 export function complete(style: Style): CompleteStyle {
   return { kind: `complete`, style };
 }

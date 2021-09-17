@@ -21,11 +21,11 @@ export default function spacing(
   }
 
   const parsed = parseNumericValue(numericValue);
-  if (!parsed.success) {
+  if (!parsed) {
     return null;
   }
 
-  let [number, unit] = parsed.value;
+  let [number, unit] = parsed;
   if (isNegative) {
     number = -number;
   }

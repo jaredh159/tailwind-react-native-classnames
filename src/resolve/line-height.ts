@@ -11,12 +11,12 @@ export default function lineHeight(
     return null;
   }
 
-  const parseValueResult = parseNumericValue(configValue);
-  if (!parseValueResult.success) {
+  const parsed = parseNumericValue(configValue);
+  if (!parsed) {
     return null;
   }
 
-  const [number, unit] = parseValueResult.value;
+  const [number, unit] = parsed;
   if (unit === Unit.none) {
     // we have a relative line-height like `2` for `leading-loose`
     return {
