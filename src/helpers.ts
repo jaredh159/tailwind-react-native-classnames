@@ -1,14 +1,5 @@
 import { Result } from 'x-ts-utils';
-import {
-  Unit,
-  fail,
-  Style,
-  Direction,
-  CompleteStyle,
-  error,
-  complete,
-  StyleIR,
-} from './types';
+import { Unit, fail, Style, Direction, CompleteStyle, complete } from './types';
 
 export function parseNumericValue(
   value: string,
@@ -57,8 +48,10 @@ export function parseNumericValue(
 export function getCompleteStyle(
   prop: string,
   value: string | number | undefined,
+  isNegative = false,
+  fractions = false,
 ): CompleteStyle | null {
-  const styleVal = parseStyleVal(value);
+  const styleVal = parseStyleVal(value, isNegative, fractions);
   return styleVal === null ? null : complete({ [prop]: styleVal });
 }
 
@@ -82,11 +75,12 @@ export function getStyle(prop: string, value: string | number | undefined): Styl
 export function parseStyleVal(
   value: string | number | undefined,
   isNegative = false,
+  fractions = false,
 ): null | string | number {
   if (value === undefined) {
     return null;
   }
-  const parsed = parseNumericValue(String(value));
+  const parsed = parseNumericValue(String(value), fractions);
   if (parsed.success) {
     return toStyleVal(...parsed.value, isNegative);
   } else {
@@ -106,6 +100,8 @@ export function toStyleVal(
       return number * (isNegative ? -1 : 1);
     case Unit.percent:
       return `${isNegative ? `-` : ``}${number}%`;
+    case Unit.none:
+      return number * (isNegative ? -1 : 1);
     default:
       // @TODO return null instead of throw...
       throw new Error(`Unimplemented toStyleVal() unit: ${unit}`);
@@ -172,11 +168,10 @@ export function unconfiggedStyle(
   prop: string,
   value: string,
   isNegative = false,
-  errorMsg = `failed to parse unconfigged value`,
-): StyleIR {
+): CompleteStyle | null {
   const styleVal = parseUnconfigged(value, isNegative);
   if (styleVal === null) {
-    return error(errorMsg);
+    return null;
   }
   return complete({ [prop]: styleVal });
 }

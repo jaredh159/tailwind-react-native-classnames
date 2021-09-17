@@ -1,10 +1,10 @@
-import { error, StyleIR } from '../types';
+import { StyleIR } from '../types';
 import { parseUnconfigged } from '../helpers';
 
-export function shadowOpacity(value: string): StyleIR {
+export function shadowOpacity(value: string): StyleIR | null {
   const percentage = parseInt(value, 10);
   if (Number.isNaN(percentage)) {
-    return { kind: `null` };
+    return null;
   }
 
   return {
@@ -13,14 +13,15 @@ export function shadowOpacity(value: string): StyleIR {
   };
 }
 
-export function shadowOffset(value: string): StyleIR {
+export function shadowOffset(value: string): StyleIR | null {
   if (value.includes(`/`)) {
     const [widthStr = ``, heightStr = ``] = value.split(`/`, 2);
     const width = offsetValue(widthStr);
     const height = offsetValue(heightStr);
     if (width === null || height === null) {
-      return error(`invalid utility: shadow-offset-${value}`);
+      return null;
     }
+
     return {
       kind: `complete`,
       style: {
@@ -34,7 +35,7 @@ export function shadowOffset(value: string): StyleIR {
 
   const number = offsetValue(value);
   if (number === null) {
-    return error(`invalid utility: shadow-offset-${value}`);
+    return null;
   }
 
   return {

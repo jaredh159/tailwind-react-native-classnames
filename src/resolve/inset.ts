@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
-import { complete, error, StyleIR } from '../types';
-import { parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
+import { complete, StyleIR } from '../types';
+import { parseStyleVal, parseUnconfigged } from '../helpers';
 
 type Inset = 'bottom' | 'top' | 'left' | 'right' | 'inset';
 type InsetDir = null | 'x' | 'y';
@@ -10,7 +10,7 @@ export function inset(
   value: string,
   isNegative: boolean,
   config?: TwTheme['inset'],
-): StyleIR {
+): StyleIR | null {
   let insetDir: InsetDir = null;
   if (type === `inset`) {
     value = value.replace(/^(x|y)-/, (_, dir) => {
@@ -21,11 +21,9 @@ export function inset(
 
   const configValue = config?.[value];
   if (configValue) {
-    const parsed = parseNumericValue(configValue);
-    if (parsed.success) {
-      const styleVal = toStyleVal(...parsed.value, isNegative);
-      const style = insetStyle(type, insetDir, styleVal);
-      return style;
+    const styleVal = parseStyleVal(configValue, isNegative);
+    if (styleVal !== null) {
+      return insetStyle(type, insetDir, styleVal);
     }
   }
 
@@ -34,7 +32,7 @@ export function inset(
     return insetStyle(type, insetDir, unconfigged);
   }
 
-  return error(`unable to parse inset utility`);
+  return null;
 }
 
 function insetStyle(type: Inset, dir: InsetDir, styleVal: string | number): StyleIR {

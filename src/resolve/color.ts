@@ -1,15 +1,17 @@
-import { ColorStyleType, complete, error, StyleIR } from '../types';
+import { ColorStyleType, complete, StyleIR } from '../types';
 import { TwColors } from '../tw-config';
 import { warn } from '../helpers';
 
-export function color(type: ColorStyleType, value: string, config?: TwColors): StyleIR {
+export function color(
+  type: ColorStyleType,
+  value: string,
+  config?: TwColors,
+): StyleIR | null {
   if (!config) {
-    return error(`Unexpected missing background color theme config`);
-  }
-  if (!value) {
-    return error(`Unexpected missing value for background color`);
+    return null;
   }
 
+  // support opacity shorthand: `bg-red-200/50`
   let shorthandOpacity: string | undefined = undefined;
   if (value.includes(`/`)) {
     [value = ``, shorthandOpacity] = value.split(`/`, 2);
@@ -18,20 +20,28 @@ export function color(type: ColorStyleType, value: string, config?: TwColors): S
   let color = ``;
   const [groupKey = ``, modifier = ``] = value.split(`-`, 2);
   const group = config[groupKey];
+
+  // for `red-200` in config = { red: { '200': '#f00' } }
   if (typeof group === `object` && group[modifier] !== undefined) {
     color = group[modifier] ?? ``;
+
+    // for `black` in config = { black: { 'DEFAULT: '#000', '200': '#222' } }
   } else if (
     typeof group === `object` &&
     modifier === `` &&
     group.DEFAULT !== undefined
   ) {
     color = group.DEFAULT;
+
+    // for arbitrary support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`
   } else if (value.startsWith(`[`)) {
     color = value.slice(1, -1);
+
+    // for `bg-custom` in config = { custom: '#0f0` }
   } else {
     const configColor = config[value];
     if (typeof configColor !== `string`) {
-      return error(`Missing background color info for size: \`${value}\``);
+      return null;
     }
     color = configColor;
   }
@@ -44,6 +54,8 @@ export function color(type: ColorStyleType, value: string, config?: TwColors): S
     }
   }
 
+  // return a dependent style to support merging of classes
+  // like `bg-red-800 bg-opacity-75`
   return {
     kind: `dependent`,
     complete(style) {
@@ -58,10 +70,10 @@ export function color(type: ColorStyleType, value: string, config?: TwColors): S
   };
 }
 
-export function colorOpacity(type: ColorStyleType, value: string): StyleIR {
+export function colorOpacity(type: ColorStyleType, value: string): StyleIR | null {
   const percentage = parseInt(value, 10);
   if (Number.isNaN(percentage)) {
-    return { kind: `null` };
+    return null;
   }
 
   const opacity = percentage / 100;

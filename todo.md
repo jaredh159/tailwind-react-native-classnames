@@ -4,8 +4,11 @@
 
 - [√] `bg-[#fea123]`
 - [√] check all TODO comments
-- [ ] unify helper functions/usage
-- [ ] figure out warn strategy
+- [√] unify helper functions/usage
+- [√] remove error type
+- [ ] consider removing result type
+- [√] figure out warn strategy
+- [ ] make `toStyleVal` not throw
 - [ ] multi-utility caching
 - [ ] restore v1 shadox-X utilities (overridable)
 - [ ] register custom utilities

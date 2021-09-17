@@ -1,22 +1,39 @@
 import { TwTheme } from '../tw-config';
-import { DependentStyle, error, StyleIR, Unit } from '../types';
-import { parseNumericValue, unconfiggedStyle } from '../helpers';
+import { complete, DependentStyle, StyleIR, Unit } from '../types';
+import { parseNumericValue, toStyleVal, unconfiggedStyle, warn } from '../helpers';
 
 export function letterSpacing(
   value: string,
   isNegative: boolean,
   config?: TwTheme['letterSpacing'],
-): StyleIR {
+): StyleIR | null {
   const configValue = config?.[value];
   if (configValue) {
-    const parseConfig = parseNumericValue(configValue);
+    const parseConfig = parseNumericValue(configValue, isNegative);
     if (!parseConfig.success) {
-      return error(parseConfig.error);
+      return null;
     }
+
     const [number, unit] = parseConfig.value;
     if (unit === Unit.em) {
       return relativeLetterSpacing(number);
     }
+
+    // @TODO, if we get a percentage based config value, theoretically we could
+    // make a font-size dependent style as well, wait for someone to raise an issue
+    if (unit === Unit.percent) {
+      warn(
+        `percentage-based letter-spacing configuration currently unsupported, switch to \`em\`s, or open an issue if you'd like to see support added.`,
+      );
+      return null;
+    }
+
+    const styleVal = toStyleVal(number, unit, isNegative);
+    if (styleVal !== null) {
+      return complete({ letterSpacing: styleVal });
+    }
+
+    return null;
   }
   return unconfiggedStyle(`letterSpacing`, value, isNegative);
 }

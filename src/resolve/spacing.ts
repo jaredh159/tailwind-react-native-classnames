@@ -1,5 +1,5 @@
 import { TwTheme } from '../tw-config';
-import { Direction, error, Unit, StyleIR } from '../types';
+import { Direction, Unit, StyleIR } from '../types';
 import { parseNumericValue, toStyleVal } from '../helpers';
 
 export default function spacing(
@@ -8,31 +8,28 @@ export default function spacing(
   isNegative: boolean,
   value: string,
   config?: TwTheme['margin'] | TwTheme['padding'],
-): StyleIR {
-  if (!config) {
-    return error(`Unexpected missing theme.${type} config`);
-  }
-
+): StyleIR | null {
   let numericValue = ``;
   if (value[0] === `[`) {
     numericValue = value.slice(1, -1);
   } else {
-    const configValue = config[value];
+    const configValue = config?.[value];
     if (!configValue) {
-      return error(`Missing ${type} size info for \`${value}\``);
+      return null;
     }
     numericValue = configValue;
   }
 
   const parsed = parseNumericValue(numericValue);
   if (!parsed.success) {
-    return error(parsed.error);
+    return null;
   }
 
   let [number, unit] = parsed.value;
   if (isNegative) {
     number = -number;
   }
+
   return spacingStyle(number, unit, direction, type);
 }
 
@@ -41,7 +38,7 @@ function spacingStyle(
   unit: Unit,
   direction: Direction,
   type: 'margin' | 'padding',
-): StyleIR {
+): StyleIR | null {
   const pixels = toStyleVal(number, unit);
   switch (direction) {
     case `All`:
@@ -81,6 +78,6 @@ function spacingStyle(
         },
       };
     default:
-      return error(`unsupported drection for ${type}`);
+      return null;
   }
 }

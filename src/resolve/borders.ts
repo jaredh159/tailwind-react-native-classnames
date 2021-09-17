@@ -1,11 +1,10 @@
 import { TwTheme } from '../tw-config';
-import { ColorStyleType, complete, Direction, error, StyleIR } from '../types';
-import { parseNumericValue, toStyleVal, parseAndConsumeDirection } from '../helpers';
+import { ColorStyleType, complete, Direction, StyleIR } from '../types';
+import { parseAndConsumeDirection, getCompleteStyle } from '../helpers';
 import { color } from './color';
 
-export function border(value: string, theme?: TwTheme): StyleIR {
+export function border(value: string, theme?: TwTheme): StyleIR | null {
   let [rest, direction] = parseAndConsumeDirection(value);
-
   const widthUtilityMatch = rest.match(/^(-?(\d)+)?$/);
   if (widthUtilityMatch) {
     return borderWidth(rest, direction, theme?.borderWidth);
@@ -32,47 +31,35 @@ export function border(value: string, theme?: TwTheme): StyleIR {
       break;
   }
 
-  const colorIr = color(colorType, rest, theme?.borderColor);
-  if (colorIr.kind !== `error`) {
-    return colorIr;
-  }
-
-  return error(`unknown utility: border${value}`);
+  return color(colorType, rest, theme?.borderColor);
 }
 
 function borderWidth(
   value: string,
   direction: Direction,
   config?: TwTheme['borderWidth'],
-): StyleIR {
+): StyleIR | null {
   if (!config) {
-    return error(`missing theme.borderWidth config`);
+    return null;
   }
 
   value = value.replace(/^-/, ``);
   const key = value === `` ? `DEFAULT` : value;
   const configValue = config[key];
   if (configValue === undefined) {
-    return error(`unknown border width modifier ${value}`);
-  }
-
-  const parseResult = parseNumericValue(configValue);
-  if (!parseResult.success) {
-    return error(parseResult.error);
+    return null;
   }
 
   const prop = `border${direction === `All` ? `` : direction}Width`;
-  return {
-    kind: `complete`,
-    style: {
-      [prop]: toStyleVal(...parseResult.value),
-    },
-  };
+  return getCompleteStyle(prop, configValue);
 }
 
-export function borderRadius(value: string, config?: TwTheme['borderRadius']): StyleIR {
+export function borderRadius(
+  value: string,
+  config?: TwTheme['borderRadius'],
+): StyleIR | null {
   if (!config) {
-    return error(`missing theme.borderRadius config`);
+    return null;
   }
 
   let [rest, direction] = parseAndConsumeDirection(value);
@@ -81,21 +68,11 @@ export function borderRadius(value: string, config?: TwTheme['borderRadius']): S
     rest = `DEFAULT`;
   }
 
+  const prop = `border${direction === `All` ? `` : direction}Radius`;
   const configValue = config[rest];
   if (!configValue) {
-    return error(`missing borderRadius config value for ${value}`);
+    return null;
   }
 
-  const parseResult = parseNumericValue(configValue);
-  if (!parseResult.success) {
-    return error(parseResult.error);
-  }
-
-  const prop = `border${direction === `All` ? `` : direction}Radius`;
-  return {
-    kind: `complete`,
-    style: {
-      [prop]: toStyleVal(...parseResult.value),
-    },
-  };
+  return getCompleteStyle(prop, configValue);
 }

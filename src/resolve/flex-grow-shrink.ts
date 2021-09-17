@@ -5,12 +5,12 @@ export default function flexGrowShrink(
   type: 'Grow' | 'Shrink',
   value: string,
   config?: TwTheme['flexGrow'] | TwTheme['flexShrink'],
-): StyleIR {
+): StyleIR | null {
   value = value.replace(/^-/, ``);
   const configKey = value === `` ? `DEFAULT` : value;
   const numericValue = Number(config?.[configKey] ?? value);
   if (!Number.isNaN(numericValue)) {
     return complete({ [`flex${type}`]: numericValue });
   }
-  return { kind: `null` };
+  return null;
 }

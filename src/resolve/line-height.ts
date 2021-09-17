@@ -1,23 +1,19 @@
 import { TwTheme } from '../tw-config';
-import { error, Unit, StyleIR } from '../types';
+import { Unit, StyleIR, complete } from '../types';
 import { parseNumericValue, toStyleVal } from '../helpers';
 
 export default function lineHeight(
   value: string,
   config?: TwTheme['lineHeight'],
-): StyleIR {
-  if (!config) {
-    return error(`Unexpected missing line height theme config`);
-  }
-
-  const configValue = config[value];
+): StyleIR | null {
+  const configValue = config?.[value];
   if (!configValue) {
-    return error(`Missing line height info for size: \`${value}\``);
+    return null;
   }
 
   const parseValueResult = parseNumericValue(configValue);
   if (!parseValueResult.success) {
-    return error(parseValueResult.error);
+    return null;
   }
 
   const [number, unit] = parseValueResult.value;
@@ -26,17 +22,14 @@ export default function lineHeight(
     return {
       kind: `dependent`,
       complete(style) {
-        if (typeof style.fontSize === `number`) {
-          style.lineHeight = style.fontSize * number;
-          return;
+        if (typeof style.fontSize !== `number`) {
+          return `relative line-height utilities require that font-size be set`;
         }
-        return `relative line-height utilities require that font-size be set`;
+        style.lineHeight = style.fontSize * number;
       },
     };
   }
 
-  return {
-    kind: `complete`,
-    style: { lineHeight: toStyleVal(number, unit) },
-  };
+  const styleVal = toStyleVal(number, unit);
+  return styleVal !== null ? complete({ lineHeight: styleVal }) : null;
 }

@@ -1,8 +1,8 @@
 import { TwTheme } from '../tw-config';
-import { complete, error, StyleIR } from '../types';
+import { complete, StyleIR } from '../types';
 import { parseNumericValue } from '../helpers';
 
-export function opacity(value: string, config?: TwTheme['opacity']): StyleIR {
+export function opacity(value: string, config?: TwTheme['opacity']): StyleIR | null {
   const configValue = config?.[value];
   if (configValue) {
     const configResult = parseNumericValue(String(configValue));
@@ -14,5 +14,6 @@ export function opacity(value: string, config?: TwTheme['opacity']): StyleIR {
   if (arbitraryResult.success) {
     return complete({ opacity: arbitraryResult.value[0] / 100 });
   }
-  return error(`failed to parse opacity-${value}`);
+
+  return null;
 }

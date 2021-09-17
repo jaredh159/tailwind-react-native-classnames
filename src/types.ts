@@ -66,12 +66,6 @@ export type CompleteStyle = {
   style: Style;
 };
 
-// export type UnconfiguredStyle = {
-//   kind: 'unconfigured';
-//   configType: ConfigType;
-//   value: string;
-// };
-
 export type OrderedStyle = {
   kind: `ordered`;
   order: number;
@@ -83,17 +77,7 @@ export type DependentStyle = {
   complete: (style: Style) => string | void;
 };
 
-export type ErrorStyle = {
-  kind: 'error';
-  error?: string;
-};
-
-export type StyleIR =
-  | NullStyle
-  | OrderedStyle
-  | DependentStyle
-  | CompleteStyle
-  | ErrorStyle;
+export type StyleIR = NullStyle | OrderedStyle | DependentStyle | CompleteStyle;
 
 export enum Unit {
   rem = `rem`,
@@ -105,10 +89,6 @@ export enum Unit {
 
 export function fail(error: string): { success: false; error: string } {
   return { success: false, error };
-}
-
-export function error(error?: string): ErrorStyle {
-  return { kind: `error`, error };
 }
 
 export function complete(style: Style): CompleteStyle {
