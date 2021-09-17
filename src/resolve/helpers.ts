@@ -234,3 +234,14 @@ function unconfiggedStyleVal(
 
   return toStyleVal(number, unit, isNegative);
 }
+
+function consoleWarn(...args: any[]): void {
+  console.warn(...args);
+}
+
+function noopWarn(...args: any[]): void {
+  // ¯\_(ツ)_/¯
+}
+
+export const warn: (...args: any[]) => void =
+  process?.env?.JEST_WORKER_ID === undefined ? consoleWarn : noopWarn;

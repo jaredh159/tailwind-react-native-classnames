@@ -27,8 +27,7 @@ function relativeLetterSpacing(ems: number): DependentStyle {
     complete(style) {
       const fontSize = style.fontSize;
       if (typeof fontSize !== `number` || Number.isNaN(fontSize)) {
-        // @TODO: warn, relative letter spacing needs font size set
-        return;
+        return `tracking-X relative letter spacing classes require font-size to be set`;
       }
       style.letterSpacing = Math.round((ems * fontSize + Number.EPSILON) * 100) / 100;
     },

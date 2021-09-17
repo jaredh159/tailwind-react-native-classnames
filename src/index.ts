@@ -12,6 +12,7 @@ import { TwConfig } from './tw-config';
 import Cache from './cache';
 import ClassParser from './parse-class';
 import { parseInputs } from './parse-inputs';
+import { warn } from './resolve/helpers';
 
 export function create(customConfig: TwConfig = {}): TailwindFn {
   const config = resolveConfig(customConfig as any) as TwConfig;
@@ -69,7 +70,6 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       ordered.sort((a, b) => a.order - b.order);
       for (const orderedStyle of ordered) {
         switch (orderedStyle.styleIr.kind) {
-          // @TODO, some duplication here....
           case `complete`:
             style = { ...style, ...orderedStyle.styleIr.style };
             break;
@@ -84,7 +84,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       for (const dependent of dependents) {
         const error = dependent.complete(style);
         if (error) {
-          // @TODO warn in dev mode, but keep going
+          warn(error);
         }
       }
     }

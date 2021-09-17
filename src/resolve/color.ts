@@ -1,5 +1,6 @@
 import { ColorStyleType, complete, error, StyleIR } from '../types';
 import { TwColors } from '../tw-config';
+import { warn } from './helpers';
 
 export function color(type: ColorStyleType, value: string, config?: TwColors): StyleIR {
   if (!config) {
@@ -90,10 +91,11 @@ const STYLE_PROPS = {
 };
 
 function hexToRgba(hex: string): string {
+  const orig = hex;
   hex = hex.replace(MATCH_SHORT_HEX, (_, r, g, b) => r + r + g + g + b + b);
   const result = MATCH_FULL_HEX.exec(hex);
   if (!result) {
-    // @TODO console.warn
+    warn(`invalid config hex color value: ${orig}`);
     return `rgba(0, 0, 0, 1)`;
   }
 

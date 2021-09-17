@@ -2,8 +2,8 @@
 
 ## Pre v2.0.0 Release
 
-- [ ] `bg-[#fea123]`
-- [ ] check all TODO comments
+- [√] `bg-[#fea123]`
+- [√] check all TODO comments
 - [ ] unify helper functions/usage
 - [ ] figure out warn strategy
 - [ ] multi-utility caching
@@ -13,6 +13,7 @@
 
 ## Post v2.0.0 Release
 
+- [ ] double-dashed configged colors
 - [ ] add font-scale prefix
 - [ ] add dpi/retina "scale" prefix
 - [ ] use window dimensions to support some `vw` and `vh` style utilities

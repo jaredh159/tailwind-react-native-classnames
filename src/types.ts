@@ -40,7 +40,6 @@ export type Direction =
 
 export type RnColorScheme = 'light' | 'dark' | null | undefined;
 
-// @TODO -- maybe try to use RN real view/text types
 export type Style = {
   [key: string]: string[] | string | number | boolean | Style;
 };

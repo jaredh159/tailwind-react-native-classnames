@@ -1,5 +1,5 @@
 import { TwTheme } from './tw-config';
-import { toPx } from './resolve/helpers';
+import { toPx, warn } from './resolve/helpers';
 
 type Screens = Record<string, [min: number, max: number, order: number]>;
 export default function screens(input?: TwTheme['screens']): Screens {
@@ -11,13 +11,13 @@ export default function screens(input?: TwTheme['screens']): Screens {
     const values = typeof value === `string` ? { min: value } : value;
     const minPx = values.min ? toPx(values.min) : 0;
     if (minPx === undefined) {
-      // @TODO: log
+      warn(`invalid screen config value: ${screen}->min: ${values.min}`);
     } else {
       data[0] = minPx;
     }
     const maxPx = values.max ? toPx(values.max) : Infinity;
     if (maxPx === undefined) {
-      // @TODO: log
+      warn(`invalid screen config value: ${screen}->max: ${values.max}`);
     } else {
       data[1] = maxPx;
     }
