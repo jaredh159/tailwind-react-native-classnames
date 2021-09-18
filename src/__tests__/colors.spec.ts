@@ -19,6 +19,13 @@ describe(`colors`, () => {
     expect(tw`text-black text-opacity-100`).toMatchObject({ color: `rgba(0, 0, 0, 1)` });
   });
 
+  test(`color with opacity doesn't affect other utilities`, () => {
+    expect(tw`bg-white bg-opacity-50`).toMatchObject({
+      backgroundColor: `rgba(255, 255, 255, 0.5)`,
+    });
+    expect(tw`bg-white`).toMatchObject({ backgroundColor: `#fff` });
+  });
+
   test(`color with opacity shorthand`, () => {
     expect(tw`bg-black/50`).toMatchObject({ backgroundColor: `rgba(0, 0, 0, 0.5)` });
     expect(tw`text-red-300/75`).toMatchObject({ color: `rgba(252, 165, 165, 0.75)` });

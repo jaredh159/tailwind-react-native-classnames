@@ -9,8 +9,8 @@
 - [√] consider removing result type
 - [√] figure out warn strategy
 - [√] make `toStyleVal` not throw
-- [ ] sort out npm naming things...
-- [ ] look into opacity cache bug
+- [√] sort out npm naming things...
+- [√] look into opacity cache bug
 - [ ] flex-1, https://tailwindcss.com/docs/flex utils
 - [ ] multi-utility caching
 - [ ] restore v1 shadox-X utilities (overridable)
@@ -25,8 +25,9 @@
 - [ ] use window dimensions to support some `vw` and `vh` style utilities
 - [ ] explore writing a babel plugin to erase statically resolvable function calls
 
-```
- "flex-1": {
+```json
+{
+  "flex-1": {
     "flexGrow": 1,
     "flexShrink": 1,
     "flexBasis": "0%"
@@ -45,5 +46,6 @@
     "flexGrow": 0,
     "flexShrink": 0,
     "flexBasis": "auto"
-  },
+  }
+}
 ```

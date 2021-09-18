@@ -53,6 +53,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       switch (styleIr.kind) {
         case `complete`:
           style = { ...style, ...styleIr.style };
+          cache.set(cacheGroup, utility, styleIr);
           break;
         case `dependent`:
           dependents.push(styleIr);
@@ -61,9 +62,9 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
           ordered.push(styleIr);
           break;
         case `null`:
+          cache.set(cacheGroup, utility, styleIr);
           break;
       }
-      cache.set(cacheGroup, utility, styleIr);
     }
 
     if (ordered.length > 0) {
