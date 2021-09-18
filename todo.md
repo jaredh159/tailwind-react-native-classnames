@@ -13,8 +13,8 @@
 - [√] look into opacity cache bug
 - [√] multi-utility caching
 - [√] flex-1, https://tailwindcss.com/docs/flex utils
+- [√] register custom utilities
 - [ ] restore v1 shadox-X utilities (overridable)
-- [ ] register custom utilities
 - [ ] v2 documentation
 
 ## Post v2.0.0 Release

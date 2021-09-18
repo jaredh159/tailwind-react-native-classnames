@@ -91,3 +91,71 @@ export enum Unit {
   percent = `%`,
   none = `<no-css-unit>`,
 }
+
+type NotImplemented = (...args: any) => unknown;
+
+export type AddedUtilities = Record<string, Style | string>;
+
+export type PluginFunction = (obj: {
+  addUtilities(utilities: AddedUtilities): unknown;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  addComponents: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  addBase: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  addVariant: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  e: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  prefix: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  theme: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  variants: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  config: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  corePlugins: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  matchUtilities: NotImplemented;
+
+  /**
+   * @deprecated not supported in @jaredh159/twrn
+   */
+  postcss: unknown;
+}) => unknown;
+
+export type CreatePlugin = (pluginFunction: PluginFunction) => {
+  handler: PluginFunction;
+  config: undefined;
+};

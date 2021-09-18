@@ -1,3 +1,5 @@
+import { PluginFunction } from './types';
+
 type TwFontSize =
   | string
   | [string, string]
@@ -41,4 +43,5 @@ export interface TwTheme {
 
 export interface TwConfig {
   theme?: TwTheme;
+  plugins?: Array<{ handler: PluginFunction }>;
 }

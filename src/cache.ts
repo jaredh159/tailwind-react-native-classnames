@@ -5,8 +5,8 @@ export default class Cache {
   private ir: Map<string, StyleIR> = new Map(defaultStyles);
   private styles: Map<string, Style> = new Map();
 
-  public constructor() {
-    this.ir = new Map(defaultStyles);
+  public constructor(customStyles?: Array<[string, StyleIR]>) {
+    this.ir = new Map([...defaultStyles, ...(customStyles ?? [])]);
   }
 
   public getStyle(key: string): Style | undefined {

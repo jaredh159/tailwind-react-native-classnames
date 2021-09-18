@@ -7,17 +7,34 @@ import {
   RnWindow,
   RnColorScheme,
   OrderedStyle,
+  StyleIR,
 } from './types';
 import { TwConfig } from './tw-config';
 import Cache from './cache';
 import ClassParser from './ClassParser';
 import { parseInputs } from './parse-inputs';
-import { warn } from './helpers';
+import { complete, warn } from './helpers';
+import plugin, { getAddedUtilities } from './plugin';
+
+export { plugin };
 
 export function create(customConfig: TwConfig = {}): TailwindFn {
   const config = resolveConfig(customConfig as any) as TwConfig;
   let window: RnWindow | undefined = undefined;
   let colorScheme: RnColorScheme;
+
+  const pluginUtils = getAddedUtilities(config.plugins);
+  const customStringUtils: Record<string, string> = {};
+  const customStyleUtils = Object.entries(pluginUtils)
+    .map(([util, style]): [string, StyleIR] => {
+      if (typeof style === `string`) {
+        // mutating while mapping, i know - bad form, but for performance sake... ¯\_(ツ)_/¯
+        customStringUtils[util] = style;
+        return [util, { kind: `null` }];
+      }
+      return [util, complete(style)];
+    })
+    .filter(([, ir]) => ir.kind !== `null`);
 
   function deriveCacheGroup(): string {
     return (
@@ -40,14 +57,14 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
     if (existing) {
       return existing;
     }
-    const cache = new Cache();
+    const cache = new Cache(customStyleUtils);
     contextCaches[cacheGroup] = cache;
     return cache;
   }
 
   function style(...inputs: ClassInput[]): Style {
     const cache = getCache();
-    let style: Style = {};
+    let resolved: Style = {};
     const dependents: DependentStyle[] = [];
     const ordered: OrderedStyle[] = [];
     const [utilities, userStyle] = parseInputs(inputs);
@@ -63,13 +80,18 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
     for (const utility of utilities) {
       let styleIr = cache.getIr(utility);
       if (!styleIr) {
+        if (utility in customStringUtils) {
+          const customStyle = style(customStringUtils[utility]);
+          cache.setIr(utility, complete(customStyle));
+          return customStyle;
+        }
         const parser = new ClassParser(utility, config, cache, window, colorScheme);
         styleIr = parser.parse();
       }
 
       switch (styleIr.kind) {
         case `complete`:
-          style = { ...style, ...styleIr.style };
+          resolved = { ...resolved, ...styleIr.style };
           cache.setIr(utility, styleIr);
           break;
         case `dependent`:
@@ -89,7 +111,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       for (const orderedStyle of ordered) {
         switch (orderedStyle.styleIr.kind) {
           case `complete`:
-            style = { ...style, ...orderedStyle.styleIr.style };
+            resolved = { ...resolved, ...orderedStyle.styleIr.style };
             break;
           case `dependent`:
             dependents.push(orderedStyle.styleIr);
@@ -100,7 +122,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
 
     if (dependents.length > 0) {
       for (const dependent of dependents) {
-        const error = dependent.complete(style);
+        const error = dependent.complete(resolved);
         if (error) {
           warn(error);
         }
@@ -108,14 +130,14 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
     }
 
     if (userStyle) {
-      style = { ...style, ...userStyle };
+      resolved = { ...resolved, ...userStyle };
     }
 
     // cache the full set of classes for future re-renders
     if (joined !== ``) {
-      cache.setStyle(joined, style);
+      cache.setStyle(joined, resolved);
     }
-    return style;
+    return resolved;
   }
 
   function color(utils: string): string | undefined {
