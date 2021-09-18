@@ -2,10 +2,12 @@ import { TwTheme } from './tw-config';
 import { toPx, warn } from './helpers';
 
 type Screens = Record<string, [min: number, max: number, order: number]>;
+
 export default function screens(input?: TwTheme['screens']): Screens {
   if (!input) {
     return {};
   }
+
   const screenData = Object.entries(input).reduce<Screens>((acc, [screen, value]) => {
     const data: [number, number, number] = [0, Infinity, 0];
     const values = typeof value === `string` ? { min: value } : value;

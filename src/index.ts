@@ -10,7 +10,7 @@ import {
 } from './types';
 import { TwConfig } from './tw-config';
 import Cache from './cache';
-import ClassParser from './parse-class';
+import ClassParser from './ClassParser';
 import { parseInputs } from './parse-inputs';
 import { warn } from './helpers';
 
@@ -36,15 +36,19 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
   let cacheGroup = deriveCacheGroup();
 
   function style(...inputs: ClassInput[]): Style {
-    // @TODO: make a fast path for the most common, simple input
-
     let style: Style = {};
     const dependents: DependentStyle[] = [];
     const ordered: OrderedStyle[] = [];
     const [utilities, userStyle] = parseInputs(inputs);
 
+    const joined = utilities.join(` `);
+    const cached = cache.getStyle(cacheGroup, joined);
+    if (cached) {
+      return cached;
+    }
+
     for (const utility of utilities) {
-      let styleIr = cache.get(cacheGroup, utility);
+      let styleIr = cache.getIr(cacheGroup, utility);
       if (!styleIr) {
         const parser = new ClassParser(utility, config, window, colorScheme);
         styleIr = parser.parse();
@@ -53,7 +57,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       switch (styleIr.kind) {
         case `complete`:
           style = { ...style, ...styleIr.style };
-          cache.set(cacheGroup, utility, styleIr);
+          cache.setIr(cacheGroup, utility, styleIr);
           break;
         case `dependent`:
           dependents.push(styleIr);
@@ -62,7 +66,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
           ordered.push(styleIr);
           break;
         case `null`:
-          cache.set(cacheGroup, utility, styleIr);
+          cache.setIr(cacheGroup, utility, styleIr);
           break;
       }
     }
@@ -94,6 +98,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       style = { ...style, ...userStyle };
     }
 
+    cache.setStyle(cacheGroup, joined, style);
     return style;
   }
 
@@ -128,8 +133,10 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
   };
 
   tailwindFn.setColorScheme = (newColorScheme: RnColorScheme) => {
-    colorScheme = newColorScheme;
-    cacheGroup = deriveCacheGroup();
+    if (newColorScheme !== colorScheme) {
+      colorScheme = newColorScheme;
+      cacheGroup = deriveCacheGroup();
+    }
   };
 
   return tailwindFn;

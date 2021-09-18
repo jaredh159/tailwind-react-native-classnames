@@ -23,7 +23,6 @@ import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
 
 export default class ClassParser {
-  public cacheGroup = `default`;
   private position = 0;
   private string: string;
   private char?: string;
@@ -58,7 +57,6 @@ export default class ClassParser {
         }
         const windowWidth = window?.width;
         if (windowWidth) {
-          this.cacheGroup = `w${windowWidth}`;
           const [min, max] = widthBreakpoints[prefix] ?? [0, 0];
           if (windowWidth <= min || windowWidth > max) {
             // breakpoint does not match
@@ -69,8 +67,6 @@ export default class ClassParser {
         // platform prefix mismatch
         this.isNull = true;
       } else if (prefix === `dark`) {
-        this.cacheGroup =
-          this.cacheGroup === `default` ? `dark` : `${this.cacheGroup}--dark`;
         if (colorScheme !== `dark`) {
           this.isNull = true;
         } else {

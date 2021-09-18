@@ -11,8 +11,8 @@
 - [√] make `toStyleVal` not throw
 - [√] sort out npm naming things...
 - [√] look into opacity cache bug
+- [√] multi-utility caching
 - [ ] flex-1, https://tailwindcss.com/docs/flex utils
-- [ ] multi-utility caching
 - [ ] restore v1 shadox-X utilities (overridable)
 - [ ] register custom utilities
 - [ ] v2 documentation
