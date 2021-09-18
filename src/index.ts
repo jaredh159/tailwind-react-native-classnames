@@ -57,7 +57,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
     const joined = utilities.join(` `);
     const cached = cache.getStyle(joined);
     if (cached) {
-      return cached;
+      return { ...cached, ...(userStyle ? userStyle : {}) };
     }
 
     for (const utility of utilities) {

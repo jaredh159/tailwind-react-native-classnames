@@ -277,4 +277,9 @@ describe(`tw`, () => {
     expect(tw.style({ width: 90 })).toMatchObject({ width: 90 });
     expect(tw.style({ width: 40 })).toMatchObject({ width: 40 });
   });
+
+  test(`rn style objects don't confuse cache`, () => {
+    expect(tw.style(`pt-1`, { width: 90 })).toMatchObject({ paddingTop: 4, width: 90 });
+    expect(tw.style(`pt-1`, { width: 100 })).toMatchObject({ paddingTop: 4, width: 100 });
+  });
 });
