@@ -85,6 +85,78 @@ describe(`simple style mappings`, () => {
     [`lowercase`, { textTransform: `lowercase` }],
     [`capitalize`, { textTransform: `capitalize` }],
     [`normal-case`, { textTransform: `none` }],
+
+    // default box-shadow implementations
+    [
+      `shadow-sm`,
+      {
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: `#000`,
+        shadowRadius: 1,
+        shadowOpacity: 0.025,
+        elevation: 1,
+      },
+    ],
+    [
+      `shadow`,
+      {
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: `#000`,
+        shadowRadius: 1,
+        shadowOpacity: 0.075,
+        elevation: 2,
+      },
+    ],
+    [
+      `shadow-md`,
+      {
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: `#000`,
+        shadowRadius: 3,
+        shadowOpacity: 0.125,
+        elevation: 3,
+      },
+    ],
+    [
+      `shadow-lg`,
+      {
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: `#000`,
+        shadowOpacity: 0.15,
+        shadowRadius: 8,
+        elevation: 8,
+      },
+    ],
+    [
+      `shadow-xl`,
+      {
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: `#000`,
+        shadowOpacity: 0.19,
+        shadowRadius: 20,
+        elevation: 12,
+      },
+    ],
+    [
+      `shadow-2xl`,
+      {
+        shadowOffset: { width: 1, height: 1 },
+        shadowColor: `#000`,
+        shadowOpacity: 0.25,
+        shadowRadius: 30,
+        elevation: 16,
+      },
+    ],
+    [
+      `shadow-none`,
+      {
+        shadowOffset: { width: 0, height: 0 },
+        shadowColor: `#000`,
+        shadowRadius: 0,
+        shadowOpacity: 0,
+        elevation: 0,
+      },
+    ],
   ];
 
   test.each(cases)(`utility %s -> %s`, (utility, style) => {

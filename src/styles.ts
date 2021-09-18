@@ -100,6 +100,78 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`lowercase`, complete({ textTransform: `lowercase` })],
   [`capitalize`, complete({ textTransform: `capitalize` })],
   [`normal-case`, complete({ textTransform: `none` })],
+
+  // default box-shadow implementations
+  [
+    `shadow-sm`,
+    complete({
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: `#000`,
+      shadowRadius: 1,
+      shadowOpacity: 0.025,
+      elevation: 1,
+    }),
+  ],
+  [
+    `shadow`,
+    complete({
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: `#000`,
+      shadowRadius: 1,
+      shadowOpacity: 0.075,
+      elevation: 2,
+    }),
+  ],
+  [
+    `shadow-md`,
+    complete({
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: `#000`,
+      shadowRadius: 3,
+      shadowOpacity: 0.125,
+      elevation: 3,
+    }),
+  ],
+  [
+    `shadow-lg`,
+    complete({
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: `#000`,
+      shadowOpacity: 0.15,
+      shadowRadius: 8,
+      elevation: 8,
+    }),
+  ],
+  [
+    `shadow-xl`,
+    complete({
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: `#000`,
+      shadowOpacity: 0.19,
+      shadowRadius: 20,
+      elevation: 12,
+    }),
+  ],
+  [
+    `shadow-2xl`,
+    complete({
+      shadowOffset: { width: 1, height: 1 },
+      shadowColor: `#000`,
+      shadowOpacity: 0.25,
+      shadowRadius: 30,
+      elevation: 16,
+    }),
+  ],
+  [
+    `shadow-none`,
+    complete({
+      shadowOffset: { width: 0, height: 0 },
+      shadowColor: `#000`,
+      shadowRadius: 0,
+      shadowOpacity: 0,
+      elevation: 0,
+    }),
+  ],
 ];
 
 export default defaultStyles;
