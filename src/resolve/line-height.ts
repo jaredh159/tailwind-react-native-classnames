@@ -6,12 +6,10 @@ export default function lineHeight(
   value: string,
   config?: TwTheme['lineHeight'],
 ): StyleIR | null {
-  const configValue = config?.[value];
-  if (!configValue) {
-    return null;
-  }
+  const parseValue =
+    config?.[value] ?? (value.startsWith(`[`) ? value.slice(1, -1) : value);
 
-  const parsed = parseNumericValue(configValue);
+  const parsed = parseNumericValue(parseValue);
   if (!parsed) {
     return null;
   }

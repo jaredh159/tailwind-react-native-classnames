@@ -130,6 +130,7 @@ describe(`tw`, () => {
     [`leading-7`, 28],
     [`leading-8`, 32],
     [`leading-9`, 36],
+    [`leading-[333px]`, 333],
   ];
 
   test.each(absoluteLineHeight)(
