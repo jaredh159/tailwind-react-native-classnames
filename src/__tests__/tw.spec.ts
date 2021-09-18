@@ -266,4 +266,10 @@ describe(`tw`, () => {
       elevation: 3,
     });
   });
+
+  test(`mapped style after platform prefix works`, () => {
+    rn.Platform.OS = `ios`;
+    tw = create();
+    expect(tw`ios:hidden`).toMatchObject({ display: `none` });
+  });
 });

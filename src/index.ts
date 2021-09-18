@@ -32,32 +32,45 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
     );
   }
 
-  const cache = new Cache();
   let cacheGroup = deriveCacheGroup();
+  const contextCaches: Record<string, Cache> = {};
+
+  function getCache(): Cache {
+    const existing = contextCaches[cacheGroup];
+    if (existing) {
+      return existing;
+    }
+    const cache = new Cache();
+    contextCaches[cacheGroup] = cache;
+    return cache;
+  }
 
   function style(...inputs: ClassInput[]): Style {
+    const cache = getCache();
     let style: Style = {};
     const dependents: DependentStyle[] = [];
     const ordered: OrderedStyle[] = [];
     const [utilities, userStyle] = parseInputs(inputs);
 
+    // check if we've seen this full set of classes before
+    // if we have a cached copy, we can skip examining each utility
     const joined = utilities.join(` `);
-    const cached = cache.getStyle(cacheGroup, joined);
+    const cached = cache.getStyle(joined);
     if (cached) {
       return cached;
     }
 
     for (const utility of utilities) {
-      let styleIr = cache.getIr(cacheGroup, utility);
+      let styleIr = cache.getIr(utility);
       if (!styleIr) {
-        const parser = new ClassParser(utility, config, window, colorScheme);
+        const parser = new ClassParser(utility, config, cache, window, colorScheme);
         styleIr = parser.parse();
       }
 
       switch (styleIr.kind) {
         case `complete`:
           style = { ...style, ...styleIr.style };
-          cache.setIr(cacheGroup, utility, styleIr);
+          cache.setIr(utility, styleIr);
           break;
         case `dependent`:
           dependents.push(styleIr);
@@ -66,7 +79,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
           ordered.push(styleIr);
           break;
         case `null`:
-          cache.setIr(cacheGroup, utility, styleIr);
+          cache.setIr(utility, styleIr);
           break;
       }
     }
@@ -98,7 +111,8 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       style = { ...style, ...userStyle };
     }
 
-    cache.setStyle(cacheGroup, joined, style);
+    // cache the full set of classes for future re-renders
+    cache.setStyle(joined, style);
     return style;
   }
 

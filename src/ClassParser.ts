@@ -21,6 +21,7 @@ import { widthHeight, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
+import Cache from './cache';
 
 export default class ClassParser {
   private position = 0;
@@ -33,6 +34,7 @@ export default class ClassParser {
   public constructor(
     input: string,
     private config: TwConfig = {},
+    private cache: Cache,
     window?: RnWindow,
     colorScheme?: RnColorScheme,
   ) {
@@ -79,6 +81,12 @@ export default class ClassParser {
   public parse(): StyleIR {
     if (this.isNull) {
       return { kind: `null` };
+    }
+
+    // resolve things like ios:hidden, after prefix removed
+    const cached = this.cache.getIr(this.rest);
+    if (cached) {
+      return cached;
     }
 
     this.parseIsNegative();

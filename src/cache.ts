@@ -2,32 +2,26 @@ import { StyleIR, Style } from './types';
 import defaultStyles from './styles';
 
 export default class Cache {
-  private ir: Record<string, Map<string, StyleIR>> = {};
-  private styles: Record<string, Map<string, Style>> = {};
+  private ir: Map<string, StyleIR> = new Map(defaultStyles);
+  private styles: Map<string, Style> = new Map();
 
   public constructor() {
-    this.ir.default = new Map(defaultStyles);
+    this.ir = new Map(defaultStyles);
   }
 
-  public getStyle(group: string, key: string): Style | undefined {
-    return this.styles[group]?.get(key);
+  public getStyle(key: string): Style | undefined {
+    return this.styles.get(key);
   }
 
-  public setStyle(group: string, key: string, style: Style): void {
-    if (!this.styles[group]) {
-      this.styles[group] = new Map();
-    }
-    this.styles[group]!.set(key, style);
+  public setStyle(key: string, style: Style): void {
+    this.styles.set(key, style);
   }
 
-  public getIr(group: string, key: string): StyleIR | undefined {
-    return this.ir[group]?.get(key);
+  public getIr(key: string): StyleIR | undefined {
+    return this.ir.get(key);
   }
 
-  public setIr(group: string, key: string, ir: StyleIR): void {
-    if (!this.ir[group]) {
-      this.ir[group] = new Map();
-    }
-    this.ir[group]!.set(key, ir);
+  public setIr(key: string, ir: StyleIR): void {
+    this.ir.set(key, ir);
   }
 }
