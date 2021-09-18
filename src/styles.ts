@@ -41,6 +41,10 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`flex-wrap-reverse`, complete({ flexWrap: `wrap-reverse` })],
   [`flex-nowrap`, complete({ flexWrap: `nowrap` })],
 
+  [`flex-auto`, complete({ flexGrow: 1, flexShrink: 1, flexBasis: `auto` })],
+  [`flex-initial`, complete({ flexGrow: 0, flexShrink: 1, flexBasis: `auto` })],
+  [`flex-none`, complete({ flexGrow: 0, flexShrink: 0, flexBasis: `auto` })],
+
   [`overflow-hidden`, complete({ overflow: `hidden` })],
   [`overflow-visible`, complete({ overflow: `visible` })],
   [`overflow-scroll`, complete({ overflow: `scroll` })],

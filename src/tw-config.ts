@@ -26,6 +26,7 @@ export interface TwTheme {
   borderRadius?: Record<string, string>;
   screens?: Record<string, TwScreen>;
   opacity?: Record<string, number | string>;
+  flex?: Record<string, string>;
   flexGrow?: Record<string, number | string>;
   flexShrink?: Record<string, number | string>;
   fontWeight?: Record<string, number | string>;

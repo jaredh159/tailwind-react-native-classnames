@@ -16,7 +16,7 @@ import {
   complete,
 } from './helpers';
 import { inset } from './resolve/inset';
-import flexGrowShrink from './resolve/flex-grow-shrink';
+import { flexGrowShrink, flex } from './resolve/flex';
 import { widthHeight, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
@@ -237,11 +237,12 @@ export default class ClassParser {
     if (this.consumePeeked(`flex-`)) {
       if (this.consumePeeked(`grow`)) {
         style = flexGrowShrink(`Grow`, this.rest, theme?.flexGrow);
-        if (style) return style;
       } else if (this.consumePeeked(`shrink`)) {
         style = flexGrowShrink(`Shrink`, this.rest, theme?.flexShrink);
-        if (style) return style;
+      } else {
+        style = flex(this.rest, theme?.flex);
       }
+      if (style) return style;
     }
 
     if (this.consumePeeked(`shadow-color-opacity-`)) {
