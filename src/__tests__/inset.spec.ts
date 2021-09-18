@@ -18,6 +18,8 @@ describe(`inset`, () => {
     [`inset-y-1`, { top: 4, bottom: 4 }],
     [`inset-x-1`, { left: 4, right: 4 }],
     [`right-[333px]`, { right: 333 }],
+    [`right-[-16px]`, { right: -16 }],
+    [`-right-[16px]`, { right: -16 }],
     [`left-17/18`, { left: `${(17 / 18) * 100}%` }],
     [`top-px`, { top: 1 }],
     // arbitrary, not configged number

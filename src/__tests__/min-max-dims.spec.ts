@@ -13,9 +13,12 @@ describe(`min/max width/height`, () => {
 
     // arbitrary min height/width
     [`min-w-1/4`, { minWidth: `25%` }],
+    [`min-w-1/2`, { minWidth: `50%` }],
     [`min-w-1`, { minWidth: 4 }],
     [`min-h-1/4`, { minHeight: `25%` }],
     [`min-h-1`, { minHeight: 4 }],
+    [`min-w-[50%]`, { minWidth: `50%` }],
+    [`min-w-[160px]`, { minWidth: 160 }],
 
     [`max-w-px`, { maxWidth: 1 }],
     [`max-w-0`, { maxWidth: 0 }],
