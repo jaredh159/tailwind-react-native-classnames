@@ -272,4 +272,9 @@ describe(`tw`, () => {
     tw = create();
     expect(tw`ios:hidden`).toMatchObject({ display: `none` });
   });
+
+  test(`style-object only doesn't confuse cache`, () => {
+    expect(tw.style({ width: 90 })).toMatchObject({ width: 90 });
+    expect(tw.style({ width: 40 })).toMatchObject({ width: 40 });
+  });
 });

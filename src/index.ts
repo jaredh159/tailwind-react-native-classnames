@@ -112,7 +112,9 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
     }
 
     // cache the full set of classes for future re-renders
-    cache.setStyle(joined, style);
+    if (joined !== ``) {
+      cache.setStyle(joined, style);
+    }
     return style;
   }
 
