@@ -48,8 +48,8 @@ export interface TailwindFn {
   (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
   style: (...inputs: ClassInput[]) => Style;
   color: (color: string) => string | undefined;
-  setWindow: (window: RnWindow) => void;
-  setColorScheme: (colorScheme: RnColorScheme) => void;
+  setWindow: (window: RnWindow) => unknown;
+  setColorScheme: (colorScheme: RnColorScheme) => unknown;
 }
 
 export enum ConfigType {
