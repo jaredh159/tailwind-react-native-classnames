@@ -30,6 +30,7 @@ const MyComponent = () => (
 - platform prefixes: `android:mt-4 ios:mt-2`
 - dark mode support: `bg-white dark:bg-black`
 - media query suport: `w-48 lg:w-64`
+- device orientation prefixes: `portrait:flex-col landscape:flex-row`
 - arbitrary, JIT-style classes: `mt-[31px] bg-[#eaeaea] text-red-200/75`, etc...
 - tagged template literal synax for most common usage
 - merges supplied RN style objects for unsupported utilities or complex use cases
@@ -250,6 +251,9 @@ export default function App() {
   );
 }
 ```
+
+> NOTE: calling `tw.setWindow()` as shown above is also required to enable **device
+> orientation prefixes**, e.g. `portrait:flex-col landscape:flex-row`
 
 You can **customize the breakpoints** in the same way as a
 [tailwindcss web project](https://tailwindcss.com/docs/breakpoints), using

@@ -9,6 +9,17 @@ export type ClassInput =
 export const PLATFORMS = [`ios`, `android`, `windows`, `macos`, `web`] as const;
 export type Platform = typeof PLATFORMS[number];
 
+export function isPlatform(x: string): x is Platform {
+  return PLATFORMS.includes(x as Platform);
+}
+
+export const ORIENTATIONS = [`portrait`, `landscape`];
+export type Orientation = 'portrait' | 'landscape';
+
+export function isOrientation(x: string): x is Orientation {
+  return ORIENTATIONS.includes(x as Orientation);
+}
+
 export interface RnWindow {
   fontScale: number;
   height: number;

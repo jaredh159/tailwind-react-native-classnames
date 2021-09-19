@@ -15,7 +15,7 @@ export default function fontFamily(
     return complete({ fontFamily: configValue });
   }
 
-  const firstFamily = configValue.shift();
+  const firstFamily = configValue[0];
   if (!firstFamily) {
     return null;
   }

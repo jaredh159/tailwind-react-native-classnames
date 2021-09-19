@@ -3,7 +3,7 @@ import lineHeight from './resolve/line-height';
 import spacing from './resolve/spacing';
 import screens from './screens';
 import { TwConfig } from './tw-config';
-import { RnWindow, StyleIR, Platform, PLATFORMS, RnColorScheme } from './types';
+import { RnWindow, StyleIR, RnColorScheme, isOrientation, isPlatform } from './types';
 import { Platform as RnPlatform } from 'react-native';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
@@ -65,9 +65,21 @@ export default class ClassParser {
             this.isNull = true;
           }
         }
-      } else if (PLATFORMS.includes(prefix as Platform) && prefix !== RnPlatform.OS) {
+      } else if (isPlatform(prefix) && prefix !== RnPlatform.OS) {
         // platform prefix mismatch
         this.isNull = true;
+      } else if (isOrientation(prefix)) {
+        if (!window) {
+          this.isNull = true;
+        } else {
+          const deviceOrientation =
+            window.width > window.height ? `landscape` : `portrait`;
+          if (deviceOrientation !== prefix) {
+            this.isNull = true;
+          } else {
+            this.order = (this.order ?? 0) + 1;
+          }
+        }
       } else if (prefix === `dark`) {
         if (colorScheme !== `dark`) {
           this.isNull = true;
