@@ -12,6 +12,7 @@
     "ts:check": "fldev ts:check",
     "format": "fldev format",
     "compile": "fldev ts:compile",
+    "npub:precheck": "npm run test && npm run lint && npm run ts:check && npm run format && npm run compile",
     "prepublishOnly": "rm -rf ./dist && npm run compile && node ./dist/create-styles.js"
   },
   "bin": {
