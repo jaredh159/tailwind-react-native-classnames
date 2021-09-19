@@ -1,4 +1,4 @@
-# Tailwind React Native Classnames (v2) 🏄‍♂️
+# Tailwind React Native (v2) 🏄‍♂️
 
 **🚨 WARNING 🚨** These are _version 2.0.0_ **beta** docs. For stable v1 docs,
 [see here.](https://github.com/jaredh159/tailwind-react-native-classnames/tree/master#readme)
@@ -20,7 +20,7 @@ const MyComponent = () => (
 
 ## Features 🚀
 
-- full support for all **non-web** RN styles with tailwind counterparts:
+- full support for all _native_ RN styles with tailwind counterparts:
   ([view](https://reactnative.dev/docs/view-style-props),
   [layout](https://reactnative.dev/docs/layout-props),
   [image](https://reactnative.dev/docs/image-style-props),
@@ -72,9 +72,8 @@ tw`pt-6 bg-blue-100`;
 // -> { paddingTop: 24, backgroundColor: 'rgba(219, 234, 254, 1)' }
 ```
 
-In the spirit of Tailwindcss's intuitive responsive prefix syntax, `@jaredh159/twrn` adds
-support for **platform prefixes** to conditionally apply styles based on the current
-platform:
+In the spirit of Tailwindcss's intuitive responsive prefix syntax, `twrn` adds support for
+**platform prefixes** to conditionally apply styles based on the current platform:
 
 ```js
 // 😎 styles only added if platform matches
@@ -155,7 +154,8 @@ const MyComponent = () => (
 );
 ```
 
-...or if the tagged template function isn't your jam, just import `tw.style` as `tw`:
+...or if the tagged template function isn't your cup of tea, just import `tw.style` as
+`tw`:
 
 ```jsx
 import { style as tw } from '@jaredh159/twrn';
@@ -167,7 +167,7 @@ const MyComponent = () => (
 
 ## Customization
 
-You can use `@jaredh159/twrn` right out of the box if you haven't customized your
+You can use `twrn` right out of the box if you haven't customized your
 `tailwind.config.js` file at all. But more likely you've got some important app-specific
 tailwind customizations you'd like to use. For that reason, we expose the ability to
 create a **custom configured version** of the `tw` function object.
@@ -199,7 +199,7 @@ scheme. To do that, go to the _highest-level_ component in your app, and configu
 
 ```js
 import { useColorScheme } from 'react-native'; // 1️⃣  import `useColorScheme`
-import tw from './lib/tailwind'; // or, if no custom config: `from '@jaredh/twrn'`
+import tw from './lib/tailwind'; // or, if no custom config: `from '@jaredh159/twrn'`
 
 export default function App() {
   const colorScheme = useColorScheme(); // 2️⃣  use the hook
@@ -215,7 +215,7 @@ export default function App() {
 
 If you have a bespoke method of enabling/disabling dark mode other than relying on the
 host OS, you can call `tw.setColorScheme()` whenever you want, as long as the _type_ of
-what you pass is: `'light' | 'dark' | null | undefined` -- matching the RN type returneda
+what you pass is: `'light' | 'dark' | null | undefined` -- matching the RN type returned
 from `useColorScheme()`:
 
 ```ts
@@ -235,7 +235,7 @@ same. To do that, go to the _highest-level_ component in your app, and configure
 
 ```js
 import { useWindowDimensions } from 'react-native'; // 1️⃣  import `useWindowDimensions`
-import tw from './lib/tailwind'; // or, if no custom config: `from '@jaredh/twrn'`
+import tw from './lib/tailwind'; // or, if no custom config: `from '@jaredh159/twrn'`
 
 export default function App() {
   const rnWindow = useWindowDimensions(); // 2️⃣  use the hook
@@ -369,7 +369,7 @@ tw`shadow-md`;
 
 To override the default implementations of these named shadow classes,
 [add your own custom utilties](#adding-custom-classes) -- any custom utilities you provide
-will override the ones this library ships with.
+with the same names will override the ones this library ships with.
 
 ## RN-Only Additions
 

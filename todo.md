@@ -15,7 +15,7 @@
 - [√] flex-1, https://tailwindcss.com/docs/flex utils
 - [√] register custom utilities
 - [√] restore v1 shadox-X utilities (overridable)
-- [ ] v2 documentation
+- [√] v2 documentation
 
 ## Post v2.0.0 Release
 
