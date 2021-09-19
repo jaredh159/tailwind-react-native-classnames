@@ -288,21 +288,21 @@ function:
 const { plugin } = require('twrnc');
 
 // or, you can use tailwinds plugin function:
-const plugin = require('tailwindcss/plugin')
+const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   plugins: [
-    plugin(() => ({ addUtilities }) {
+    plugin(({ addUtilities }) => {
       addUtilities({
         btn: {
           padding: 3,
           borderRadius: 10,
-          textTranform: `uppercase`
+          textTranform: `uppercase`,
           backgroundColor: `#333`,
         },
         'resize-repeat': {
-          resizeMode: `repeat`
-        }
+          resizeMode: `repeat`,
+        },
       });
     }),
   ],
