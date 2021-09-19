@@ -1,5 +1,11 @@
 # Tailwind React Native Classnames 🏄‍♂️
 
+## V2 Now in Beta 🚀
+
+_Help us beta-test the new V2 re-write, including dark-mode, breakpoints, JIT-mode, and
+more. Docs and migration guide
+[over here](https://github.com/jaredh159/tailwind-react-native-classnames/tree/v2#readme)._
+
 > A simple, expressive API for TailwindCSS + React Native, written in TypeScript
 
 ```jsx
