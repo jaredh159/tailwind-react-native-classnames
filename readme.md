@@ -47,10 +47,10 @@ const MyComponent = () => (
 - [Customization](#customization)
 - [Enabling Dark Mode](#enabling-dark-mode)
 - [Enabling Breakpoints](#enabling-breakpoints)
-- [Adding Custom Classes](#adding-custom-classes) TODO
-- [Box-Shadows](#box-shadows) TODO
-- [RN-Only Additions](#rn-only-additions) TODO
-- [JIT-style Arbitrary Values](#jit-style-arbitrary-values) TODO
+- [Adding Custom Classes](#adding-custom-classes)
+- [Box-Shadows](#box-shadows)
+- [RN-Only Additions](#rn-only-additions)
+- [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
 - [Prior Art](#prior-art)
 
 ## Installation
@@ -222,7 +222,6 @@ from `useColorScheme()`:
 const App: React.FC = () => {
   const [mode, setMode] = useState<'light' | 'dark'>(`light`);
   tw.setColorScheme(mode); // 👋  <-- pass your custom dark-mode state
-
   // [...]
 };
 ```
@@ -270,6 +269,139 @@ module.exports = {
   },
 };
 ```
+
+## Adding Custom Classes
+
+To add custom utilities, use the
+[plugin method](https://tailwindcss.com/docs/adding-new-utilities#using-a-plugin)
+described in the tailwind docs, instead of writing to a `.css` file. `twrn` provides a
+`plugin()` function you can use, but it's also compatible with the stock `tailwindcss`
+function:
+
+```js
+// tailwind.config.js
+const { plugin } = require('@jaredh159/twrn');
+
+// or, you can use tailwinds plugin function:
+const plugin = require('tailwindcss/plugin')
+
+module.exports = {
+  plugins: [
+    plugin(() => ({ addUtilities }) {
+      addUtilities({
+        btn: {
+          padding: 3,
+          borderRadius: 10,
+          textTranform: `uppercase`
+          backgroundColor: `#333`,
+        },
+        'resize-repeat': {
+          resizeMode: `repeat`
+        }
+      });
+    }),
+  ],
+};
+```
+
+Wil also allow you to supply a **string** of other utility classes (similar to `@apply`),
+instead of using **CSS-in-JS** style objects:
+
+```js
+module.exports = {
+  plugins: [
+    plugin(() => ({ addUtilities }) {
+      addUtilities({
+        // 😎 similar to `@apply`
+        btn: `px-4 py-1 rounded-full bg-red-800 text-white`,
+        'body-text': `font-serif leading-relaxed tracking-wide text-gray-800`,
+      });
+    }),
+  ],
+};
+```
+
+## Box Shadows
+
+Box shadows [in CSS](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow#syntax)
+differ substantially from [shadow in RN](https://reactnative.dev/docs/shadow-props), so
+this library doesn't attempt to parse CSS box-shadow strings and translate them into RN
+style objects. Instead, it offers a number of low-level utilities not present in
+`tailwindcss`, which map to the
+[4 shadow props](https://reactnative.dev/docs/shadow-props) in RN:
+
+```js
+// RN `shadowColor`
+tw`shadow-white`; // > { shadowColor: `#fff` }
+tw`shadow-red-200`; // > { shadowColor: `#fff` }
+tw`shadow-[#eaeaea]`; // > { shadowColor: `#eaeaea` }
+tw`shadow-black shadow-color-opacity-50`; // > { shadowColor: `rgba(0,0,0,0.5)` }
+
+// RN `shadowOffset`
+tw`shadow-offset-1`; // > { shadowOffset: { width: 4, height: 4 } }
+tw`shadow-offset-2/3`; // > { shadowOffset: { width: 8, height: 12 } }
+tw`shadow-offset-[3px]`; // > { shadowOffset: { width: 3, height: 3 } }],
+tw`shadow-offset-[4px]/[5px]`; // > { shadowOffset: { width: 4, height: 5 } }],
+
+// RN `shadowOpacity`
+tw`shadow-opacity-50`; // { shadowOpacity: 0.5 }
+
+// RN `shadowRadius`
+tw`shadow-radius-1`; // { shadowRadius: 4 }
+tw`shadow-radius-[10px]`; // { shadowRadius: 10 }
+```
+
+We also provide a _default implementation_ of the `shadow-<X>` utils
+[provided by tailwindcss](https://tailwindcss.com/docs/box-shadow), so you can use:
+
+```js
+tw`shadow-md`;
+/*
+-> {
+  shadowOffset: { width: 1, height: 1 },
+  shadowColor: `#000`,
+  shadowRadius: 3,
+  shadowOpacity: 0.125,
+  elevation: 3,
+}
+*/
+```
+
+To override the default implementations of these named shadow classes,
+[add your own custom utilties](#adding-custom-classes) -- any custom utilities you provide
+will override the ones this library ships with.
+
+## RN-Only Additions
+
+`twrn` implements all of the tailwind utilities which overlap with supported RN (native,
+not web) style props. But it also adds a sprinkling of RN-only utilities which don't map
+to web-css, including:
+
+- [low-level shadow utilities](#box-shadows)
+- [elevation](https://reactnative.dev/docs/view-style-props#elevation-android) (android
+  only), eg: `elevation-1`, `elevation-4`
+- `small-caps` -> `{fontVariant: 'small-caps'}`
+- number based font-weight utilities `font-100`, `font-400`, (100...900)
+- `direction-(inherit|ltr|rtl)`
+- `align-self: baseline;` via `self-baseline`
+- `include-font-padding` and `remove-font-padding` (android only: `includeFontPadding`)
+
+## JIT-Style Arbitrary Values
+
+Many of the arbitrary-style utilities made possible by Tailwind JIT are implemented in
+`twrn`, including:
+
+- arbitrary colors: `bg-[#f0f]`, `text-[rgb(33,45,55)]`
+- negative values: `-mt-4`, `-tracking-[2px]`
+- shorthand color opacity: `text-red-200/75` (`red-200` at `75%` opacity)
+- merging color/opacity: `border-black border-opacity-75`
+- arbitrary opacity amounts: `opacity-73`
+- custom spacing: `mt-[4px]`, `-pb-[3px]`, `tracking-[2px]`
+- arbitrary fractional insets: `bottom-7/9`, `left-5/8`
+- arbitrary min/max width/height: `min-w-[40%]`, `max-h-3/8`
+
+Not every utility currently supports all variations of arbitrary values, so if you come
+across one you feel is missing, open an issue or a PR.
 
 ## Prior Art
 

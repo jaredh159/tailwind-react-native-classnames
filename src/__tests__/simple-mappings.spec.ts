@@ -22,10 +22,10 @@ describe(`simple style mappings`, () => {
     [`self-end`, { alignSelf: `flex-end` }],
     [`self-center`, { alignSelf: `center` }],
     [`self-stretch`, { alignSelf: `stretch` }],
-    [`self-baseline`, { alignSelf: `baseline` }], // * @TODO: RN only
-    [`direction-inherit`, { direction: `inherit` }], // * @TODO: RN only
-    [`direction-ltr`, { direction: `ltr` }], // * @TODO: RN only
-    [`direction-rtl`, { direction: `rtl` }], // * @TODO: RN only
+    [`self-baseline`, { alignSelf: `baseline` }],
+    [`direction-inherit`, { direction: `inherit` }],
+    [`direction-ltr`, { direction: `ltr` }],
+    [`direction-rtl`, { direction: `rtl` }],
     [`hidden`, { display: `none` }],
     [`flex`, { display: `flex` }],
     [`flex-row`, { flexDirection: `row` }],

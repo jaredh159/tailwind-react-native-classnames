@@ -56,29 +56,29 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`not-italic`, complete({ fontStyle: `normal` })],
 
   [`oldstyle-nums`, fontVariant(`oldstyle-nums`)],
-  [`small-caps`, fontVariant(`small-caps`)], //  @TODO: RN only
+  [`small-caps`, fontVariant(`small-caps`)],
   [`lining-nums`, fontVariant(`lining-nums`)],
   [`tabular-nums`, fontVariant(`tabular-nums`)],
   [`proportional-nums`, fontVariant(`proportional-nums`)],
 
   [`font-thin`, complete({ fontWeight: `100` })],
-  [`font-100`, complete({ fontWeight: `100` })], // not in tailwindcss
+  [`font-100`, complete({ fontWeight: `100` })],
   [`font-extralight`, complete({ fontWeight: `200` })],
-  [`font-200`, complete({ fontWeight: `200` })], // not in tailwindcss
+  [`font-200`, complete({ fontWeight: `200` })],
   [`font-light`, complete({ fontWeight: `300` })],
-  [`font-300`, complete({ fontWeight: `300` })], // not in tailwindcss
+  [`font-300`, complete({ fontWeight: `300` })],
   [`font-normal`, complete({ fontWeight: `normal` })],
-  [`font-400`, complete({ fontWeight: `400` })], // not in tailwindcss
+  [`font-400`, complete({ fontWeight: `400` })],
   [`font-medium`, complete({ fontWeight: `500` })],
-  [`font-500`, complete({ fontWeight: `500` })], // not in tailwindcss
+  [`font-500`, complete({ fontWeight: `500` })],
   [`font-semibold`, complete({ fontWeight: `600` })],
-  [`font-600`, complete({ fontWeight: `600` })], // not in tailwindcss
+  [`font-600`, complete({ fontWeight: `600` })],
   [`font-bold`, complete({ fontWeight: `bold` })],
-  [`font-700`, complete({ fontWeight: `700` })], // not in tailwindcss
+  [`font-700`, complete({ fontWeight: `700` })],
   [`font-extrabold`, complete({ fontWeight: `800` })],
-  [`font-800`, complete({ fontWeight: `800` })], // not in tailwindcss
+  [`font-800`, complete({ fontWeight: `800` })],
   [`font-black`, complete({ fontWeight: `900` })],
-  [`font-900`, complete({ fontWeight: `900` })], // not in tailwindcss
+  [`font-900`, complete({ fontWeight: `900` })],
 
   [`include-font-padding`, complete({ includeFontPadding: true })],
   [`remove-font-padding`, complete({ includeFontPadding: false })],

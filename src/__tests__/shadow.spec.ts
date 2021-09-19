@@ -9,6 +9,7 @@ describe(`shadow utilities`, () => {
     [
       [`shadow-white`, { shadowColor: `#fff` }],
       [`shadow-black`, { shadowColor: `#000` }],
+      [`shadow-[#eaeaea]`, { shadowColor: `#eaeaea` }],
       [`shadow-black shadow-color-opacity-50`, { shadowColor: `rgba(0, 0, 0, 0.5)` }],
       [`shadow-opacity-50`, { shadowOpacity: 0.5 }],
       [`shadow-offset-1`, { shadowOffset: { width: 4, height: 4 } }],
