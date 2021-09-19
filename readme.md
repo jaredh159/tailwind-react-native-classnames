@@ -51,6 +51,7 @@ const MyComponent = () => (
 - [Box-Shadows](#box-shadows)
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
+- [Migrating from V1](#migrating-from-v1)
 - [Prior Art](#prior-art)
 
 ## Installation
@@ -402,6 +403,29 @@ Many of the arbitrary-style utilities made possible by Tailwind JIT are implemen
 
 Not every utility currently supports all variations of arbitrary values, so if you come
 across one you feel is missing, open an issue or a PR.
+
+## Migrating from V1
+
+**1.** I switched to an NPM organization, so the package has a new name. To remove the old
+library and install v2, run:
+
+```
+npm uninstall tailwind-react-native-classnames
+npm install @jaredh159/twrn@next
+```
+
+**2.** Grep through your project replacing `from 'tailwind-react-native-classnames'` with
+`from 'jaredh159/twrn'`.
+
+**3.** If you were using a `tailwind.config.js` you can `git rm` your `tw-rn-styles.json`
+file, and switch to passing your config directly to `create` as shown below: (details
+[here](#customization))
+
+```js
+const tw = create(require(`../../tailwind.config.js`));
+```
+
+That's it! 🎉 The core API and functionality should work exactly the same from v1 to v2.
 
 ## Prior Art
 
