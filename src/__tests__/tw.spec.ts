@@ -41,6 +41,22 @@ describe(`tw`, () => {
     });
   });
 
+  test(`orientation utilities`, () => {
+    tw = create();
+    tw.setWindow({ width: 600, height: 800, scale: 1, fontScale: 2 });
+    expect(tw`mt-0 landscape:mt-1`).toMatchObject({ marginTop: 0 });
+    expect(tw`landscape:mt-1 mt-0`).toMatchObject({ marginTop: 0 });
+    expect(tw`landscape:mt-1 mt-0 portrait:mt-2`).toMatchObject({ marginTop: 8 });
+    expect(tw`mt-0 portrait:mt-2 landscape:mt-1`).toMatchObject({ marginTop: 8 });
+    tw = create();
+    tw.setWindow({ width: 800, height: 600, scale: 1, fontScale: 2 });
+    expect(tw`mt-0 landscape:mt-1`).toMatchObject({ marginTop: 4 });
+    expect(tw`landscape:mt-1 mt-0`).toMatchObject({ marginTop: 4 });
+    tw = create();
+    expect(tw`mt-0 landscape:mt-1 portrait:mt-2`).toMatchObject({ marginTop: 0 });
+    expect(tw`landscape:mt-1 mt-0 portrait:mt-2`).toMatchObject({ marginTop: 0 });
+  });
+
   test(`dark mode`, () => {
     expect(tw`mt-1 dark:mt-2`).toMatchObject({ marginTop: 4 });
     tw.setColorScheme(`dark`);

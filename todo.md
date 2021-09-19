@@ -19,7 +19,7 @@
 
 ## Post v2.0.0 Release
 
-- [ ] portrait/landscape prefixes
+- [√] portrait/landscape prefixes
 - [ ] double-dashed configged colors
 - [ ] add font-scale prefix
 - [ ] add dpi/retina "scale" prefix
