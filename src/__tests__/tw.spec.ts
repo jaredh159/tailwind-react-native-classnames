@@ -299,4 +299,9 @@ describe(`tw`, () => {
     expect(tw.style(`pt-1`, { width: 90 })).toMatchObject({ paddingTop: 4, width: 90 });
     expect(tw.style(`pt-1`, { width: 100 })).toMatchObject({ paddingTop: 4, width: 100 });
   });
+
+  test(`unknown prefixes produce null styles`, () => {
+    expect(tw`w-1 foo:w-2`.width).toBe(4);
+    expect(tw`lol:hidden`.display).toBeUndefined();
+  });
 });

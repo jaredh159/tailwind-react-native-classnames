@@ -167,6 +167,20 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
   tailwindFn.style = style;
   tailwindFn.color = color;
 
+  tailwindFn.prefixMatch = (...prefixes: string[]) => {
+    const joined = prefixes.sort().join(`:`);
+    const cache = getCache();
+    const cached = cache.getPrefixMatch(joined);
+    if (cached !== undefined) {
+      return cached;
+    }
+    const parser = new ClassParser(`${joined}:flex`, config, cache, device);
+    const ir = parser.parse();
+    const prefixMatches = ir.kind !== `null`;
+    cache.setPrefixMatch(joined, prefixMatches);
+    return prefixMatches;
+  };
+
   tailwindFn.setWindowDimensions = (newDimensions: { width: number; height: number }) => {
     device.windowDimensions = newDimensions;
     cacheGroup = deriveCacheGroup();

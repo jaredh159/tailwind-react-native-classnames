@@ -50,6 +50,7 @@ const MyComponent = () => (
 - [Enabling Device-Context Prefixes](#enabling-device-context-prefixes)
 - [Customizing Breakpoints](#customizing-breakpoints)
 - [Adding Custom Classes](#adding-custom-classes)
+- [Matching Conditional Prefixes](#matchinb-conditional-prefixes)
 - [Box-Shadows](#box-shadows)
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
@@ -286,6 +287,26 @@ module.exports = {
     }),
   ],
 };
+```
+
+## Matching Conditional Prefixes
+
+`twrnc` also exposes a `tw.matchPrefix(...prefixes: string[]) => boolean` function that
+allows you to test whether a given prefix (or combination of prefixes) would produce a
+style given the current device context. This can be useful when you need to pass some
+primitive value to a component, and wish you could leverage `tw`'s knowledge of the
+current device, or really anywhere you just need to do some logic based on the device
+context. This could also be accomplished by importing `Platform` or a combination of other
+RN hooks, but chances are you've already imported your `tw` function, and this saves you
+re-implementing all that logic on your own:
+
+```tsx
+const SomeComponent = () => (
+  <View>
+    <Thumbnail imageSize={tw.matchPrefix(`portrait`) ? 60 : 90} />;
+    {tw.matchPrefix(`ios`, `dark`) ? <CustomIosDarkModeThing /> : <Thing />}
+  </View>
+);
 ```
 
 ## Box Shadows

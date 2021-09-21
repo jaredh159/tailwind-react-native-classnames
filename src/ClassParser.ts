@@ -66,10 +66,11 @@ export default class ClassParser {
             // breakpoint does not match
             this.isNull = true;
           }
+        } else {
+          this.isNull = true;
         }
-      } else if (isPlatform(prefix) && prefix !== RnPlatform.OS) {
-        // platform prefix mismatch
-        this.isNull = true;
+      } else if (isPlatform(prefix)) {
+        this.isNull = prefix !== RnPlatform.OS;
       } else if (isOrientation(prefix)) {
         if (!device.windowDimensions) {
           this.isNull = true;
@@ -90,8 +91,8 @@ export default class ClassParser {
         } else {
           this.incrementOrder();
         }
-      } else {
-        this.handlePossibleArbitraryBreakpointPrefix(prefix);
+      } else if (!this.handlePossibleArbitraryBreakpointPrefix(prefix)) {
+        this.isNull = true;
       }
     }
   }
@@ -316,16 +317,16 @@ export default class ClassParser {
     return null;
   }
 
-  private handlePossibleArbitraryBreakpointPrefix(prefix: string): void {
+  private handlePossibleArbitraryBreakpointPrefix(prefix: string): boolean {
     // save the expense of running the regex with a quick sniff test
-    if (prefix[0] !== `m`) return;
+    if (prefix[0] !== `m`) return false;
 
     const match = prefix.match(/^(min|max)-(w|h)-\[([^\]]+)\]$/);
-    if (!match) return;
+    if (!match) return false;
 
     if (!this.context.device?.windowDimensions) {
       this.isNull = true;
-      return;
+      return true;
     }
 
     const windowDims = this.context.device.windowDimensions;
@@ -334,7 +335,7 @@ export default class ClassParser {
     const parsedAmount = parseNumericValue(amount, this.context);
     if (parsedAmount === null) {
       this.isNull = true;
-      return;
+      return true;
     }
 
     const [bound, unit] = parsedAmount;
@@ -347,6 +348,7 @@ export default class ClassParser {
     } else {
       this.isNull = true;
     }
+    return true;
   }
 
   private advance(amount = 1): void {

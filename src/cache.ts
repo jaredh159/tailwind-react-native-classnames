@@ -4,6 +4,7 @@ import defaultStyles from './styles';
 export default class Cache {
   private ir: Map<string, StyleIR> = new Map(defaultStyles);
   private styles: Map<string, Style> = new Map();
+  private prefixes: Map<string, boolean> = new Map();
 
   public constructor(customStyles?: Array<[string, StyleIR]>) {
     this.ir = new Map([...defaultStyles, ...(customStyles ?? [])]);
@@ -23,5 +24,13 @@ export default class Cache {
 
   public setIr(key: string, ir: StyleIR): void {
     this.ir.set(key, ir);
+  }
+
+  public getPrefixMatch(key: string): boolean | undefined {
+    return this.prefixes.get(key);
+  }
+
+  public setPrefixMatch(key: string, value: boolean): void {
+    this.prefixes.set(key, value);
   }
 }

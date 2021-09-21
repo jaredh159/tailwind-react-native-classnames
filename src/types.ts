@@ -1,3 +1,14 @@
+export interface TailwindFn {
+  (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
+  style: (...inputs: ClassInput[]) => Style;
+  color: (color: string) => string | undefined;
+  prefixMatch: (...prefixes: string[]) => boolean;
+  setWindowDimensions: (dimensions: { width: number; height: number }) => unknown;
+  setFontScale: (fontScale: number) => unknown;
+  setPixelDensity: (pixelDensity: 1 | 2) => unknown;
+  setColorScheme: (colorScheme: RnColorScheme) => unknown;
+}
+
 export type ClassInput =
   | string
   | string[]
@@ -71,16 +82,6 @@ export type Direction =
 export type Style = {
   [key: string]: string[] | string | number | boolean | Style;
 };
-
-export interface TailwindFn {
-  (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
-  style: (...inputs: ClassInput[]) => Style;
-  color: (color: string) => string | undefined;
-  setWindowDimensions: (dimensions: { width: number; height: number }) => unknown;
-  setFontScale: (fontScale: number) => unknown;
-  setPixelDensity: (pixelDensity: 1 | 2) => unknown;
-  setColorScheme: (colorScheme: RnColorScheme) => unknown;
-}
 
 export enum ConfigType {
   fontSize = `fontSize`,
