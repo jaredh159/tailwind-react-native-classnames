@@ -14,6 +14,7 @@ import {
   unconfiggedStyle,
   warn,
   complete,
+  parseNumericValue,
 } from './helpers';
 import { inset } from './resolve/inset';
 import { flexGrowShrink, flex } from './resolve/flex';
@@ -80,15 +81,17 @@ export default class ClassParser {
           if (deviceOrientation !== prefix) {
             this.isNull = true;
           } else {
-            this.order = (this.order ?? 0) + 1;
+            this.incrementOrder();
           }
         }
       } else if (prefix === `dark`) {
         if (device.colorScheme !== `dark`) {
           this.isNull = true;
         } else {
-          this.order = (this.order ?? 0) + 1;
+          this.incrementOrder();
         }
+      } else {
+        this.handlePossibleArbitraryBreakpointPrefix(prefix);
       }
     }
   }
@@ -313,6 +316,39 @@ export default class ClassParser {
     return null;
   }
 
+  private handlePossibleArbitraryBreakpointPrefix(prefix: string): void {
+    // save the expense of running the regex with a quick sniff test
+    if (prefix[0] !== `m`) return;
+
+    const match = prefix.match(/^(min|max)-(w|h)-\[([^\]]+)\]$/);
+    if (!match) return;
+
+    if (!this.context.device?.windowDimensions) {
+      this.isNull = true;
+      return;
+    }
+
+    const windowDims = this.context.device.windowDimensions;
+    const [, type = ``, dir = ``, amount = ``] = match;
+    const checkDimension = dir === `w` ? windowDims.width : windowDims.height;
+    const parsedAmount = parseNumericValue(amount, this.context);
+    if (parsedAmount === null) {
+      this.isNull = true;
+      return;
+    }
+
+    const [bound, unit] = parsedAmount;
+    if (unit !== `px`) {
+      this.isNull = true;
+    }
+
+    if (type === `min` ? checkDimension >= bound : checkDimension <= bound) {
+      this.incrementOrder();
+    } else {
+      this.isNull = true;
+    }
+  }
+
   private advance(amount = 1): void {
     this.position += amount;
     this.char = this.string[this.position];
@@ -340,5 +376,9 @@ export default class ClassParser {
       this.isNegative = true;
       this.context.isNegative = true;
     }
+  }
+
+  private incrementOrder(): void {
+    this.order = (this.order ?? 0) + 1;
   }
 }

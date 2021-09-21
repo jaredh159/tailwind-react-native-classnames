@@ -29,7 +29,7 @@ const MyComponent = () => (
 - respects your `tailwind.config.js` for full configuration
 - platform prefixes: `android:mt-4 ios:mt-2`
 - dark mode support: `bg-white dark:bg-black`
-- media query suport: `w-48 lg:w-64`
+- media query suport: `w-48 lg:w-64` (also, arbitrary: `min-w-[600px]:flex-wrap`)
 - device orientation prefixes: `portrait:flex-col landscape:flex-row`
 - `vw` and `vh` unit support: `h-screen`, `min-w-screen`, `w-[25vw]`, etc...
 - arbitrary, JIT-style classes: `mt-[31px] bg-[#eaeaea] text-red-200/75`, etc...
@@ -366,6 +366,7 @@ Many of the arbitrary-style utilities made possible by Tailwind JIT are implemen
 - custom spacing: `mt-[4px]`, `-pb-[3px]`, `tracking-[2px]`
 - arbitrary fractional insets: `bottom-7/9`, `left-5/8`
 - arbitrary min/max width/height: `min-w-[40%]`, `max-h-3/8`, `w-[25vw]`, `h-[21px]`
+- arbitrary breakpoints: `min-w-[600px]:flex-row`, `max-h-[1200px]:p-4`
 
 Not every utility currently supports all variations of arbitrary values, so if you come
 across one you feel is missing, open an issue or a PR.
