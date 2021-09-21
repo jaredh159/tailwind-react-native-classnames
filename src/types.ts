@@ -20,12 +20,25 @@ export function isOrientation(x: string): x is Orientation {
   return ORIENTATIONS.includes(x as Orientation);
 }
 
+export type RnColorScheme = 'light' | 'dark' | null | undefined;
+
 export interface RnWindow {
   fontScale: number;
   height: number;
   width: number;
   scale: number; // always 1 or 2
 }
+
+export interface DeviceContext {
+  windowDimensions?: {
+    width: number;
+    height: number;
+  };
+  colorScheme?: 'light' | 'dark' | null;
+  fontScale?: number;
+  pixelDensity?: 1 | 2;
+}
+
 export type ColorStyleType =
   | 'bg'
   | 'text'
@@ -49,8 +62,6 @@ export type Direction =
   | 'BottomLeft'
   | 'BottomRight';
 
-export type RnColorScheme = 'light' | 'dark' | null | undefined;
-
 export type Style = {
   [key: string]: string[] | string | number | boolean | Style;
 };
@@ -59,7 +70,9 @@ export interface TailwindFn {
   (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
   style: (...inputs: ClassInput[]) => Style;
   color: (color: string) => string | undefined;
-  setWindow: (window: RnWindow) => unknown;
+  setWindowDimensions: (dimensions: { width: number; height: number }) => unknown;
+  setFontScale: (fontScale: number) => unknown;
+  setPixelDensity: (pixelDensity: 1 | 2) => unknown;
   setColorScheme: (colorScheme: RnColorScheme) => unknown;
 }
 

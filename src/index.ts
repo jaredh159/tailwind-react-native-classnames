@@ -4,10 +4,10 @@ import {
   DependentStyle,
   Style,
   TailwindFn,
-  RnWindow,
   RnColorScheme,
   OrderedStyle,
   StyleIR,
+  DeviceContext,
 } from './types';
 import { TwConfig } from './tw-config';
 import Cache from './cache';
@@ -17,11 +17,12 @@ import { complete, warn } from './helpers';
 import plugin, { getAddedUtilities } from './plugin';
 
 export { plugin };
+export type { TailwindFn };
+export { useDeviceContext } from './hooks';
 
 export function create(customConfig: TwConfig = {}): TailwindFn {
   const config = resolveConfig(customConfig as any) as TwConfig;
-  let window: RnWindow | undefined = undefined;
-  let colorScheme: RnColorScheme;
+  const device: DeviceContext = {};
 
   const pluginUtils = getAddedUtilities(config.plugins);
   const customStringUtils: Record<string, string> = {};
@@ -39,10 +40,11 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
   function deriveCacheGroup(): string {
     return (
       [
-        window ? `w${window.width}` : false,
-        window ? `h${window.height}` : false,
-        window ? `fs${window.fontScale}` : false,
-        colorScheme === `dark` ? `dark` : false,
+        device.windowDimensions ? `w${device.windowDimensions.width}` : false,
+        device.windowDimensions ? `h${device.windowDimensions.height}` : false,
+        device.fontScale ? `fs${device.fontScale}` : false,
+        device.colorScheme === `dark` ? `dark` : false,
+        device.pixelDensity === 2 ? `retina` : false,
       ]
         .filter(Boolean)
         .join(`--`) || `default`
@@ -85,7 +87,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
           cache.setIr(utility, complete(customStyle));
           return customStyle;
         }
-        const parser = new ClassParser(utility, config, cache, window, colorScheme);
+        const parser = new ClassParser(utility, config, cache, device);
         styleIr = parser.parse();
       }
 
@@ -165,16 +167,24 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
   tailwindFn.style = style;
   tailwindFn.color = color;
 
-  tailwindFn.setWindow = (newWindow: RnWindow) => {
-    window = newWindow;
+  tailwindFn.setWindowDimensions = (newDimensions: { width: number; height: number }) => {
+    device.windowDimensions = newDimensions;
+    cacheGroup = deriveCacheGroup();
+  };
+
+  tailwindFn.setFontScale = (newFontScale: number) => {
+    device.fontScale = newFontScale;
+    cacheGroup = deriveCacheGroup();
+  };
+
+  tailwindFn.setPixelDensity = (newPixelDensity: 1 | 2) => {
+    device.pixelDensity = newPixelDensity;
     cacheGroup = deriveCacheGroup();
   };
 
   tailwindFn.setColorScheme = (newColorScheme: RnColorScheme) => {
-    if (newColorScheme !== colorScheme) {
-      colorScheme = newColorScheme;
-      cacheGroup = deriveCacheGroup();
-    }
+    device.colorScheme = newColorScheme;
+    cacheGroup = deriveCacheGroup();
   };
 
   return tailwindFn;

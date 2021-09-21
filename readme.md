@@ -46,8 +46,8 @@ const MyComponent = () => (
 - [Installation](#installation)
 - [API](#api)
 - [Customization](#customization)
-- [Enabling Dark Mode](#enabling-dark-mode)
-- [Enabling Breakpoints](#enabling-breakpoints)
+- [Enabling Device-Context Prefixes](#enabling-device-context-prefixes)
+- [Customizing Breakpoints](#customizing-breakpoints)
 - [Adding Custom Classes](#adding-custom-classes)
 - [Box-Shadows](#box-shadows)
 - [RN-Only Additions](#rn-only-additions)
@@ -192,21 +192,20 @@ export default tw;
 import tw from './lib/tailwind';
 ```
 
-## Enabling Dark Mode
+## Enabling Device-Context Prefixes
 
-To enable **dark mode** for classes like `dark:bg-black`, you need to make the `tw`
-function aware of the current color scheme, and update it on any changes to the color
-scheme. To do that, go to the _highest-level_ component in your app, and configure it with
-`tw.setColorScheme()` as shown below:
+To enable prefixes that require runtime device data, like _dark mode_, and _screen size
+breakpoints_, you need to connect the `tw` function with a dynamic source of device
+context information. The library exports a React hook called `useDeviceContext` that takes
+care of this for you. It should be included **one time**, at the _root of your component
+hierarchy,_ as shown below:
 
 ```js
-import { useColorScheme } from 'react-native'; // 1️⃣  import `useColorScheme`
 import tw from './lib/tailwind'; // or, if no custom config: `from 'twrnc'`
+import { useDeviceContext } from 'twrnc`;
 
 export default function App() {
-  const colorScheme = useColorScheme(); // 2️⃣  use the hook
-  tw.setColorScheme(colorScheme); // 3️⃣  pass the resolved value to tw
-
+  useDeviceContext(tw); // <- 👋
   return (
     <View style={tw`bg-white dark:bg-black`}>
       <Text style={tw`text-black dark:text-white`}>Hello</Text>
@@ -215,45 +214,7 @@ export default function App() {
 }
 ```
 
-If you have a bespoke method of enabling/disabling dark mode other than relying on the
-host OS, you can call `tw.setColorScheme()` whenever you want, as long as the _type_ of
-what you pass is: `'light' | 'dark' | null | undefined` -- matching the RN type returned
-from `useColorScheme()`:
-
-```ts
-const App: React.FC = () => {
-  const [mode, setMode] = useState<'light' | 'dark'>(`light`);
-  tw.setColorScheme(mode); // 👋  <-- pass your custom dark-mode state
-  // [...]
-};
-```
-
-## Enabling Breakpoints
-
-To enable **faux media-query breakpoints** for classes like `md:flex-row`, you need to
-make the `tw` function aware of the current window, and update it on any changes to the
-same. To do that, go to the _highest-level_ component in your app, and configure it with
-`tw.setWindow()` as shown below:
-
-```js
-import { useWindowDimensions } from 'react-native'; // 1️⃣  import `useWindowDimensions`
-import tw from './lib/tailwind'; // or, if no custom config: `from 'twrnc'`
-
-export default function App() {
-  const rnWindow = useWindowDimensions(); // 2️⃣  use the hook
-  tw.setWindow(rnWindow); // 3️⃣  pass the resolved value to tw
-
-  return (
-    <View style={tw`flex-col lg:flex-row`}>
-      <Text style={tw`text-2xl`}>Hello</Text>
-      <Text style={tw`text-xl`}>World</Text>
-    </View>
-  );
-}
-```
-
-> NOTE: calling `tw.setWindow()` as shown above is also required to enable **device
-> orientation prefixes**, e.g. `portrait:flex-col landscape:flex-row`
+## Customizing Breakpoints
 
 You can **customize the breakpoints** in the same way as a
 [tailwindcss web project](https://tailwindcss.com/docs/breakpoints), using

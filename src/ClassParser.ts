@@ -1,10 +1,10 @@
+import { Platform as RnPlatform } from 'react-native';
 import fontSize from './resolve/font-size';
 import lineHeight from './resolve/line-height';
 import spacing from './resolve/spacing';
 import screens from './screens';
 import { TwConfig } from './tw-config';
-import { RnWindow, StyleIR, RnColorScheme, isOrientation, isPlatform } from './types';
-import { Platform as RnPlatform } from 'react-native';
+import { StyleIR, isOrientation, isPlatform, DeviceContext } from './types';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
@@ -35,8 +35,7 @@ export default class ClassParser {
     input: string,
     private config: TwConfig = {},
     private cache: Cache,
-    window?: RnWindow,
-    colorScheme?: RnColorScheme,
+    device: DeviceContext,
   ) {
     const parts = input.trim().split(`:`);
     let prefixes: string[] = [];
@@ -57,7 +56,7 @@ export default class ClassParser {
         if (breakpointOrder !== undefined) {
           this.order = (this.order ?? 0) + breakpointOrder;
         }
-        const windowWidth = window?.width;
+        const windowWidth = device.windowDimensions?.width;
         if (windowWidth) {
           const [min, max] = widthBreakpoints[prefix] ?? [0, 0];
           if (windowWidth <= min || windowWidth > max) {
@@ -69,11 +68,13 @@ export default class ClassParser {
         // platform prefix mismatch
         this.isNull = true;
       } else if (isOrientation(prefix)) {
-        if (!window) {
+        if (!device.windowDimensions) {
           this.isNull = true;
         } else {
           const deviceOrientation =
-            window.width > window.height ? `landscape` : `portrait`;
+            device.windowDimensions.width > device.windowDimensions.height
+              ? `landscape`
+              : `portrait`;
           if (deviceOrientation !== prefix) {
             this.isNull = true;
           } else {
@@ -81,7 +82,7 @@ export default class ClassParser {
           }
         }
       } else if (prefix === `dark`) {
-        if (colorScheme !== `dark`) {
+        if (device.colorScheme !== `dark`) {
           this.isNull = true;
         } else {
           this.order = (this.order ?? 0) + 1;
@@ -102,7 +103,7 @@ export default class ClassParser {
     }
 
     this.parseIsNegative();
-    const ir = this.parseIt();
+    const ir = this.parseUtility();
     if (!ir) {
       return { kind: `null` };
     }
@@ -114,7 +115,7 @@ export default class ClassParser {
     return ir;
   }
 
-  private parseIt(): StyleIR | null {
+  private parseUtility(): StyleIR | null {
     const theme = this.config.theme;
     let style: StyleIR | null = null;
 
@@ -126,14 +127,14 @@ export default class ClassParser {
           const prop = this.char === `m` ? `margin` : `padding`;
           this.advance((match[0]?.length ?? 0) + 1);
           const spacingDirection = getDirection(match[1]);
-          const spIr = spacing(
+          const style = spacing(
             prop,
             spacingDirection,
             this.isNegative,
             this.rest,
             this.config.theme?.[prop],
           );
-          if (spIr) return spIr;
+          if (style) return style;
         }
       }
     }

@@ -14,16 +14,16 @@ describe(`tw`, () => {
   test(`media queries`, () => {
     const config: TwConfig = { theme: { screens: { md: `768px` } } };
     tw = create(config);
-    tw.setWindow({ width: 500, height: 500, scale: 1, fontScale: 2 });
+    tw.setWindowDimensions({ width: 500, height: 500 });
     expect(tw`md:text-lg text-xs`).toMatchObject({ fontSize: 12 });
-    tw.setWindow({ width: 800, height: 500, scale: 1, fontScale: 2 });
+    tw.setWindowDimensions({ width: 800, height: 500 });
     expect(tw`md:text-lg text-xs`).toMatchObject({ fontSize: 18 });
   });
 
   test(`multiple media queries`, () => {
     const config: TwConfig = { theme: { screens: { sm: `640px`, md: `768px` } } };
     tw = create(config);
-    tw.setWindow({ width: 800, height: 0, scale: 1, fontScale: 2 });
+    tw.setWindowDimensions({ width: 800, height: 0 });
     expect(tw`text-xs sm:text-md md:text-lg`).toMatchObject({ fontSize: 18 });
     // out of order
     expect(tw`md:text-lg sm:text-base text-xs`).toMatchObject({ fontSize: 18 });
@@ -34,7 +34,7 @@ describe(`tw`, () => {
   test(`media queries + dependent style`, () => {
     const config: TwConfig = { theme: { screens: { md: `768px` } } };
     tw = create(config);
-    tw.setWindow({ width: 800, height: 0, scale: 1, fontScale: 2 });
+    tw.setWindowDimensions({ width: 800, height: 0 });
     expect(tw`text-xs leading-none md:leading-tight`).toMatchObject({
       fontSize: 12,
       lineHeight: 15,
@@ -43,13 +43,13 @@ describe(`tw`, () => {
 
   test(`orientation utilities`, () => {
     tw = create();
-    tw.setWindow({ width: 600, height: 800, scale: 1, fontScale: 2 });
+    tw.setWindowDimensions({ width: 600, height: 800 });
     expect(tw`mt-0 landscape:mt-1`).toMatchObject({ marginTop: 0 });
     expect(tw`landscape:mt-1 mt-0`).toMatchObject({ marginTop: 0 });
     expect(tw`landscape:mt-1 mt-0 portrait:mt-2`).toMatchObject({ marginTop: 8 });
     expect(tw`mt-0 portrait:mt-2 landscape:mt-1`).toMatchObject({ marginTop: 8 });
     tw = create();
-    tw.setWindow({ width: 800, height: 600, scale: 1, fontScale: 2 });
+    tw.setWindowDimensions({ width: 800, height: 600 });
     expect(tw`mt-0 landscape:mt-1`).toMatchObject({ marginTop: 4 });
     expect(tw`landscape:mt-1 mt-0`).toMatchObject({ marginTop: 4 });
     tw = create();
@@ -74,7 +74,7 @@ describe(`tw`, () => {
     rn.Platform.OS = `android`;
     const config: TwConfig = { theme: { screens: { md: `768px` } } };
     tw = create(config);
-    tw.setWindow({ width: 800, height: 0, scale: 1, fontScale: 2 });
+    tw.setWindowDimensions({ width: 800, height: 0 });
     tw.setColorScheme(`dark`);
     expect(
       tw`android:md:text-xs android:text-2xl ios:text-lg android:dark:mt-2 mt-1`,
