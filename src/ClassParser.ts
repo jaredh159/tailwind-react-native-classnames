@@ -4,7 +4,7 @@ import lineHeight from './resolve/line-height';
 import spacing from './resolve/spacing';
 import screens from './screens';
 import { TwConfig } from './tw-config';
-import { StyleIR, isOrientation, isPlatform, DeviceContext } from './types';
+import { StyleIR, isOrientation, isPlatform, DeviceContext, ParseContext } from './types';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
@@ -30,6 +30,7 @@ export default class ClassParser {
   private order?: number;
   private isNull = false;
   private isNegative = false;
+  private context: ParseContext = {};
 
   public constructor(
     input: string,
@@ -37,6 +38,7 @@ export default class ClassParser {
     private cache: Cache,
     device: DeviceContext,
   ) {
+    this.context.device = device;
     const parts = input.trim().split(`:`);
     let prefixes: string[] = [];
     if (parts.length === 1) {
@@ -140,32 +142,32 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`h-`)) {
-      style = widthHeight(`height`, this.rest, this.isNegative, theme?.height);
+      style = widthHeight(`height`, this.rest, this.context, theme?.height);
       if (style) return style;
     }
 
     if (this.consumePeeked(`w-`)) {
-      style = widthHeight(`width`, this.rest, this.isNegative, theme?.width);
+      style = widthHeight(`width`, this.rest, this.context, theme?.width);
       if (style) return style;
     }
 
     if (this.consumePeeked(`min-w-`)) {
-      style = minMaxWidthHeight(`minWidth`, this.rest, theme?.minWidth);
+      style = minMaxWidthHeight(`minWidth`, this.rest, this.context, theme?.minWidth);
       if (style) return style;
     }
 
     if (this.consumePeeked(`min-h-`)) {
-      style = minMaxWidthHeight(`minHeight`, this.rest, theme?.minHeight);
+      style = minMaxWidthHeight(`minHeight`, this.rest, this.context, theme?.minHeight);
       if (style) return style;
     }
 
     if (this.consumePeeked(`max-w-`)) {
-      style = minMaxWidthHeight(`maxWidth`, this.rest, theme?.maxWidth);
+      style = minMaxWidthHeight(`maxWidth`, this.rest, this.context, theme?.maxWidth);
       if (style) return style;
     }
 
     if (this.consumePeeked(`max-h-`)) {
-      style = minMaxWidthHeight(`maxHeight`, this.rest, theme?.maxHeight);
+      style = minMaxWidthHeight(`maxHeight`, this.rest, this.context, theme?.maxHeight);
       if (style) return style;
     }
 
@@ -193,7 +195,7 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`aspect-ratio-`)) {
-      style = getCompleteStyle(`aspectRatio`, this.rest, false, true);
+      style = getCompleteStyle(`aspectRatio`, this.rest, { fractions: true });
       if (style) return style;
     }
 
@@ -336,6 +338,7 @@ export default class ClassParser {
     if (this.char === `-`) {
       this.advance();
       this.isNegative = true;
+      this.context.isNegative = true;
     }
   }
 }

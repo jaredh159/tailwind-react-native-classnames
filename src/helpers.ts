@@ -1,4 +1,4 @@
-import { Unit, Style, Direction, CompleteStyle } from './types';
+import { Unit, Style, Direction, CompleteStyle, ParseContext } from './types';
 
 export function complete(style: Style): CompleteStyle {
   return { kind: `complete`, style };
@@ -6,8 +6,9 @@ export function complete(style: Style): CompleteStyle {
 
 export function parseNumericValue(
   value: string,
-  fractions = false,
+  context: ParseContext = {},
 ): [number, Unit] | null {
+  const { fractions } = context;
   if (fractions && value.includes(`/`)) {
     const [numerator = ``, denominator = ``] = value.split(`/`, 2);
     const parsedNumerator = parseNumericValue(numerator);
@@ -37,6 +38,10 @@ export function parseNumericValue(
       return [number, Unit.em];
     case `%`:
       return [number, Unit.percent];
+    case `vw`:
+      return [number, Unit.vw];
+    case `vh`:
+      return [number, Unit.vh];
     default:
       return null;
   }
@@ -45,10 +50,9 @@ export function parseNumericValue(
 export function getCompleteStyle(
   prop: string,
   value: string | number | undefined,
-  isNegative = false,
-  fractions = false,
+  context: ParseContext = {},
 ): CompleteStyle | null {
-  const styleVal = parseStyleVal(value, isNegative, fractions);
+  const styleVal = parseStyleVal(value, context);
   return styleVal === null ? null : complete({ [prop]: styleVal });
 }
 
@@ -71,15 +75,14 @@ export function getStyle(prop: string, value: string | number | undefined): Styl
 
 export function parseStyleVal(
   value: string | number | undefined,
-  isNegative = false,
-  fractions = false,
+  context: ParseContext = {},
 ): null | string | number {
   if (value === undefined) {
     return null;
   }
-  const parsed = parseNumericValue(String(value), fractions);
+  const parsed = parseNumericValue(String(value), context);
   if (parsed) {
-    return toStyleVal(...parsed, isNegative);
+    return toStyleVal(...parsed, context);
   } else {
     return null;
   }
@@ -88,8 +91,9 @@ export function parseStyleVal(
 export function toStyleVal(
   number: number,
   unit: Unit,
-  isNegative = false,
+  context: ParseContext = {},
 ): string | number | null {
+  const { isNegative, device } = context;
   switch (unit) {
     case Unit.rem:
       return number * 16 * (isNegative ? -1 : 1);
@@ -99,15 +103,27 @@ export function toStyleVal(
       return `${isNegative ? `-` : ``}${number}%`;
     case Unit.none:
       return number * (isNegative ? -1 : 1);
+    case Unit.vw:
+      if (!device?.windowDimensions) {
+        warn(`\`vw\` CSS unit requires configuration with \`useDeviceContext()\``);
+        return null;
+      }
+      return device.windowDimensions.width * (number / 100);
+    case Unit.vh:
+      if (!device?.windowDimensions) {
+        warn(`\`vh\` CSS unit requires configuration with \`useDeviceContext()\``);
+        return null;
+      }
+      return device.windowDimensions.height * (number / 100);
     default:
       return null;
   }
 }
 
-export function toPx(value: string): number | undefined {
+export function toPx(value: string): number | null {
   const parsed = parseNumericValue(value);
   if (!parsed) {
-    return undefined;
+    return null;
   }
   const [number, unit] = parsed;
   switch (unit) {
@@ -116,7 +132,7 @@ export function toPx(value: string): number | undefined {
     case Unit.px:
       return number;
     default:
-      return undefined;
+      return null;
   }
 }
 
@@ -148,24 +164,24 @@ export function parseAndConsumeDirection(utilityFragment: string): [string, Dire
 
 export function parseUnconfigged(
   value: string,
-  isNegative = false,
+  context: ParseContext = {},
 ): string | number | null {
   if (value.includes(`/`)) {
-    const style = unconfiggedStyleVal(value, isNegative, true);
+    const style = unconfiggedStyleVal(value, { ...context, fractions: true });
     if (style) return style;
   }
   if (value[0] === `[`) {
     value = value.slice(1, -1);
   }
-  return unconfiggedStyleVal(value, isNegative);
+  return unconfiggedStyleVal(value, context);
 }
 
 export function unconfiggedStyle(
   prop: string,
   value: string,
-  isNegative = false,
+  context: ParseContext = {},
 ): CompleteStyle | null {
-  const styleVal = parseUnconfigged(value, isNegative);
+  const styleVal = parseUnconfigged(value, context);
   if (styleVal === null) {
     return null;
   }
@@ -174,20 +190,19 @@ export function unconfiggedStyle(
 
 function unconfiggedStyleVal(
   value: string,
-  isNegative: boolean,
-  parseFraction = false,
+  context: ParseContext = {},
 ): string | number | null {
   if (value === `px`) {
     return 1;
   }
 
-  const parsed = parseNumericValue(value, parseFraction);
+  const parsed = parseNumericValue(value, context);
   if (!parsed) {
     return null;
   }
 
   let [number, unit] = parsed;
-  if (parseFraction) {
+  if (context.fractions) {
     unit = Unit.percent;
     number *= 100;
   }
@@ -200,7 +215,7 @@ function unconfiggedStyleVal(
     unit = Unit.rem;
   }
 
-  return toStyleVal(number, unit, isNegative);
+  return toStyleVal(number, unit, context);
 }
 
 function consoleWarn(...args: any[]): void {

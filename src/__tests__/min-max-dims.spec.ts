@@ -3,7 +3,10 @@ import { create } from '../';
 
 describe(`min/max width/height`, () => {
   let tw = create();
-  beforeEach(() => (tw = create()));
+  beforeEach(() => {
+    tw = create();
+    tw.setWindowDimensions({ width: 800, height: 600 });
+  });
 
   const cases: Array<[string, Record<string, string | number>]> = [
     [`min-w-0`, { minWidth: 0 }],
@@ -31,9 +34,11 @@ describe(`min/max width/height`, () => {
     [`max-w-full`, { maxWidth: `100%` }],
     [`max-h-full`, { maxHeight: `100%` }],
 
-    // @TODO when vw/vh support added
-    // [`min-h-screen`, { minHeight: 1234 }],
-    // [`min-w-screen`, { minHeight: 1234 }],
+    // vw/vh things, with device.windowDimensions
+    [`min-h-screen`, { minHeight: 600 }],
+    [`min-w-screen`, { minWidth: 800 }],
+    [`min-h-[50vh]`, { minHeight: 300 }],
+    [`min-w-[25vw]`, { minWidth: 200 }],
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {

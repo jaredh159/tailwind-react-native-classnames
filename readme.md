@@ -31,6 +31,7 @@ const MyComponent = () => (
 - dark mode support: `bg-white dark:bg-black`
 - media query suport: `w-48 lg:w-64`
 - device orientation prefixes: `portrait:flex-col landscape:flex-row`
+- `vw` and `vh` unit support: `h-screen`, `min-w-screen`, `w-[25vw]`, etc...
 - arbitrary, JIT-style classes: `mt-[31px] bg-[#eaeaea] text-red-200/75`, etc...
 - tagged template literal synax for most common usage
 - merges supplied RN style objects for unsupported utilities or complex use cases
@@ -364,7 +365,7 @@ Many of the arbitrary-style utilities made possible by Tailwind JIT are implemen
 - arbitrary opacity amounts: `opacity-73`
 - custom spacing: `mt-[4px]`, `-pb-[3px]`, `tracking-[2px]`
 - arbitrary fractional insets: `bottom-7/9`, `left-5/8`
-- arbitrary min/max width/height: `min-w-[40%]`, `max-h-3/8`
+- arbitrary min/max width/height: `min-w-[40%]`, `max-h-3/8`, `w-[25vw]`, `h-[21px]`
 
 Not every utility currently supports all variations of arbitrary values, so if you come
 across one you feel is missing, open an issue or a PR.

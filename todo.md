@@ -23,5 +23,5 @@
 - [ ] double-dashed configged colors
 - [ ] add font-scale prefix
 - [ ] add dpi/retina "scale" prefix
-- [ ] use window dimensions to support some `vw` and `vh` style utilities
+- [√] use window dimensions to support some `vw` and `vh` style utilities
 - [ ] explore writing a babel plugin to erase statically resolvable function calls

@@ -3,7 +3,10 @@ import { create } from '../';
 
 describe(`width/height utilities`, () => {
   let tw = create();
-  beforeEach(() => (tw = create()));
+  beforeEach(() => {
+    tw = create({ theme: { screens: {} } });
+    tw.setWindowDimensions({ width: 800, height: 600 });
+  });
 
   const cases: Array<[string, Record<string, string | number>]> = [
     [`w-0`, { width: 0 }],
@@ -22,7 +25,12 @@ describe(`width/height utilities`, () => {
     [`h-3/4`, { height: `75%` }],
     [`w-full`, { width: `100%` }],
     [`h-full`, { height: `100%` }],
-    // // [`w-screen`, { width: `100vw` }], // TODO, when supporting `vw`
+
+    // vw/vh
+    [`h-screen`, { height: 600 }],
+    [`h-[25vh]`, { height: 150 }],
+    [`w-screen`, { width: 800 }],
+    [`w-[50vw]`, { width: 400 }],
 
     // arbitrary
     [`h-[333px]`, { height: 333 }],

@@ -21,13 +21,13 @@ export function inset(
 
   const configValue = config?.[value];
   if (configValue) {
-    const styleVal = parseStyleVal(configValue, isNegative);
+    const styleVal = parseStyleVal(configValue, { isNegative });
     if (styleVal !== null) {
       return insetStyle(type, insetDir, styleVal);
     }
   }
 
-  const unconfigged = parseUnconfigged(value, isNegative);
+  const unconfigged = parseUnconfigged(value, { isNegative });
   if (unconfigged !== null) {
     return insetStyle(type, insetDir, unconfigged);
   }

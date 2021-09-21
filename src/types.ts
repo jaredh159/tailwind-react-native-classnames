@@ -39,6 +39,12 @@ export interface DeviceContext {
   pixelDensity?: 1 | 2;
 }
 
+export interface ParseContext {
+  isNegative?: boolean;
+  fractions?: boolean;
+  device?: DeviceContext;
+}
+
 export type ColorStyleType =
   | 'bg'
   | 'text'
@@ -113,6 +119,8 @@ export enum Unit {
   em = `em`,
   px = `px`,
   percent = `%`,
+  vw = `vw`,
+  vh = `vh`,
   none = `<no-css-unit>`,
 }
 

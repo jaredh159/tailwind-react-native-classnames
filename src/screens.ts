@@ -12,13 +12,13 @@ export default function screens(input?: TwTheme['screens']): Screens {
     const data: [number, number, number] = [0, Infinity, 0];
     const values = typeof value === `string` ? { min: value } : value;
     const minPx = values.min ? toPx(values.min) : 0;
-    if (minPx === undefined) {
+    if (minPx === null) {
       warn(`invalid screen config value: ${screen}->min: ${values.min}`);
     } else {
       data[0] = minPx;
     }
     const maxPx = values.max ? toPx(values.max) : Infinity;
-    if (maxPx === undefined) {
+    if (maxPx === null) {
       warn(`invalid screen config value: ${screen}->max: ${values.max}`);
     } else {
       data[1] = maxPx;

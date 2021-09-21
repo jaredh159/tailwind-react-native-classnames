@@ -1,29 +1,35 @@
 import { TwTheme } from '../tw-config';
-import { StyleIR } from '../types';
+import { ParseContext, StyleIR } from '../types';
 import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle } from '../helpers';
 
 export function widthHeight(
   type: 'width' | 'height',
   value: string,
-  isNegative: boolean,
+  context: ParseContext = {},
   config?: TwTheme['width'] | TwTheme['height'],
 ): StyleIR | null {
   const configValue = config?.[value];
   if (configValue !== undefined) {
-    return getCompleteStyle(type, configValue, isNegative);
+    return getCompleteStyle(type, configValue, context);
   }
 
-  return unconfiggedStyle(type, value, isNegative);
+  return unconfiggedStyle(type, value, context);
 }
 
 export function minMaxWidthHeight(
   type: 'minWidth' | 'minHeight' | 'maxWidth' | 'maxHeight',
   value: string,
+  context: ParseContext = {},
   config?: Record<string, string>,
 ): StyleIR | null {
-  const styleVal = parseStyleVal(config?.[value]);
+  const styleVal = parseStyleVal(config?.[value], context);
   if (styleVal) {
     return complete({ [type]: styleVal });
   }
-  return unconfiggedStyle(type, value);
+
+  if (value === `screen`) {
+    value = type.includes(`Width`) ? `100vw` : `100vh`;
+  }
+
+  return unconfiggedStyle(type, value, context);
 }

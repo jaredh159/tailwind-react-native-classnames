@@ -15,7 +15,7 @@ export function letterSpacing(
 ): StyleIR | null {
   const configValue = config?.[value];
   if (configValue) {
-    const parsed = parseNumericValue(configValue, isNegative);
+    const parsed = parseNumericValue(configValue, { isNegative });
     if (!parsed) {
       return null;
     }
@@ -34,14 +34,14 @@ export function letterSpacing(
       return null;
     }
 
-    const styleVal = toStyleVal(number, unit, isNegative);
+    const styleVal = toStyleVal(number, unit, { isNegative });
     if (styleVal !== null) {
       return complete({ letterSpacing: styleVal });
     }
 
     return null;
   }
-  return unconfiggedStyle(`letterSpacing`, value, isNegative);
+  return unconfiggedStyle(`letterSpacing`, value, { isNegative });
 }
 
 function relativeLetterSpacing(ems: number): DependentStyle {
