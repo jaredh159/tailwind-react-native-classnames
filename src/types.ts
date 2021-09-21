@@ -7,6 +7,7 @@ export interface TailwindFn {
   setFontScale: (fontScale: number) => unknown;
   setPixelDensity: (pixelDensity: 1 | 2) => unknown;
   setColorScheme: (colorScheme: RnColorScheme) => unknown;
+  stateUpdater: () => unknown;
 }
 
 export type ClassInput =

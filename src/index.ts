@@ -181,22 +181,28 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
     return prefixMatches;
   };
 
+  tailwindFn.stateUpdater = () => {};
+
   tailwindFn.setWindowDimensions = (newDimensions: { width: number; height: number }) => {
+    tailwindFn.stateUpdater();
     device.windowDimensions = newDimensions;
     cacheGroup = deriveCacheGroup();
   };
 
   tailwindFn.setFontScale = (newFontScale: number) => {
+    tailwindFn.stateUpdater();
     device.fontScale = newFontScale;
     cacheGroup = deriveCacheGroup();
   };
 
   tailwindFn.setPixelDensity = (newPixelDensity: 1 | 2) => {
+    tailwindFn.stateUpdater();
     device.pixelDensity = newPixelDensity;
     cacheGroup = deriveCacheGroup();
   };
 
   tailwindFn.setColorScheme = (newColorScheme: RnColorScheme) => {
+    tailwindFn.stateUpdater();
     device.colorScheme = newColorScheme;
     cacheGroup = deriveCacheGroup();
   };

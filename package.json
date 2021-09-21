@@ -18,6 +18,7 @@
     "npub:precheck": "npm run lint && npm run format:check && npm run ts:check && npm run test"
   },
   "peerDependencies": {
+    "react": ">=16.0.0",
     "react-native": ">=0.63.0",
     "tailwindcss": "^2.0.0"
   },
@@ -27,6 +28,7 @@
     "@types/react-native": "^0.64.12",
     "@types/tailwindcss": "^2.2.1",
     "metro-react-native-babel-preset": "^0.66.2",
+    "react": "^17.0.2",
     "react-native": "^0.64.2",
     "tailwindcss": "^2.2.7",
     "ts-jest": "^27.0.5"
