@@ -85,6 +85,12 @@ export default class ClassParser {
             this.incrementOrder();
           }
         }
+      } else if (prefix === `retina`) {
+        if (device.pixelDensity === 2) {
+          this.incrementOrder();
+        } else {
+          this.isNull = true;
+        }
       } else if (prefix === `dark`) {
         if (device.colorScheme !== `dark`) {
           this.isNull = true;

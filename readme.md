@@ -32,6 +32,7 @@ const MyComponent = () => (
 - media query suport: `w-48 lg:w-64` (also, arbitrary: `min-w-[600px]:flex-wrap`)
 - device orientation prefixes: `portrait:flex-col landscape:flex-row`
 - `vw` and `vh` unit support: `h-screen`, `min-w-screen`, `w-[25vw]`, etc...
+- `retina` device pixel density prefix: `w-4 retina:w-2`
 - arbitrary, JIT-style classes: `mt-[31px] bg-[#eaeaea] text-red-200/75`, etc...
 - tagged template literal synax for most common usage
 - merges supplied RN style objects for unsupported utilities or complex use cases
@@ -197,7 +198,7 @@ import tw from './lib/tailwind';
 ## Enabling Device-Context Prefixes
 
 To enable prefixes that require runtime device data, like _dark mode_, and _screen size
-breakpoints_, you need to connect the `tw` function with a dynamic source of device
+breakpoints_, etc., you need to connect the `tw` function with a dynamic source of device
 context information. The library exports a React hook called `useDeviceContext` that takes
 care of this for you. It should be included **one time**, at the _root of your component
 hierarchy,_ as shown below:

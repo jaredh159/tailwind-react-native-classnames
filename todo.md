@@ -20,8 +20,9 @@
 ## Post v2.0.0 Release
 
 - [√] portrait/landscape prefixes
+- [ ] more low-level helper utils, like `tw.windowWidth/Height(), tw.isRetina()`...
 - [ ] double-dashed configged colors
 - [ ] add font-scale prefix
-- [ ] add dpi/retina "scale" prefix
+- [√] add dpi/retina "scale" prefix
 - [√] use window dimensions to support some `vw` and `vh` style utilities
 - [ ] explore writing a babel plugin to erase statically resolvable function calls

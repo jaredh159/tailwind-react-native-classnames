@@ -304,4 +304,15 @@ describe(`tw`, () => {
     expect(tw`w-1 foo:w-2`.width).toBe(4);
     expect(tw`lol:hidden`.display).toBeUndefined();
   });
+
+  test(`retina prefix`, () => {
+    expect(tw`w-1 retina:w-2`.width).toBe(4);
+    expect(tw`retina:w-2 w-1`.width).toBe(4);
+    tw.setPixelDensity(1);
+    expect(tw`w-1 retina:w-2`.width).toBe(4);
+    expect(tw`retina:w-2 w-1`.width).toBe(4);
+    tw.setPixelDensity(2);
+    expect(tw`w-1 retina:w-2`.width).toBe(8);
+    expect(tw`retina:w-2 w-1`.width).toBe(8);
+  });
 });

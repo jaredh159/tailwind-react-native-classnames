@@ -52,4 +52,11 @@ describe(`tw.prefixMatch()`, () => {
     expect(tw.prefixMatch(`min-w-[500px]`, `ios`)).toBe(true);
     expect(tw.prefixMatch(`min-w-[500px]`, `android`)).toBe(false);
   });
+
+  test(`retina prefix`, () => {
+    tw.setPixelDensity(1);
+    expect(tw.prefixMatch(`retina`)).toBe(false);
+    tw.setPixelDensity(2);
+    expect(tw.prefixMatch(`retina`)).toBe(true);
+  });
 });
