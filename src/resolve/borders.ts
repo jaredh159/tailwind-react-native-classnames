@@ -1,6 +1,11 @@
 import { TwTheme } from '../tw-config';
 import { ColorStyleType, Direction, StyleIR } from '../types';
-import { parseAndConsumeDirection, complete, getCompleteStyle } from '../helpers';
+import {
+  parseAndConsumeDirection,
+  complete,
+  getCompleteStyle,
+  unconfiggedStyle,
+} from '../helpers';
 import { color } from './color';
 
 export function border(value: string, theme?: TwTheme): StyleIR | null {
@@ -70,9 +75,16 @@ export function borderRadius(
 
   const prop = `border${direction === `All` ? `` : direction}Radius`;
   const configValue = config[rest];
-  if (!configValue) {
+  if (configValue) {
+    return getCompleteStyle(prop, configValue);
+  }
+
+  const arbitrary = unconfiggedStyle(prop, rest);
+
+  // can't use % for border-radius in RN
+  if (typeof arbitrary?.style[prop] !== `number`) {
     return null;
   }
 
-  return getCompleteStyle(prop, configValue);
+  return arbitrary;
 }

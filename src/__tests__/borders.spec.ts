@@ -33,16 +33,21 @@ describe(`border-radius`, () => {
   let tw = create();
   beforeEach(() => (tw = create()));
 
-  const basicCases: Array<[string, Record<string, number | string>]> = [
+  const cases: Array<[string, Record<string, number | string>]> = [
     [`rounded-none`, { borderRadius: 0 }],
     [`rounded-t-2xl`, { borderTopRadius: 16 }],
     [`rounded-2xl`, { borderRadius: 16 }],
     [`rounded-l-lg`, { borderLeftRadius: 8 }],
     [`rounded-l`, { borderLeftRadius: 4 }],
     [`rounded-tl-lg`, { borderTopLeftRadius: 8 }],
+
+    // arbitrary
+    [`rounded-[30px]`, { borderRadius: 30 }],
+    [`rounded-[7rem]`, { borderRadius: 7 * 16 }],
+    [`rounded-[30%]`, {}], // not supported in RN
   ];
 
-  test.each(basicCases)(`tw\`%s\` -> %s`, (utility, expected) => {
+  test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
     expect(tw.style(utility)).toMatchObject(expected);
   });
 });
