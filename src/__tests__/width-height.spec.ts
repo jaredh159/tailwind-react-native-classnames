@@ -25,6 +25,8 @@ describe(`width/height utilities`, () => {
     [`h-3/4`, { height: `75%` }],
     [`w-full`, { width: `100%` }],
     [`h-full`, { height: `100%` }],
+    [`w-auto`, { width: `auto` }],
+    [`h-auto`, { height: `auto` }],
 
     // vw/vh
     [`h-screen`, { height: 600 }],
