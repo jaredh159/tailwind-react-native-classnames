@@ -101,6 +101,9 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`capitalize`, complete({ textTransform: `capitalize` })],
   [`normal-case`, complete({ textTransform: `none` })],
 
+  [`w-auto`, complete({ width: `auto` })],
+  [`h-auto`, complete({ height: `auto` })],
+
   // default box-shadow implementations
   [
     `shadow-sm`,
