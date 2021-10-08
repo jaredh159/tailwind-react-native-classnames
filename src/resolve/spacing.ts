@@ -20,6 +20,10 @@ export default function spacing(
     numericValue = configValue;
   }
 
+  if (numericValue === `auto`) {
+    return expand(direction, type, `auto`);
+  }
+
   const parsed = parseNumericValue(numericValue);
   if (!parsed) {
     return null;
@@ -43,16 +47,23 @@ function spacingStyle(
   if (pixels === null) {
     return null;
   }
+  return expand(direction, type, pixels);
+}
 
+function expand(
+  direction: Direction,
+  type: 'margin' | 'padding',
+  value: number | string,
+): StyleIR | null {
   switch (direction) {
     case `All`:
       return {
         kind: `complete`,
         style: {
-          [`${type}Top`]: pixels,
-          [`${type}Right`]: pixels,
-          [`${type}Bottom`]: pixels,
-          [`${type}Left`]: pixels,
+          [`${type}Top`]: value,
+          [`${type}Right`]: value,
+          [`${type}Bottom`]: value,
+          [`${type}Left`]: value,
         },
       };
     case `Bottom`:
@@ -62,23 +73,23 @@ function spacingStyle(
       return {
         kind: `complete`,
         style: {
-          [`${type}${direction}`]: pixels,
+          [`${type}${direction}`]: value,
         },
       };
     case `Vertical`:
       return {
         kind: `complete`,
         style: {
-          [`${type}Top`]: pixels,
-          [`${type}Bottom`]: pixels,
+          [`${type}Top`]: value,
+          [`${type}Bottom`]: value,
         },
       };
     case `Horizontal`:
       return {
         kind: `complete`,
         style: {
-          [`${type}Left`]: pixels,
-          [`${type}Right`]: pixels,
+          [`${type}Left`]: value,
+          [`${type}Right`]: value,
         },
       };
     default:

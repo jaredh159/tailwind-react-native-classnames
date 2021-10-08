@@ -162,39 +162,6 @@ describe(`tw`, () => {
     expect(tw`leading-huge`).toMatchObject({ lineHeight: 400 });
   });
 
-  test(`margin w/extended theme`, () => {
-    tw = create({
-      theme: {
-        extend: {
-          spacing: {
-            jared: `1000rem`,
-          },
-        },
-      },
-    });
-
-    expect(tw`m-jared`).toMatchObject({
-      marginTop: 16000,
-      marginBottom: 16000,
-      marginLeft: 16000,
-      marginRight: 16000,
-    });
-
-    expect(tw`m-1`).toMatchObject({
-      marginTop: 4,
-      marginBottom: 4,
-      marginLeft: 4,
-      marginRight: 4,
-    });
-
-    expect(tw`m-0.5`).toMatchObject({
-      marginTop: 2,
-      marginBottom: 2,
-      marginLeft: 2,
-      marginRight: 2,
-    });
-  });
-
   test(`font-family`, () => {
     expect(tw`font-sans`).toMatchObject({ fontFamily: `ui-sans-serif` });
     tw = create({ theme: { fontFamily: { sans: `font1`, serif: [`font2`, `font3`] } } });
