@@ -13,7 +13,7 @@ const MyComponent = () => (
 );
 ```
 
-#### 🚀 &nbsp;_V2 Now in Beta_ 🚀
+#### 🚀 &nbsp;_V2 Release Candidate Available_ 🚀
 
 _Help us beta-test the new V2 re-write, including dark-mode, breakpoints, JIT-mode, and
 more. Docs and migration guide
