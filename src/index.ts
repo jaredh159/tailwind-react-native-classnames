@@ -131,14 +131,16 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
       }
     }
 
+    // cache the full set of classes for future re-renders
+    // it's important we cache BEFORE merging in userStyle below
+    if (joined !== ``) {
+      cache.setStyle(joined, resolved);
+    }
+
     if (userStyle) {
       resolved = { ...resolved, ...userStyle };
     }
 
-    // cache the full set of classes for future re-renders
-    if (joined !== ``) {
-      cache.setStyle(joined, resolved);
-    }
     return resolved;
   }
 
