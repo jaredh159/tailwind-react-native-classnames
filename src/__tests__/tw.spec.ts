@@ -282,4 +282,24 @@ describe(`tw`, () => {
     expect(tw`w-1 retina:w-2`.width).toBe(8);
     expect(tw`retina:w-2 w-1`.width).toBe(8);
   });
+
+  // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/60
+  test(`user styles not mixed into cache`, () => {
+    const style = tw.style(`text-base mb-4`, { opacity: 0.5 });
+    expect(Object.keys(style)).toHaveLength(4);
+    expect(style).toMatchObject({
+      fontSize: 16,
+      lineHeight: 24,
+      marginBottom: 16,
+      opacity: 0.5,
+    });
+
+    const style2 = tw`text-base mb-4`;
+    expect(Object.keys(style2)).toHaveLength(3);
+    expect(style2).toMatchObject({
+      fontSize: 16,
+      lineHeight: 24,
+      marginBottom: 16,
+    });
+  });
 });
