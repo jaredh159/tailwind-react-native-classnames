@@ -1,9 +1,4 @@
-# Tailwind React Native Classnames (v2) 🏄‍♂️
-
-**🚨 WARNING 🚨** These are _version 2.0.0_ **beta** docs. For stable v1 docs,
-[see here.](https://github.com/jaredh159/tailwind-react-native-classnames/tree/master#readme)
-
----
+# Tailwind React Native Classnames 🏄‍♂️
 
 > A simple, expressive API for TailwindCSS + React Native, written in TypeScript
 
