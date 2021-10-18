@@ -24,7 +24,6 @@
   },
   "devDependencies": {
     "@friends-library/dev": "~4.4.1",
-    "@types/lodash.get": "^4.4.6",
     "@types/react-native": "^0.64.12",
     "@types/tailwindcss": "^2.2.1",
     "metro-react-native-babel-preset": "^0.66.2",
@@ -45,8 +44,5 @@
     "tailwindcss",
     "react-native",
     "classnames"
-  ],
-  "dependencies": {
-    "lodash.get": "^4.4.2"
-  }
+  ]
 }
