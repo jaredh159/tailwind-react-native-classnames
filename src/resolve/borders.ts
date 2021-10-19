@@ -76,7 +76,7 @@ export function borderRadius(
   const prop = `border${direction === `All` ? `` : direction}Radius`;
   const configValue = config[rest];
   if (configValue) {
-    return getCompleteStyle(prop, configValue);
+    return expand(getCompleteStyle(prop, configValue));
   }
 
   const arbitrary = unconfiggedStyle(prop, rest);
@@ -86,5 +86,23 @@ export function borderRadius(
     return null;
   }
 
-  return arbitrary;
+  return expand(arbitrary);
+}
+
+// RN only supports `borderRadius` + `border(top|bottom)(left|right)Radius`
+function expand(ir: StyleIR | null): StyleIR | null {
+  if (ir?.kind !== `complete`) return ir;
+  const top = ir.style.borderTopRadius;
+  if (top !== undefined) {
+    ir.style.borderTopLeftRadius = top;
+    ir.style.borderTopRightRadius = top;
+    delete ir.style.borderTopRadius;
+  }
+  const bottom = ir.style.borderBottomRadius;
+  if (bottom !== undefined) {
+    ir.style.borderBottomLeftRadius = bottom;
+    ir.style.borderBottomRightRadius = bottom;
+    delete ir.style.borderBottomRadius;
+  }
+  return ir;
 }
