@@ -35,7 +35,8 @@ describe(`border-radius`, () => {
 
   const cases: Array<[string, Record<string, number | string>]> = [
     [`rounded-none`, { borderRadius: 0 }],
-    [`rounded-t-2xl`, { borderTopRadius: 16 }],
+    [`rounded-t-2xl`, { borderTopLeftRadius: 16, borderTopRightRadius: 16 }],
+    [`rounded-b-2xl`, { borderBottomLeftRadius: 16, borderBottomRightRadius: 16 }],
     [`rounded-2xl`, { borderRadius: 16 }],
     [`rounded-l-lg`, { borderLeftRadius: 8 }],
     [`rounded-l`, { borderLeftRadius: 4 }],
