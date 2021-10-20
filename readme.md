@@ -24,7 +24,7 @@ const MyComponent = () => (
 - respects your `tailwind.config.js` for full configuration
 - platform prefixes: `android:mt-4 ios:mt-2`
 - dark mode support: `bg-white dark:bg-black`
-- media query suport: `w-48 lg:w-64` (also, arbitrary: `min-w-[600px]:flex-wrap`)
+- media query support: `w-48 lg:w-64` (also, arbitrary: `min-w-[600px]:flex-wrap`)
 - device orientation prefixes: `portrait:flex-col landscape:flex-row`
 - `vw` and `vh` unit support: `h-screen`, `min-w-screen`, `w-[25vw]`, etc...
 - `retina` device pixel density prefix: `w-4 retina:w-2`
