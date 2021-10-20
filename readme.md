@@ -56,7 +56,7 @@ const MyComponent = () => (
 ## Installation
 
 ```bash
-npm i twrnc@next
+npm install twrnc
 ```
 
 ## API
@@ -390,12 +390,12 @@ across one you feel is missing, open an issue or a PR.
 
 ## Migrating from V1
 
-**1.** I switched to an NPM organization, so the package has a new name. To remove the old
+**1.** During the rewrite, the package name on npm was changed to `twrnc`. To remove the old
 library and install v2, run:
 
 ```
 npm uninstall tailwind-react-native-classnames
-npm i install twrnc@next
+npm install twrnc
 ```
 
 **2.** Grep through your project replacing `from 'tailwind-react-native-classnames'` with
