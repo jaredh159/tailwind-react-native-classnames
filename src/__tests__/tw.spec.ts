@@ -57,19 +57,6 @@ describe(`tw`, () => {
     expect(tw`landscape:mt-1 mt-0 portrait:mt-2`).toMatchObject({ marginTop: 0 });
   });
 
-  test(`dark mode`, () => {
-    expect(tw`mt-1 dark:mt-2`).toMatchObject({ marginTop: 4 });
-    tw.setColorScheme(`dark`);
-    expect(tw`mt-1 dark:mt-2`).toMatchObject({ marginTop: 8 });
-    tw.setColorScheme(`light`);
-    expect(tw`mt-1 dark:mt-2`).toMatchObject({ marginTop: 4 });
-    tw.setColorScheme(undefined);
-    expect(tw`mt-1 dark:mt-2`).toMatchObject({ marginTop: 4 });
-    tw.setColorScheme(`dark`);
-    // out of order
-    expect(tw`dark:mt-2 mt-1`).toMatchObject({ marginTop: 8 });
-  });
-
   test(`multiple prefixes`, () => {
     rn.Platform.OS = `android`;
     const config: TwConfig = { theme: { screens: { md: `768px` } } };
