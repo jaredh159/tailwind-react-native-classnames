@@ -1,4 +1,4 @@
-import { ColorStyleType, StyleIR } from '../types';
+import { ColorStyleType, Style, StyleIR } from '../types';
 import { TwColors } from '../tw-config';
 import { warn, complete } from '../helpers';
 
@@ -63,7 +63,6 @@ export function color(
       const opacity = style[opacityProp];
       if (typeof opacity === `number`) {
         color = addOpacity(color, opacity);
-        delete style[opacityProp];
       }
       style[STYLE_PROPS[type].color] = color;
     },
@@ -89,6 +88,14 @@ function addOpacity(color: string, opacity: number): string {
   }
   // @TODO: support hls/hlsa if anyone opens an issue...
   return color.replace(/, ?\d*\.?(\d+)\)$/, `, ${opacity})`);
+}
+
+export function removeOpacityHelpers(style: Style): void {
+  for (const key in style) {
+    if (key.startsWith(`__opacity_`)) {
+      delete style[key];
+    }
+  }
 }
 
 const STYLE_PROPS = {

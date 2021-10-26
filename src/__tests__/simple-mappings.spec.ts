@@ -160,6 +160,6 @@ describe(`simple style mappings`, () => {
   ];
 
   test.each(cases)(`utility %s -> %s`, (utility, style) => {
-    expect(tw.style(utility)).toMatchObject(style);
+    expect(tw.style(utility)).toEqual(style);
   });
 });

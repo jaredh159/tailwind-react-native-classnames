@@ -15,6 +15,7 @@ import ClassParser from './ClassParser';
 import { parseInputs } from './parse-inputs';
 import { complete, warn } from './helpers';
 import plugin, { getAddedUtilities } from './plugin';
+import { removeOpacityHelpers } from './resolve/color';
 
 export { plugin };
 export type { TailwindFn };
@@ -129,6 +130,7 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
           warn(error);
         }
       }
+      removeOpacityHelpers(resolved);
     }
 
     // cache the full set of classes for future re-renders

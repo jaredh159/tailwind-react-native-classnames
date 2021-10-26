@@ -25,6 +25,6 @@ describe(`arbitrary breakpoint prefixes`, () => {
     if (dims) {
       tw.setWindowDimensions(dims);
     }
-    expect(tw.style(utility)).toMatchObject(expected);
+    expect(tw.style(utility)).toEqual(expected);
   });
 });
