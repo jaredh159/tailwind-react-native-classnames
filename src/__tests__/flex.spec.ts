@@ -15,7 +15,7 @@ describe(`flex grow/shrink`, () => {
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
-    expect(tw.style(utility)).toMatchObject(expected);
+    expect(tw.style(utility)).toEqual(expected);
   });
 });
 
@@ -51,6 +51,6 @@ describe(`flex shorthand utilities`, () => {
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected, config) => {
     const tw = create(config ? { theme: { flex: config } } : {});
-    expect(tw.style(utility)).toMatchObject(expected);
+    expect(tw.style(utility)).toEqual(expected);
   });
 });

@@ -27,6 +27,6 @@ describe(`inset`, () => {
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
-    expect(tw.style(utility)).toMatchObject(expected);
+    expect(tw.style(utility)).toEqual(expected);
   });
 });

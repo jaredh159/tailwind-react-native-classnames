@@ -27,7 +27,7 @@ describe(`margin`, () => {
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
-    expect(tw.style(utility)).toMatchObject(expected);
+    expect(tw.style(utility)).toEqual(expected);
   });
 
   test(`margin w/extended theme`, () => {
@@ -41,21 +41,21 @@ describe(`margin`, () => {
       },
     });
 
-    expect(tw`m-custom`).toMatchObject({
+    expect(tw`m-custom`).toEqual({
       marginTop: 16000,
       marginBottom: 16000,
       marginLeft: 16000,
       marginRight: 16000,
     });
 
-    expect(tw`m-1`).toMatchObject({
+    expect(tw`m-1`).toEqual({
       marginTop: 4,
       marginBottom: 4,
       marginLeft: 4,
       marginRight: 4,
     });
 
-    expect(tw`m-0.5`).toMatchObject({
+    expect(tw`m-0.5`).toEqual({
       marginTop: 2,
       marginBottom: 2,
       marginLeft: 2,
