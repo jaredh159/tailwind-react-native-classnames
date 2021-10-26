@@ -25,7 +25,20 @@ describe(`dark mode`, () => {
 
     tw.setColorScheme(`dark`);
 
-    const style = tw`bg-gray-100 dark:bg-gray-800 bg-opacity-50`;
-    expect(style).toEqual({ backgroundColor: `rgba(31, 41, 55, 0.5)` });
+    expect(tw`bg-gray-100 dark:bg-gray-800 bg-opacity-50`).toEqual({
+      backgroundColor: `rgba(31, 41, 55, 0.5)`,
+    });
+  });
+
+  test(`dark mode opacity shorthands`, () => {
+    expect(tw`bg-gray-100/50 dark:bg-gray-800/50`).toEqual({
+      backgroundColor: `rgba(243, 244, 246, 0.5)`,
+    });
+
+    tw.setColorScheme(`dark`);
+
+    expect(tw`bg-gray-100/50 dark:bg-gray-800/50`).toEqual({
+      backgroundColor: `rgba(31, 41, 55, 0.5)`,
+    });
   });
 });
