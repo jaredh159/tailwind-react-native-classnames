@@ -11,6 +11,21 @@ describe(`tw`, () => {
   let tw = create();
   beforeEach(() => (tw = create()));
 
+  test(`font-sizes`, () => {
+    expect(tw`text-xs`).toMatchObject({ fontSize: 12 });
+    expect(tw`text-sm`).toMatchObject({ fontSize: 14 });
+    expect(tw`text-base`).toMatchObject({ fontSize: 16 });
+    expect(tw`text-lg`).toMatchObject({ fontSize: 18 });
+    expect(tw`text-2xl`).toMatchObject({ fontSize: 24 });
+    expect(tw`text-3xl`).toMatchObject({ fontSize: 30 });
+    expect(tw`text-4xl`).toMatchObject({ fontSize: 36 });
+    expect(tw`text-5xl`).toMatchObject({ fontSize: 48 });
+    expect(tw`text-6xl`).toMatchObject({ fontSize: 60 });
+    expect(tw`text-7xl`).toMatchObject({ fontSize: 72 });
+    expect(tw`text-8xl`).toMatchObject({ fontSize: 96 });
+    expect(tw`text-9xl`).toMatchObject({ fontSize: 128 });
+  });
+
   test(`media queries`, () => {
     const config: TwConfig = { theme: { screens: { md: `768px` } } };
     tw = create(config);
