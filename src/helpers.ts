@@ -227,4 +227,6 @@ function noopWarn(..._: any[]): void {
 }
 
 export const warn: (...args: any[]) => void =
-  process?.env?.JEST_WORKER_ID === undefined ? consoleWarn : noopWarn;
+  typeof process === `undefined` || process?.env?.JEST_WORKER_ID === undefined
+    ? consoleWarn
+    : noopWarn;
