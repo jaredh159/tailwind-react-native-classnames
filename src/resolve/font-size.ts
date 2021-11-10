@@ -1,6 +1,12 @@
 import { TwTheme } from '../tw-config';
-import { Style, StyleIR } from '../types';
-import { getCompleteStyle, complete, getStyle, mergeStyle } from '../helpers';
+import { Style, StyleIR, Unit } from '../types';
+import {
+  getCompleteStyle,
+  complete,
+  getStyle,
+  mergeStyle,
+  parseNumericValue,
+} from '../helpers';
 
 export default function fontSize(
   value: string,
@@ -23,12 +29,12 @@ export default function fontSize(
   }
 
   if (typeof rest === `string`) {
-    return complete(mergeStyle(`lineHeight`, rest, style));
+    return complete(mergeStyle(`lineHeight`, calculateLineHeight(rest, style), style));
   }
 
   const { lineHeight, letterSpacing } = rest;
   if (lineHeight) {
-    mergeStyle(`lineHeight`, lineHeight, style);
+    mergeStyle(`lineHeight`, calculateLineHeight(lineHeight, style), style);
   }
 
   if (letterSpacing) {
@@ -36,4 +42,16 @@ export default function fontSize(
   }
 
   return complete(style);
+}
+
+// calculates line-height for relative units
+function calculateLineHeight(lineHeight: string, style: Style): number | string {
+  const parsed = parseNumericValue(lineHeight);
+  if (parsed) {
+    const [number, unit] = parsed;
+    if ((unit === Unit.none || unit === Unit.em) && typeof style.fontSize === `number`) {
+      return style.fontSize * number;
+    }
+  }
+  return lineHeight;
 }
