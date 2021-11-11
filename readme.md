@@ -88,7 +88,7 @@ configuration):
 tw`flex-col lg:flex-row`;
 ```
 
-Dark mode support (see [Dark mode](#darkmode) for configuration);
+Dark mode support (see [here](#enabling-device-context-prefixes) for configuration);
 
 ```js
 // 😎 dark mode support
@@ -200,7 +200,7 @@ hierarchy,_ as shown below:
 
 ```js
 import tw from './lib/tailwind'; // or, if no custom config: `from 'twrnc'`
-import { useDeviceContext } from 'twrnc`;
+import { useDeviceContext } from 'twrnc';
 
 export default function App() {
   useDeviceContext(tw); // <- 👋
@@ -390,8 +390,8 @@ across one you feel is missing, open an issue or a PR.
 
 ## Migrating from V1
 
-**1.** During the rewrite, the package name on npm was changed to `twrnc`. To remove the old
-library and install v2, run:
+**1.** During the rewrite, the package name on npm was changed to `twrnc`. To remove the
+old library and install v2, run:
 
 ```
 npm uninstall tailwind-react-native-classnames
