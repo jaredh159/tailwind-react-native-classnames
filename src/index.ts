@@ -18,7 +18,7 @@ import plugin, { getAddedUtilities } from './plugin';
 import { removeOpacityHelpers } from './resolve/color';
 
 export { plugin };
-export type { TailwindFn };
+export type { TailwindFn, TwConfig };
 export { useDeviceContext } from './hooks';
 
 export function create(customConfig: TwConfig = {}): TailwindFn {
