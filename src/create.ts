@@ -1,4 +1,4 @@
-import resolveConfig from "tailwindcss/resolveConfig";
+import resolveConfig from 'tailwindcss/resolveConfig';
 import {
   ClassInput,
   DependentStyle,
@@ -9,14 +9,14 @@ import {
   StyleIR,
   DeviceContext,
   Platform,
-} from "./types";
-import { TwConfig } from "./tw-config";
-import Cache from "./cache";
-import ClassParser from "./ClassParser";
-import { parseInputs } from "./parse-inputs";
-import { complete, warn } from "./helpers";
-import { getAddedUtilities } from "./plugin";
-import { removeOpacityHelpers } from "./resolve/color";
+} from './types';
+import { TwConfig } from './tw-config';
+import Cache from './cache';
+import ClassParser from './ClassParser';
+import { parseInputs } from './parse-inputs';
+import { complete, warn } from './helpers';
+import { getAddedUtilities } from './plugin';
+import { removeOpacityHelpers } from './resolve/color';
 
 export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   const config = resolveConfig(customConfig as any) as TwConfig;
@@ -150,7 +150,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
         .split(/\s+/g)
         .map((util) => util.replace(/^(bg|text)-/, ``))
         .map((util) => `bg-${util}`)
-        .join(` `)
+        .join(` `),
     );
     return typeof styleObj.backgroundColor === `string`
       ? styleObj.backgroundColor
@@ -158,10 +158,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   }
 
   // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const tailwindFn = (
-    strings: TemplateStringsArray,
-    ...values: (string | number)[]
-  ) => {
+  const tailwindFn = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
     let str = ``;
     strings.forEach((string, i) => {
       str += string + (values[i] || ``);
@@ -179,23 +176,14 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     if (cached !== undefined) {
       return cached;
     }
-    const parser = new ClassParser(
-      `${joined}:flex`,
-      config,
-      cache,
-      device,
-      platform
-    );
+    const parser = new ClassParser(`${joined}:flex`, config, cache, device, platform);
     const ir = parser.parse();
     const prefixMatches = ir.kind !== `null`;
     cache.setPrefixMatch(joined, prefixMatches);
     return prefixMatches;
   };
 
-  tailwindFn.setWindowDimensions = (newDimensions: {
-    width: number;
-    height: number;
-  }) => {
+  tailwindFn.setWindowDimensions = (newDimensions: { width: number; height: number }) => {
     device.windowDimensions = newDimensions;
     cacheGroup = deriveCacheGroup();
   };

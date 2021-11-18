@@ -3,7 +3,14 @@ import lineHeight from './resolve/line-height';
 import spacing from './resolve/spacing';
 import screens from './screens';
 import { TwConfig } from './tw-config';
-import { StyleIR, isOrientation, isPlatform, DeviceContext, ParseContext, Platform } from './types';
+import {
+  StyleIR,
+  isOrientation,
+  isPlatform,
+  DeviceContext,
+  ParseContext,
+  Platform,
+} from './types';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
@@ -37,7 +44,7 @@ export default class ClassParser {
     private config: TwConfig = {},
     private cache: Cache,
     device: DeviceContext,
-    platform: Platform
+    platform: Platform,
   ) {
     this.context.device = device;
     const parts = input.trim().split(`:`);
