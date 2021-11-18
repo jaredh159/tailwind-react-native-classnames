@@ -3,7 +3,9 @@
   "version": "2.0.6",
   "description": "simple, expressive API for tailwindcss + react-native",
   "author": "Jared Henderson <jared@netrivet.com>",
-  "main": "dist/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/index.js",
+  "react-native": "dist/index.js",
   "license": "MIT",
   "scripts": {
     "test": "jest",
@@ -14,7 +16,7 @@
     "ts:check": "fldev ts:check",
     "format": "fldev format",
     "format:check": "fldev format --check",
-    "compile": "fldev ts:compile",
+    "compile": "fldev ts:compile && fldev ts:compile -p tsconfig.cjs.json",
     "prepublishOnly": "npm run compile",
     "npub:precheck": "npm run lint && npm run format:check && npm run ts:check && npm run test"
   },
