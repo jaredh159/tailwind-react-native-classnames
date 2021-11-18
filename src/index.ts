@@ -82,15 +82,16 @@ export function create(customConfig: TwConfig = {}): TailwindFn {
 
     for (const utility of utilities) {
       let styleIr = cache.getIr(utility);
-      if (!styleIr) {
-        if (utility in customStringUtils) {
-          const customStyle = style(customStringUtils[utility]);
-          cache.setIr(utility, complete(customStyle));
-          return customStyle;
-        }
-        const parser = new ClassParser(utility, config, cache, device);
-        styleIr = parser.parse();
+
+      if (!styleIr && utility in customStringUtils) {
+        const customStyle = style(customStringUtils[utility]);
+        cache.setIr(utility, complete(customStyle));
+        resolved = { ...resolved, ...customStyle };
+        continue;
       }
+
+      const parser = new ClassParser(utility, config, cache, device);
+      styleIr = parser.parse();
 
       switch (styleIr.kind) {
         case `complete`:

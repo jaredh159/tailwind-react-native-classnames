@@ -1,6 +1,6 @@
 {
   "name": "twrnc",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "simple, expressive API for tailwindcss + react-native",
   "author": "Jared Henderson <jared@netrivet.com>",
   "main": "dist/cjs/index.js",
