@@ -18,10 +18,11 @@ describe(`tw.prefixMatch()`, () => {
 
   test(`platform prefixes`, () => {
     rn.Platform.OS = `ios`;
+    tw = create();
     expect(tw.prefixMatch(`ios`)).toBe(true);
     expect(tw.prefixMatch(`android`)).toBe(false);
-    tw = create();
     rn.Platform.OS = `android`;
+    tw = create();
     expect(tw.prefixMatch(`ios`)).toBe(false);
     expect(tw.prefixMatch(`android`)).toBe(true);
   });
@@ -46,6 +47,7 @@ describe(`tw.prefixMatch()`, () => {
 
   test(`multiple prefixes`, () => {
     rn.Platform.OS = `ios`;
+    tw = create();
     tw.setWindowDimensions({ width: 800, height: 600 });
     expect(tw.prefixMatch(`min-w-[500px]`, `max-w-[600px]`)).toBe(false);
     expect(tw.prefixMatch(`min-w-[500px]`, `max-w-[900px]`)).toBe(true);
