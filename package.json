@@ -16,7 +16,9 @@
     "ts:check": "fldev ts:check",
     "format": "fldev format",
     "format:check": "fldev format --check",
-    "compile": "fldev ts:compile && fldev ts:compile --project tsconfig.cjs.json",
+    "compile": "npm run compile:esm && npm run compile:cjs",
+    "compile:esm": "fldev ts:compile",
+    "compile:cjs": "fldev ts:compile --project tsconfig.cjs.json",
     "prepublishOnly": "npm run compile",
     "npub:precheck": "npm run lint && npm run format:check && npm run ts:check && npm run test"
   },
