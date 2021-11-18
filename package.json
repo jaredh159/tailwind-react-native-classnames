@@ -6,6 +6,21 @@
   "module": "dist/esm/index.js",
   "types": "dist/esm/index.d.ts",
   "main": "dist/cjs/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
+    },
+    "./create": {
+      "import": "./dist/esm/create.js",
+      "require": "./dist/cjs/create.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "create": ["./dist/esm/create.d.ts"]
+    }
+  },
   "license": "MIT",
   "scripts": {
     "test": "jest",
