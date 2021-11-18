@@ -1,7 +1,9 @@
 .DS_Store
 node_modules/
-jest.config.js
+jest.config.json
+src/
 *.swp
 *.md
 tsconfig.json
+tsconfig.cjs.json
 babel.config.js
