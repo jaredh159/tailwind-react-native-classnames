@@ -20,7 +20,20 @@ describe(`custom registered utilities`, () => {
     const tw = create(config);
     expect(tw`btn`).toEqual({ paddingTop: 33 });
     expect(tw`custom`).toEqual({ marginTop: 4, color: `#fff` });
-    expect(tw`custom`).toEqual({ marginTop: 4, color: `#fff` });
+  });
+
+  test(`registered custom utilities merge with regular utilities`, () => {
+    const config: TwConfig = {
+      plugins: [
+        plugin(({ addUtilities }) => {
+          addUtilities({
+            custom: `mt-1 text-white`,
+          });
+        }),
+      ],
+    };
+    const tw = create(config);
+    expect(tw`custom mr-1`).toEqual({ marginTop: 4, color: `#fff`, marginRight: 4 });
   });
 
   test(`register custom utilities, using tailwindcss fn`, () => {
