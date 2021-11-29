@@ -7,6 +7,7 @@
   "types": "dist/esm/index.d.ts",
   "main": "dist/cjs/index.js",
   "exports": {
+    "./package.json": "./package.json",
     ".": {
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
@@ -18,7 +19,9 @@
   },
   "typesVersions": {
     "*": {
-      "create": ["./dist/esm/create.d.ts"]
+      "create": [
+        "./dist/esm/create.d.ts"
+      ]
     }
   },
   "license": "MIT",
