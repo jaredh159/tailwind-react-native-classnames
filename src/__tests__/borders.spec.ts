@@ -40,6 +40,7 @@ describe(`border-radius`, () => {
     [`rounded-2xl`, { borderRadius: 16 }],
     [`rounded-l-lg`, { borderLeftRadius: 8 }],
     [`rounded-l`, { borderLeftRadius: 4 }],
+    [`rounded-r`, { borderRightRadius: 4 }],
     [`rounded-tl-lg`, { borderTopLeftRadius: 8 }],
 
     // arbitrary
