@@ -6,7 +6,7 @@
     "noImplicitOverride": true,
     "skipLibCheck": true,
     "rootDir": "./src",
-    "outDir": "./dist",
+    "outDir": "./dist/esm",
     "lib": ["ES2019"],
     "target": "ES2019",
     "declaration": true,

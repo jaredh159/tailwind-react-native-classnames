@@ -1,10 +1,16 @@
-import { Platform as RnPlatform } from 'react-native';
 import fontSize from './resolve/font-size';
 import lineHeight from './resolve/line-height';
 import spacing from './resolve/spacing';
 import screens from './screens';
 import { TwConfig } from './tw-config';
-import { StyleIR, isOrientation, isPlatform, DeviceContext, ParseContext } from './types';
+import {
+  StyleIR,
+  isOrientation,
+  isPlatform,
+  DeviceContext,
+  ParseContext,
+  Platform,
+} from './types';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
@@ -38,6 +44,7 @@ export default class ClassParser {
     private config: TwConfig = {},
     private cache: Cache,
     device: DeviceContext,
+    platform: Platform,
   ) {
     this.context.device = device;
     const parts = input.trim().split(`:`);
@@ -70,7 +77,7 @@ export default class ClassParser {
           this.isNull = true;
         }
       } else if (isPlatform(prefix)) {
-        this.isNull = prefix !== RnPlatform.OS;
+        this.isNull = prefix !== platform;
       } else if (isOrientation(prefix)) {
         if (!device.windowDimensions) {
           this.isNull = true;
