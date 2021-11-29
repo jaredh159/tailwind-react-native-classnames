@@ -1,3 +1,5 @@
+import type { ViewStyle } from 'react-native';
+
 export interface TailwindFn {
   (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
   style: (...inputs: ClassInput[]) => Style;
@@ -15,7 +17,8 @@ export type ClassInput =
   | boolean
   | null
   | undefined
-  | { [k: string]: boolean | string | number };
+  | { [k: string]: boolean | string | number }
+  | ViewStyle;
 
 export const PLATFORMS = [`ios`, `android`, `windows`, `macos`, `web`] as const;
 export type Platform = typeof PLATFORMS[number];
