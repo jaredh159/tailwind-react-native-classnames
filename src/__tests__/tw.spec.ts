@@ -1,4 +1,4 @@
-import rn from 'react-native';
+import rn, { ViewStyle } from 'react-native';
 import { describe, test, expect } from '@jest/globals';
 import { create } from '../';
 import { TwConfig } from '../tw-config';
@@ -314,5 +314,11 @@ describe(`tw`, () => {
       lineHeight: 24,
       marginBottom: 16,
     });
+  });
+
+  // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/96
+  test(`no typescript error when passing ViewStyle to tw.style()`, () => {
+    const rnViewStyle: ViewStyle = { backgroundColor: `#ff000` };
+    expect(tw.style(rnViewStyle)).toEqual({ backgroundColor: `#ff000` });
   });
 });
