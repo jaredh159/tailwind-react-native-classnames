@@ -13,6 +13,7 @@ describe(`width/height utilities`, () => {
     [`h-0`, { height: 0 }],
     [`w-px`, { width: 1 }],
     [`h-px`, { height: 1 }],
+    [`w-0.25`, { width: 1 }],
     [`w-0.5`, { width: 2 }],
     [`h-0.5`, { height: 2 }],
     [`w-1`, { width: 4 }],

@@ -1,5 +1,5 @@
 import { Platform } from 'react-native';
-import { TailwindFn } from './types';
+import { TailwindFn, RnColorScheme } from './types';
 import { TwConfig } from './tw-config';
 import plugin from './plugin';
 import rawCreate from './create';
@@ -8,8 +8,8 @@ import rawCreate from './create';
 const create = (twConfig: TwConfig = {}): TailwindFn => rawCreate(twConfig, Platform.OS);
 
 export { create, plugin };
-export type { TailwindFn, TwConfig };
-export { useDeviceContext } from './hooks';
+export type { TailwindFn, TwConfig, RnColorScheme };
+export { useDeviceContext, useAppColorScheme } from './hooks';
 
 const tailwind = create();
 
