@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
 import { Direction, Unit, StyleIR } from '../types';
-import { parseNumericValue, toStyleVal } from '../helpers';
+import { parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
 
 export default function spacing(
   type: 'margin' | 'padding',
@@ -14,10 +14,16 @@ export default function spacing(
     numericValue = value.slice(1, -1);
   } else {
     const configValue = config?.[value];
+
     if (!configValue) {
+      const unconfigged = parseUnconfigged(value);
+      if (unconfigged && typeof unconfigged === `number`) {
+        return spacingStyle(unconfigged, Unit.px, direction, type);
+      }
       return null;
+    } else {
+      numericValue = configValue;
     }
-    numericValue = configValue;
   }
 
   if (numericValue === `auto`) {
