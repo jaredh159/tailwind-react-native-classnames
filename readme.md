@@ -44,6 +44,7 @@ const MyComponent = () => (
 - [API](#api)
 - [Customization](#customization)
 - [Enabling Device-Context Prefixes](#enabling-device-context-prefixes)
+- [Taking Control of Dark Mode](#taking-control-of-dark-mode)
 - [Customizing Breakpoints](#customizing-breakpoints)
 - [Adding Custom Classes](#adding-custom-classes)
 - [Matching Conditional Prefixes](#matchinb-conditional-prefixes)
@@ -211,6 +212,37 @@ export default function App() {
   );
 }
 ```
+
+## Taking Control of Dark Mode
+
+By default, if you use `useDeviceContext()` as outlined above, your app will respond to
+ambient changes in the _device's color scheme_ (set in system preferences). If you'd
+prefer to **explicitly control** the color scheme of your app with some in-app mechanism,
+you'll need to configure things slightly differently:
+
+```js
+import { useDeviceContext, useAppColorScheme } from 'twrnc';
+
+export default function App() {
+  // 1️⃣  opt OUT of listening to DEVICE color scheme events
+  useDeviceContext(tw, { withDeviceColorScheme: false });
+
+  // 2️⃣  use the `useAppColorScheme` hook to get a reference to the current color
+  // scheme, with some functions to modify it (triggering re-renders) when you need to
+  const [colorScheme, toggleColorScheme, setColorScheme] = useAppColorScheme(tw);
+
+  return (
+    {/* 3️⃣ use one of the setter functions, like `toggleColorScheme` in your app */}
+    <TouchableOpacity onPress={toggleColorScheme}>
+      <Text style={tw`text-black dark:text-white`}>Switch Color Scheme</Text>
+    </TouchableOpacity>
+  );
+}
+```
+
+`useAppColorScheme()` accepts an optional second argument of an _initial value for the
+color scheme._ If not supplied, it will be initialized to the current system setting at
+the time the function is called.
 
 ## Customizing Breakpoints
 

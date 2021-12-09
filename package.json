@@ -48,9 +48,11 @@
   },
   "devDependencies": {
     "@friends-library/dev": "~4.4.1",
+    "@types/react": "^17.0.37",
     "@types/react-native": "^0.64.12",
     "@types/tailwindcss": "^2.2.1",
     "metro-react-native-babel-preset": "^0.66.2",
+    "react": "^17.0.2",
     "react-native": "^0.64.2",
     "tailwindcss": "^2.2.7",
     "ts-jest": "^27.0.5"
