@@ -34,7 +34,7 @@ export function color(
     color = group.DEFAULT;
 
     // for arbitrary support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`
-  } else if (value.startsWith(`[`)) {
+  } else if (value.startsWith(`[#`) || value.startsWith(`[rgb`)) {
     color = value.slice(1, -1);
 
     // for `bg-custom` in config = { custom: '#0f0` }

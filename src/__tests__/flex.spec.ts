@@ -34,6 +34,7 @@ describe(`flex shorthand utilities`, () => {
 
       // arbitrary
       [`flex-33`, { flexGrow: 33, flexBasis: `0%` }, null],
+      [`flex-0.2`, { flexGrow: 0.2, flexBasis: `0%` }, null],
 
       // configged with two numeric values
       [`flex-custom`, { flexGrow: 11, flexShrink: 22 }, { custom: `11 22` }],
