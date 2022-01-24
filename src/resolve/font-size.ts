@@ -1,20 +1,22 @@
 import { TwTheme } from '../tw-config';
-import { Style, StyleIR, Unit } from '../types';
+import { ParseContext, Style, StyleIR, Unit } from '../types';
 import {
   getCompleteStyle,
   complete,
   getStyle,
   mergeStyle,
   parseNumericValue,
+  unconfiggedStyle,
 } from '../helpers';
 
 export default function fontSize(
   value: string,
   config?: TwTheme['fontSize'],
+  context: ParseContext = {},
 ): StyleIR | null {
   const configValue = config?.[value];
   if (!configValue) {
-    return null;
+    return unconfiggedStyle(`fontSize`, value, context);
   }
 
   if (typeof configValue === `string`) {

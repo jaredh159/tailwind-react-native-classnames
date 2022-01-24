@@ -194,7 +194,7 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`text-`)) {
-      style = fontSize(this.rest, theme?.fontSize);
+      style = fontSize(this.rest, theme?.fontSize, this.context);
       if (style) return style;
 
       style = color(`text`, this.rest, theme?.textColor);

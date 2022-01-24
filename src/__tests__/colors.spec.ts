@@ -1,5 +1,6 @@
 import { describe, test, expect } from '@jest/globals';
 import { create } from '../';
+import { color } from '../resolve/color';
 
 describe(`colors`, () => {
   let tw = create();
@@ -91,5 +92,9 @@ describe(`colors`, () => {
 
   test(`transparent`, () => {
     expect(tw`text-transparent`).toEqual({ color: `transparent` });
+  });
+
+  test(`non-color arbitrary value not returned`, () => {
+    expect(color(`text`, `[50vh]`, {})).toBeNull();
   });
 });
