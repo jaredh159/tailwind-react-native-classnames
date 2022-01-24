@@ -25,7 +25,7 @@ export function flex(value: string, config?: TwTheme['flex']): StyleIR | null {
 
   // @see https://developer.mozilla.org/en-US/docs/Web/CSS/flex
   // MDN: One value, unitless number: flex-grow flex-basis is then equal to 0.
-  if (value.match(/^\d+$/)) {
+  if (value.match(/^\d+(\.\d+)?$/)) {
     return complete({
       flexGrow: Number(value),
       flexBasis: `0%`,
