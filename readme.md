@@ -21,6 +21,7 @@ const MyComponent = () => (
   [image](https://reactnative.dev/docs/image-style-props),
   [shadow](https://reactnative.dev/docs/shadow-props), and
   [text](https://reactnative.dev/docs/text-style-props)).
+- compatible with Tailwind CSS v3 and v2
 - respects your `tailwind.config.js` for full configuration
 - platform prefixes: `android:mt-4 ios:mt-2`
 - dark mode support: `bg-white dark:bg-black`
