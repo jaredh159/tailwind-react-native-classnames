@@ -40,21 +40,18 @@
     "prepublishOnly": "npm run compile",
     "npub:precheck": "npm run lint && npm run format:check && npm run ts:check && npm run test"
   },
-  "dependencies": {
-    "tailwindcss": "^2.0.0"
-  },
   "peerDependencies": {
     "react-native": ">=0.63.0"
   },
   "devDependencies": {
-    "@friends-library/dev": "~4.4.1",
+    "@friends-library/dev": "~4.5.0",
     "@types/react": "^17.0.37",
     "@types/react-native": "^0.64.12",
     "@types/tailwindcss": "^2.2.1",
     "metro-react-native-babel-preset": "^0.66.2",
     "react": "^17.0.2",
     "react-native": "^0.64.2",
-    "tailwindcss": "^2.2.7",
+    "tailwindcss": "^3.0.16",
     "ts-jest": "^27.0.5"
   },
   "homepage": "https://github.com/jaredh159/tailwind-react-native-classnames",
