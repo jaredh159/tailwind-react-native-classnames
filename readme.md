@@ -52,6 +52,7 @@ const MyComponent = () => (
 - [Box-Shadows](#box-shadows)
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
+- [Migrating from V2](#migrating-from-v2)
 - [Migrating from V1](#migrating-from-v1)
 - [Prior Art](#prior-art)
 
@@ -420,6 +421,26 @@ Many of the arbitrary-style utilities made possible by Tailwind JIT are implemen
 
 Not every utility currently supports all variations of arbitrary values, so if you come
 across one you feel is missing, open an issue or a PR.
+
+## Migrating from V2
+
+**Color renames**. In line with the
+[upgrade guide](https://tailwindcss.com/docs/upgrade-guide#removed-color-aliases),
+tailwind v3 has mapped `green`, `yellow`, and `purple` to their extended colors.
+Additionally,
+[gray colors](https://tailwindcss.com/docs/upgrade-guide#renamed-gray-scales) were renamed
+in the extended colors to be more specific. Both of these can be resolved by following
+tailwind's upgrade guide and optionally re-aliasing the colors in your
+`tailwind.config.js`.
+
+Other than checking on any changes caused by color renames in tailwindcss, there are no
+breaking changes in V3 of this library, no further changes should be necessary.
+
+New v3 prefixes and classes are being added as we identify use cases. If you do have a
+feature that would help your development, please
+[open an issue](https://github.com/jaredh159/tailwind-react-native-classnames/issues/new)
+and include any libraries / hooks that could help someone in the community put a PR
+together.
 
 ## Migrating from V1
 
