@@ -28,7 +28,10 @@ describe(`tw.prefixMatch()`, () => {
   });
 
   test(`breakpoint prefixes`, () => {
-    tw = create({ theme: { screens: { md: `600px`, lg: `800px`, xl: `1000px` } } });
+    tw = create({
+      content: [],
+      theme: { screens: { md: `600px`, lg: `800px`, xl: `1000px` } },
+    });
     tw.setWindowDimensions({ width: 801, height: 600 });
     expect(tw.prefixMatch(`md`)).toBe(true);
     expect(tw.prefixMatch(`lg`)).toBe(true);

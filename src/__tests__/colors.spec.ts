@@ -34,12 +34,15 @@ describe(`colors`, () => {
 
   test(`bg colors with customized configs`, () => {
     // customize `theme.backgroundColors`
-    tw = create({ theme: { backgroundColor: { foo: `#ff0000`, bar: `#00f` } } });
+    tw = create({
+      content: [],
+      theme: { backgroundColor: { foo: `#ff0000`, bar: `#00f` } },
+    });
     expect(tw`bg-foo`).toEqual({ backgroundColor: `#ff0000` });
     expect(tw`bg-bar`).toEqual({ backgroundColor: `#00f` });
 
     // should work the same if using `theme.colors` to customize
-    tw = create({ theme: { colors: { foo: `#ff0000`, bar: `#00f` } } });
+    tw = create({ content: [], theme: { colors: { foo: `#ff0000`, bar: `#00f` } } });
     expect(tw`bg-foo`).toEqual({ backgroundColor: `#ff0000` });
     expect(tw`bg-bar`).toEqual({ backgroundColor: `#00f` });
   });
@@ -50,6 +53,7 @@ describe(`colors`, () => {
 
   test(`rgb/a configged colors`, () => {
     tw = create({
+      content: [],
       theme: { colors: { foo: `rgb(1, 2, 3)`, bar: `rgba(4, 5, 6, 0.5)` } },
     });
     expect(tw`text-foo bg-bar`).toEqual({
@@ -63,7 +67,10 @@ describe(`colors`, () => {
   });
 
   test(`DEFAULT special modifier`, () => {
-    tw = create({ theme: { colors: { foo: { '100': `#ff0`, DEFAULT: `#EEF` } } } });
+    tw = create({
+      content: [],
+      theme: { colors: { foo: { '100': `#ff0`, DEFAULT: `#EEF` } } },
+    });
     expect(tw`text-foo-100 bg-foo`).toEqual({
       color: `#ff0`,
       backgroundColor: `#EEF`,
@@ -82,6 +89,7 @@ describe(`colors`, () => {
 
   test(`non-group dashed custom colors`, () => {
     tw = create({
+      content: [],
       theme: { colors: { 'indigo-lighter': `#b3bcf5`, indigo: `#5c6ac4` } },
     });
     expect(tw`text-indigo bg-indigo-lighter`).toEqual({

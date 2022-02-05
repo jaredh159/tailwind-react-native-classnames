@@ -41,7 +41,7 @@ export default class ClassParser {
 
   public constructor(
     input: string,
-    private config: TwConfig = {},
+    private config: TwConfig = { content: [``] },
     private cache: Cache,
     device: DeviceContext,
     platform: Platform,

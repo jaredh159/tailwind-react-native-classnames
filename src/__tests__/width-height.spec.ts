@@ -4,7 +4,7 @@ import { create } from '../';
 describe(`width/height utilities`, () => {
   let tw = create();
   beforeEach(() => {
-    tw = create({ theme: { screens: {} } });
+    tw = create({ content: [], theme: { screens: {} } });
     tw.setWindowDimensions({ width: 800, height: 600 });
   });
 

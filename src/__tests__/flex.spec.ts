@@ -51,7 +51,9 @@ describe(`flex shorthand utilities`, () => {
     ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected, config) => {
-    const tw = create(config ? { theme: { flex: config } } : {});
+    const tw = create(
+      config ? { content: [], theme: { flex: config } } : { content: [] },
+    );
     expect(tw.style(utility)).toEqual(expected);
   });
 });

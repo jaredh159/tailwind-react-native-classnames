@@ -12,7 +12,7 @@ describe(`tw`, () => {
   beforeEach(() => (tw = create()));
 
   test(`media queries`, () => {
-    const config: TwConfig = { theme: { screens: { md: `768px` } } };
+    const config: TwConfig = { content: [], theme: { screens: { md: `768px` } } };
     tw = create(config);
     tw.setWindowDimensions({ width: 500, height: 500 });
     expect(tw`md:text-lg text-xs`).toMatchObject({ fontSize: 12 });
@@ -21,7 +21,10 @@ describe(`tw`, () => {
   });
 
   test(`multiple media queries`, () => {
-    const config: TwConfig = { theme: { screens: { sm: `640px`, md: `768px` } } };
+    const config: TwConfig = {
+      content: [],
+      theme: { screens: { sm: `640px`, md: `768px` } },
+    };
     tw = create(config);
     tw.setWindowDimensions({ width: 800, height: 0 });
     expect(tw`text-xs sm:text-md md:text-lg`).toMatchObject({ fontSize: 18 });
@@ -32,7 +35,7 @@ describe(`tw`, () => {
   });
 
   test(`media queries + dependent style`, () => {
-    const config: TwConfig = { theme: { screens: { md: `768px` } } };
+    const config: TwConfig = { content: [], theme: { screens: { md: `768px` } } };
     tw = create(config);
     tw.setWindowDimensions({ width: 800, height: 0 });
     expect(tw`text-xs leading-none md:leading-tight`).toEqual({
@@ -59,7 +62,7 @@ describe(`tw`, () => {
 
   test(`multiple prefixes`, () => {
     rn.Platform.OS = `android`;
-    const config: TwConfig = { theme: { screens: { md: `768px` } } };
+    const config: TwConfig = { content: [], theme: { screens: { md: `768px` } } };
     tw = create(config);
     tw.setWindowDimensions({ width: 800, height: 0 });
     tw.setColorScheme(`dark`);
@@ -115,14 +118,17 @@ describe(`tw`, () => {
   );
 
   test(`customized line-height`, () => {
-    tw = create({ theme: { lineHeight: { '5': `2rem`, huge: `400px` } } });
+    tw = create({ content: [], theme: { lineHeight: { '5': `2rem`, huge: `400px` } } });
     expect(tw`leading-5`).toEqual({ lineHeight: 32 });
     expect(tw`leading-huge`).toEqual({ lineHeight: 400 });
   });
 
   test(`font-family`, () => {
     expect(tw`font-sans`).toEqual({ fontFamily: `ui-sans-serif` });
-    tw = create({ theme: { fontFamily: { sans: `font1`, serif: [`font2`, `font3`] } } });
+    tw = create({
+      content: [],
+      theme: { fontFamily: { sans: `font1`, serif: [`font2`, `font3`] } },
+    });
     expect(tw`font-sans`).toEqual({ fontFamily: `font1` });
     expect(tw`font-serif`).toEqual({ fontFamily: `font2` });
   });

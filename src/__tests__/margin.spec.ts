@@ -39,6 +39,7 @@ describe(`margin`, () => {
 
   test(`margin w/extended theme`, () => {
     tw = create({
+      content: [],
       theme: {
         extend: {
           spacing: {

@@ -5,7 +5,8 @@ import plugin from './plugin';
 import rawCreate from './create';
 
 // Apply default config and inject RN Platform
-const create = (twConfig: TwConfig = {}): TailwindFn => rawCreate(twConfig, Platform.OS);
+const create = (twConfig: TwConfig = { content: [`_no_warnings_please`] }): TailwindFn =>
+  rawCreate(twConfig, Platform.OS);
 
 export { create, plugin };
 export type { TailwindFn, TwConfig, RnColorScheme };

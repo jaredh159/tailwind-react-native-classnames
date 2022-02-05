@@ -42,6 +42,7 @@ export interface TwTheme {
 }
 
 export interface TwConfig {
+  content: Array<string>;
   theme?: TwTheme;
   plugins?: Array<{ handler: PluginFunction }>;
 }

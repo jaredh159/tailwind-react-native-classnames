@@ -8,6 +8,7 @@ import tailwindPlugin from 'tailwindcss/plugin';
 describe(`custom registered utilities`, () => {
   test(`register custom utilities, using package plugin fn`, () => {
     const config: TwConfig = {
+      content: [],
       plugins: [
         plugin(({ addUtilities }) => {
           addUtilities({
@@ -24,6 +25,7 @@ describe(`custom registered utilities`, () => {
 
   test(`registered custom utilities merge with regular utilities`, () => {
     const config: TwConfig = {
+      content: [],
       plugins: [
         plugin(({ addUtilities }) => {
           addUtilities({
@@ -38,6 +40,7 @@ describe(`custom registered utilities`, () => {
 
   test(`register custom utilities, using tailwindcss fn`, () => {
     const config: TwConfig = {
+      content: [],
       plugins: [
         // @ts-ignore
         tailwindPlugin(({ addUtilities }) => {
@@ -56,6 +59,7 @@ describe(`custom registered utilities`, () => {
 
   test(`custom utils override built-in classes`, () => {
     const config: TwConfig = {
+      content: [],
       plugins: [
         plugin(({ addUtilities }) => {
           addUtilities({
@@ -70,6 +74,7 @@ describe(`custom registered utilities`, () => {
 
   test(`attempt to use anything but addUtilities throws`, () => {
     const config: TwConfig = {
+      content: [],
       plugins: [
         plugin(({ addBase }) => {
           addBase();

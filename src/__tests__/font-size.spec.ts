@@ -30,6 +30,7 @@ describe(`font size`, () => {
 
   test(`font-sizes with relative line-height`, () => {
     const config: TwConfig = {
+      content: [],
       theme: {
         fontSize: {
           relative: [`1.25rem`, { lineHeight: `1.5` }],
@@ -47,20 +48,27 @@ describe(`font size`, () => {
   });
 
   test(`customized font-size variations`, () => {
-    tw = create({ theme: { fontSize: { xs: `0.75rem` } } });
+    tw = create({ content: [], theme: { fontSize: { xs: `0.75rem` } } });
 
     expect(tw`text-xs`).toEqual({ fontSize: 12 });
 
-    tw = create({ theme: { fontSize: { xs: [`0.75rem`, `0.75rem`] } } });
+    tw = create({ content: [], theme: { fontSize: { xs: [`0.75rem`, `0.75rem`] } } });
     expect(tw`text-xs`).toEqual({ fontSize: 12, lineHeight: 12 });
 
-    tw = create({ theme: { fontSize: { xs: [`0.75rem`, { lineHeight: `0.75rem` }] } } });
+    tw = create({
+      content: [],
+      theme: { fontSize: { xs: [`0.75rem`, { lineHeight: `0.75rem` }] } },
+    });
     expect(tw`text-xs`).toEqual({ fontSize: 12, lineHeight: 12 });
 
-    tw = create({ theme: { fontSize: { xs: [`0.75rem`, { letterSpacing: `1px` }] } } });
+    tw = create({
+      content: [],
+      theme: { fontSize: { xs: [`0.75rem`, { letterSpacing: `1px` }] } },
+    });
     expect(tw`text-xs`).toEqual({ fontSize: 12, letterSpacing: 1 });
 
     tw = create({
+      content: [],
       theme: {
         fontSize: { xs: [`0.75rem`, { lineHeight: `0.5rem`, letterSpacing: `1px` }] },
       },

@@ -19,7 +19,7 @@ import { getAddedUtilities } from './plugin';
 import { removeOpacityHelpers } from './resolve/color';
 
 export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
-  const config = resolveConfig(customConfig as any) as TwConfig;
+  const config = resolveConfig(customConfig as any) as unknown as TwConfig;
   const device: DeviceContext = {};
 
   const pluginUtils = getAddedUtilities(config.plugins);

@@ -16,7 +16,10 @@ describe(`letter-spacing (tracking-X)`, () => {
   });
 
   test(`non-em configged letter-spacing`, () => {
-    tw = create({ theme: { letterSpacing: { custom1: `0.125rem`, custom2: `3px` } } });
+    tw = create({
+      content: [],
+      theme: { letterSpacing: { custom1: `0.125rem`, custom2: `3px` } },
+    });
     expect(tw`tracking-custom1`).toMatchObject({ letterSpacing: 2 });
     expect(tw`tracking-custom2`).toMatchObject({ letterSpacing: 3 });
   });
