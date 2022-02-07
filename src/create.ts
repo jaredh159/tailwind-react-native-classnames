@@ -19,7 +19,7 @@ import { getAddedUtilities } from './plugin';
 import { removeOpacityHelpers } from './resolve/color';
 
 export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
-  const config = resolveConfig(customConfig as any) as TwConfig;
+  const config = resolveConfig(withContent(customConfig) as any) as TwConfig;
   const device: DeviceContext = {};
 
   const pluginUtils = getAddedUtilities(config.plugins);
@@ -207,3 +207,13 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
 }
 
 export default create;
+
+function withContent(config: TwConfig): TwConfig & { content: string[] } {
+  return {
+    ...config,
+    // prevent warnings from tailwind about not having a `content` prop
+    // we don't need one because we have our own jit parser which
+    // does not rely on knowing content paths to search
+    content: [`_no_warnings_please`],
+  };
+}
