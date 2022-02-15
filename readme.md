@@ -321,7 +321,7 @@ module.exports = {
 
 ## Matching Conditional Prefixes
 
-`twrnc` also exposes a `tw.matchPrefix(...prefixes: string[]) => boolean` function that
+`twrnc` also exposes a `tw.prefixMatch(...prefixes: string[]) => boolean` function that
 allows you to test whether a given prefix (or combination of prefixes) would produce a
 style given the current device context. This can be useful when you need to pass some
 primitive value to a component, and wish you could leverage `tw`'s knowledge of the
@@ -333,8 +333,8 @@ re-implementing all that logic on your own:
 ```tsx
 const SomeComponent = () => (
   <View>
-    <Thumbnail imageSize={tw.matchPrefix(`portrait`) ? 60 : 90} />;
-    {tw.matchPrefix(`ios`, `dark`) ? <CustomIosDarkModeThing /> : <Thing />}
+    <Thumbnail imageSize={tw.prefixMatch(`portrait`) ? 60 : 90} />;
+    {tw.prefixMatch(`ios`, `dark`) ? <CustomIosDarkModeThing /> : <Thing />}
   </View>
 );
 ```
