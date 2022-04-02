@@ -11,6 +11,11 @@ describe(`tw`, () => {
   let tw = create();
   beforeEach(() => (tw = create()));
 
+  test(`interpolation supports falsy numbers`, () => {
+    const falsyNumber = 0;
+    expect(tw`opacity-${falsyNumber}`).toEqual({ opacity: 0 });
+  });
+
   test(`media queries`, () => {
     const config: TwConfig = { theme: { screens: { md: `768px` } } };
     tw = create(config);
