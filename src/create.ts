@@ -161,7 +161,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   const tailwindFn = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
     let str = ``;
     strings.forEach((string, i) => {
-      str += string + (values[i] || ``);
+      str += string + (values[i] ?? ``);
     });
     return style(str);
   };
