@@ -277,6 +277,16 @@ export default class ClassParser {
       if (style) return style;
     }
 
+    if (this.consumePeeked(`grow`)) {
+      style = flexGrowShrink(`Grow`, this.rest, theme?.flexGrow);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`shrink`)) {
+      style = flexGrowShrink(`Shrink`, this.rest, theme?.flexShrink);
+      if (style) return style;
+    }
+
     if (this.consumePeeked(`shadow-color-opacity-`)) {
       style = colorOpacity(`shadow`, this.rest);
       if (style) return style;
