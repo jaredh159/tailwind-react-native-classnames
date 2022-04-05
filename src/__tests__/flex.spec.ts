@@ -1,4 +1,4 @@
-import { describe, test, expect } from '@jest/globals';
+import { describe, expect, test } from '@jest/globals';
 import { create } from '..';
 import { TwTheme } from '../tw-config';
 
@@ -14,8 +14,10 @@ describe(`flex grow/shrink`, () => {
     [`flex-grow-77`, { flexGrow: 77 }],
     [`grow`, { flexGrow: 1 }],
     [`grow-0`, { flexGrow: 0 }],
+    [`grow-33`, { flexGrow: 33 }],
     [`shrink`, { flexShrink: 1 }],
-    [`shrink-0`, { flexShrink: 0}],
+    [`shrink-0`, { flexShrink: 0 }],
+    [`shrink-77`, { flexShrink: 77 }],
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
