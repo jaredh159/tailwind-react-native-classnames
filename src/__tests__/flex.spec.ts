@@ -12,6 +12,10 @@ describe(`flex grow/shrink`, () => {
     [`flex-grow-0`, { flexGrow: 0 }],
     [`flex-grow`, { flexGrow: 1 }],
     [`flex-grow-77`, { flexGrow: 77 }],
+    [`grow`, { flexGrow: 1 }],
+    [`grow-0`, { flexGrow: 0 }],
+    [`shrink`, { flexShrink: 1 }],
+    [`shrink-0`, { flexShrink: 0}],
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
