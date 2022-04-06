@@ -2,6 +2,8 @@ import { StyleIR, DependentStyle } from './types';
 import { complete } from './helpers';
 
 const defaultStyles: Array<[string, StyleIR]> = [
+  [`aspect-square`, complete({ aspectRatio: 1 })],
+  [`aspect-video`, complete({ aspectRatio: 16 / 9 })],
   [`items-center`, complete({ alignItems: `center` })],
   [`items-start`, complete({ alignItems: `flex-start` })],
   [`items-end`, complete({ alignItems: `flex-end` })],

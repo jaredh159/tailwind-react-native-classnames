@@ -142,14 +142,6 @@ describe(`tw`, () => {
     expect(tw`-mt-[333px]`).toEqual({ marginTop: -333 });
   });
 
-  test(`aspect-ratio`, () => {
-    expect(tw`aspect-ratio-1`).toEqual({ aspectRatio: 1 });
-    expect(tw`aspect-ratio-4`).toEqual({ aspectRatio: 4 });
-    expect(tw`aspect-ratio-0.5`).toEqual({ aspectRatio: 0.5 });
-    expect(tw`aspect-ratio-.5`).toEqual({ aspectRatio: 0.5 });
-    expect(tw`aspect-ratio-16/9`).toEqual({ aspectRatio: 16 / 9 });
-  });
-
   test(`elevation (android-only)`, () => {
     expect(tw`elevation-1`).toEqual({ elevation: 1 });
     expect(tw`elevation-2`).toEqual({ elevation: 2 });
