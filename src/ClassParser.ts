@@ -211,7 +211,10 @@ export default class ClassParser {
       if (style) return style;
     }
 
-    if (this.consumePeeked(`aspect-ratio-`)) {
+    if (this.consumePeeked(`aspect-`)) {
+      if (this.consumePeeked(`ratio-`)) {
+        warn(`\`aspect-ratio-{ratio}\` is deprecated, use \`aspect-{ratio}\` instead`);
+      }
       style = getCompleteStyle(`aspectRatio`, this.rest, { fractions: true });
       if (style) return style;
     }
