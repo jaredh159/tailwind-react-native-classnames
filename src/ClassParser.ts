@@ -219,6 +219,11 @@ export default class ClassParser {
       if (style) return style;
     }
 
+    if (this.consumePeeked(`tint-`)) {
+      style = color(`tint`, this.rest, theme?.colors);
+      if (style) return style;
+    }
+
     if (this.consumePeeked(`bg-`)) {
       style = color(`bg`, this.rest, theme?.backgroundColor);
       if (style) return style;

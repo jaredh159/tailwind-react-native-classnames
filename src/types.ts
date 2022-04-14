@@ -67,7 +67,8 @@ export type ColorStyleType =
   | 'borderLeft'
   | 'borderRight'
   | 'borderBottom'
-  | 'shadow';
+  | 'shadow'
+  | 'tint';
 
 export type Direction =
   | 'All'

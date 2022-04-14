@@ -48,6 +48,15 @@ describe(`colors`, () => {
     expect(tw`text-black`).toEqual({ color: `#000` });
   });
 
+  test(`tint colors`, () => {
+    expect(tw`tint-black`).toEqual({ tintColor: `#000` });
+    expect(tw`tint-[#eaeaea]`).toEqual({ tintColor: `#eaeaea` });
+    expect(tw`tint-black/50`).toEqual({ tintColor: `rgba(0, 0, 0, 0.5)` });
+    tw = create({ theme: { colors: { foo: `#ff0000`, bar: `#00f` } } });
+    expect(tw`tint-foo`).toEqual({ tintColor: `#ff0000` });
+    expect(tw`tint-bar`).toEqual({ tintColor: `#00f` });
+  });
+
   test(`rgb/a configged colors`, () => {
     tw = create({
       theme: { colors: { foo: `rgb(1, 2, 3)`, bar: `rgba(4, 5, 6, 0.5)` } },

@@ -107,6 +107,7 @@ const STYLE_PROPS = {
   borderLeft: { opacity: `__opacity_border`, color: `borderLeftColor` },
   borderRight: { opacity: `__opacity_border`, color: `borderRightColor` },
   shadow: { opacity: `__opacity_shadow`, color: `shadowColor` },
+  tint: { opacity: `__opacity_tint`, color: `tintColor` },
 };
 
 function hexToRgba(hex: string): string {
