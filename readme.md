@@ -403,6 +403,7 @@ to web-css, including:
 - `direction-(inherit|ltr|rtl)`
 - `align-self: baseline;` via `self-baseline`
 - `include-font-padding` and `remove-font-padding` (android only: `includeFontPadding`)
+- image tint color control (`tint-{color}` e.g. `tint-red-200`)
 
 ## JIT-Style Arbitrary Values
 

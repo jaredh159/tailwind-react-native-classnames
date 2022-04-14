@@ -101,7 +101,7 @@
 - 🚨 textShadowOffset
 - 🚨 textShadowRadius
 - ✅ textTransform
-- 🚨 tintColor
+- 😎 tintColor
 - ✅ top
 - ✅ width
 - 🚨 writingDirection

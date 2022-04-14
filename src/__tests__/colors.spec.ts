@@ -48,6 +48,10 @@ describe(`colors`, () => {
     expect(tw`text-black`).toEqual({ color: `#000` });
   });
 
+  test(`tint colors`, () => {
+    expect(tw`tint-black`).toEqual({ tintColor: `#000` });
+  });
+
   test(`rgb/a configged colors`, () => {
     tw = create({
       theme: { colors: { foo: `rgb(1, 2, 3)`, bar: `rgba(4, 5, 6, 0.5)` } },
