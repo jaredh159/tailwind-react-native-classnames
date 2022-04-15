@@ -8,7 +8,9 @@ type TwFontSize =
 type TwScreen = string | { max?: string; min?: string };
 
 // eg: { black: #000, gray: { 100: #eaeaea } }
-export type TwColors = Record<string, string | Record<string, string>>;
+export type TwColors<K extends keyof any = string, V = string> = {
+  [key: string]: V | TwColors<K, V>;
+};
 
 export interface TwTheme {
   fontSize?: Record<string, TwFontSize>;

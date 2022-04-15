@@ -16,8 +16,12 @@ describe(`colors`, () => {
     expect(tw`bg-black bg-opacity-50`).toEqual({
       backgroundColor: `rgba(0, 0, 0, 0.5)`,
     });
-    expect(tw`text-black text-opacity-50`).toEqual({ color: `rgba(0, 0, 0, 0.5)` });
-    expect(tw`text-black text-opacity-100`).toEqual({ color: `rgba(0, 0, 0, 1)` });
+    expect(tw`text-black text-opacity-50`).toEqual({
+      color: `rgba(0, 0, 0, 0.5)`,
+    });
+    expect(tw`text-black text-opacity-100`).toEqual({
+      color: `rgba(0, 0, 0, 1)`,
+    });
   });
 
   test(`color with opacity doesn't affect other utilities`, () => {
@@ -34,7 +38,9 @@ describe(`colors`, () => {
 
   test(`bg colors with customized configs`, () => {
     // customize `theme.backgroundColors`
-    tw = create({ theme: { backgroundColor: { foo: `#ff0000`, bar: `#00f` } } });
+    tw = create({
+      theme: { backgroundColor: { foo: `#ff0000`, bar: `#00f` } },
+    });
     expect(tw`bg-foo`).toEqual({ backgroundColor: `#ff0000` });
     expect(tw`bg-bar`).toEqual({ backgroundColor: `#00f` });
 
@@ -63,7 +69,9 @@ describe(`colors`, () => {
   });
 
   test(`DEFAULT special modifier`, () => {
-    tw = create({ theme: { colors: { foo: { '100': `#ff0`, DEFAULT: `#EEF` } } } });
+    tw = create({
+      theme: { colors: { foo: { '100': `#ff0`, DEFAULT: `#EEF` } } },
+    });
     expect(tw`text-foo-100 bg-foo`).toEqual({
       color: `#ff0`,
       backgroundColor: `#EEF`,
@@ -96,5 +104,38 @@ describe(`colors`, () => {
 
   test(`non-color arbitrary value not returned`, () => {
     expect(color(`text`, `[50vh]`, {})).toBeNull();
+  });
+
+  test(`object syntax with deeply nested colors`, () => {
+    tw = create({
+      theme: {
+        colors: {
+          foo: {
+            DEFAULT: `#ff0000`,
+            bar: { DEFAULT: `#00f`, baz: '#EEF' },
+          },
+        },
+      },
+    });
+    expect(tw`bg-foo text-foo-bar`).toEqual({ backgroundColor: `#ff0000`,color: `#00f` });
+    expect(tw`bg-foo-bar-baz`).toEqual({ backgroundColor: `#EEF` });
+    expect(tw`bg-foo-baz`).toEqual({});
+  });
+
+  test(`object syntax with color names containing dashes`, () => {
+    tw = create({
+      theme: {
+        colors: {
+          foo: {
+            DEFAULT: `#ff0000`,
+            bar: '#00f',
+            'bar-baz': '#EEF',
+          },
+        },
+      },
+    });
+    expect(tw`bg-foo text-foo-bar`).toEqual({ backgroundColor: `#ff0000`, color: `#00f` });
+    expect(tw`bg-foo-bar-baz`).toEqual({ backgroundColor: `#EEF` });
+    expect(tw`bg-foo-baz`).toEqual({});
   });
 });
