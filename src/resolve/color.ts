@@ -132,7 +132,7 @@ function findColorInConfigRecursive(
     const subConfig = config[colorNameStart];
     if (isObject(subConfig)) {
       return findColorInConfigRecursive(
-        colorNameRest.join('-'),
+        colorNameRest.join(`-`),
         subConfig
       );
     }

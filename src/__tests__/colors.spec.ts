@@ -121,12 +121,15 @@ describe(`colors`, () => {
         colors: {
           foo: {
             DEFAULT: `#ff0000`,
-            bar: { DEFAULT: `#00f`, baz: '#EEF' },
+            bar: { DEFAULT: `#00f`, baz: `#EEF` },
           },
         },
       },
     });
-    expect(tw`bg-foo text-foo-bar`).toEqual({ backgroundColor: `#ff0000`,color: `#00f` });
+    expect(tw`bg-foo text-foo-bar`).toEqual({
+      backgroundColor: `#ff0000`,
+      color: `#00f`,
+    });
     expect(tw`bg-foo-bar-baz`).toEqual({ backgroundColor: `#EEF` });
     expect(tw`bg-foo-baz`).toEqual({});
   });
@@ -137,13 +140,16 @@ describe(`colors`, () => {
         colors: {
           foo: {
             DEFAULT: `#ff0000`,
-            bar: '#00f',
-            'bar-baz': '#EEF',
+            bar: `#00f`,
+            'bar-baz': `#EEF`,
           },
         },
       },
     });
-    expect(tw`bg-foo text-foo-bar`).toEqual({ backgroundColor: `#ff0000`, color: `#00f` });
+    expect(tw`bg-foo text-foo-bar`).toEqual({
+      backgroundColor: `#ff0000`,
+      color: `#00f`,
+    });
     expect(tw`bg-foo-bar-baz`).toEqual({ backgroundColor: `#EEF` });
     expect(tw`bg-foo-baz`).toEqual({});
   });

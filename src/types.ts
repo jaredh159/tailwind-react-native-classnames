@@ -5,7 +5,10 @@ export interface TailwindFn {
   style: (...inputs: ClassInput[]) => Style;
   color: (color: string) => string | undefined;
   prefixMatch: (...prefixes: string[]) => boolean;
-  setWindowDimensions: (dimensions: { width: number; height: number }) => unknown;
+  setWindowDimensions: (dimensions: {
+    width: number;
+    height: number;
+  }) => unknown;
   setFontScale: (fontScale: number) => unknown;
   setPixelDensity: (pixelDensity: 1 | 2) => unknown;
   setColorScheme: (colorScheme: RnColorScheme) => unknown;
@@ -201,6 +204,6 @@ export function isString(value: unknown): value is string {
   return typeof value === `string`;
 }
 
-export function isObject(value: unknown): value is object {
+export function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === `object`;
 }
