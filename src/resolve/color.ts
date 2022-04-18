@@ -5,7 +5,7 @@ import { warn, complete } from '../helpers';
 export function color(
   type: ColorStyleType,
   value: string,
-  config?: TwColors
+  config?: TwColors,
 ): StyleIR | null {
   if (!config) {
     return null;
@@ -54,10 +54,7 @@ export function color(
   };
 }
 
-export function colorOpacity(
-  type: ColorStyleType,
-  value: string
-): StyleIR | null {
+export function colorOpacity(type: ColorStyleType, value: string): StyleIR | null {
   const percentage = parseInt(value, 10);
   if (Number.isNaN(percentage)) {
     return null;
@@ -113,10 +110,7 @@ function hexToRgba(hex: string): string {
   return `rgba(${r}, ${g}, ${b}, 1)`;
 }
 
-function findColorInConfigRecursive(
-  colorName: string,
-  config: TwColors
-): string {
+function findColorInConfigRecursive(colorName: string, config: TwColors): string {
   const configColor = config[colorName];
 
   // the color is found at the current config level
@@ -131,10 +125,9 @@ function findColorInConfigRecursive(
   while (colorNameStart !== colorName) {
     const subConfig = config[colorNameStart];
     if (isObject(subConfig)) {
-      return findColorInConfigRecursive(
-        colorNameRest.join(`-`),
-        subConfig
-      );
+      return findColorInConfigRecursive(colorNameRest.join(`-`), subConfig);
+    } else if (colorNameRest.length == 0) {
+      return ``;
     }
     colorNameStart = `${colorNameStart}-${colorNameRest.shift()}`;
   }

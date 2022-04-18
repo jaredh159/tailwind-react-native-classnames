@@ -152,5 +152,20 @@ describe(`colors`, () => {
     });
     expect(tw`bg-foo-bar-baz`).toEqual({ backgroundColor: `#EEF` });
     expect(tw`bg-foo-baz`).toEqual({});
+
+    tw = create({
+      theme: {
+        colors: {
+          'jim-jam': {
+            DEFAULT: `#00ff00`,
+            slam: `#eea`,
+          },
+        },
+      },
+    });
+    expect(tw`text-jim`).toEqual({});
+    expect(tw`text-jim-jam`).toEqual({ color: `#00ff00` });
+    expect(tw`text-jim-jam-slam`).toEqual({ color: `#eea` });
+    expect(tw`text-jim-jam-slam-nope`).toEqual({});
   });
 });

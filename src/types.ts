@@ -5,10 +5,7 @@ export interface TailwindFn {
   style: (...inputs: ClassInput[]) => Style;
   color: (color: string) => string | undefined;
   prefixMatch: (...prefixes: string[]) => boolean;
-  setWindowDimensions: (dimensions: {
-    width: number;
-    height: number;
-  }) => unknown;
+  setWindowDimensions: (dimensions: { width: number; height: number }) => unknown;
   setFontScale: (fontScale: number) => unknown;
   setPixelDensity: (pixelDensity: 1 | 2) => unknown;
   setColorScheme: (colorScheme: RnColorScheme) => unknown;
