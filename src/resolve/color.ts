@@ -1,4 +1,4 @@
-import { ColorStyleType, Style, StyleIR } from '../types';
+import { ColorStyleType, isObject, isString, Style, StyleIR } from '../types';
 import { TwColors } from '../tw-config';
 import { warn, complete } from '../helpers';
 
@@ -10,7 +10,6 @@ export function color(
   if (!config) {
     return null;
   }
-
   // support opacity shorthand: `bg-red-200/50`
   let shorthandOpacity: string | undefined = undefined;
   if (value.includes(`/`)) {
@@ -18,32 +17,18 @@ export function color(
   }
 
   let color = ``;
-  const [groupKey = ``, modifier = ``] = value.split(`-`, 2);
-  const group = config[groupKey];
 
-  // for `red-200` in config = { red: { '200': '#f00' } }
-  if (typeof group === `object` && group[modifier] !== undefined) {
-    color = group[modifier] ?? ``;
-
-    // for `black` in config = { black: { 'DEFAULT: '#000', '200': '#222' } }
-  } else if (
-    typeof group === `object` &&
-    modifier === `` &&
-    group.DEFAULT !== undefined
-  ) {
-    color = group.DEFAULT;
-
-    // for arbitrary support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`
-  } else if (value.startsWith(`[#`) || value.startsWith(`[rgb`)) {
+  // for arbitrary support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`
+  if (value.startsWith(`[#`) || value.startsWith(`[rgb`)) {
     color = value.slice(1, -1);
 
-    // for `bg-custom` in config = { custom: '#0f0` }
+    // search for color in config
   } else {
-    const configColor = config[value];
-    if (typeof configColor !== `string`) {
-      return null;
-    }
-    color = configColor;
+    color = findColorInConfigRecursive(value, config);
+  }
+
+  if (!color) {
+    return null;
   }
 
   if (shorthandOpacity) {
@@ -123,6 +108,31 @@ function hexToRgba(hex: string): string {
   const g = parseInt(result[2]!, 16);
   const b = parseInt(result[3]!, 16);
   return `rgba(${r}, ${g}, ${b}, 1)`;
+}
+
+function findColorInConfigRecursive(colorName: string, config: TwColors): string {
+  const configColor = config[colorName];
+
+  // the color is found at the current config level
+  if (isString(configColor)) {
+    return configColor;
+  } else if (isObject(configColor) && isString(configColor.DEFAULT)) {
+    return configColor.DEFAULT;
+  }
+
+  // search for a matching sub-string at the current config level
+  let [colorNameStart = ``, ...colorNameRest] = colorName.split(`-`);
+  while (colorNameStart !== colorName) {
+    const subConfig = config[colorNameStart];
+    if (isObject(subConfig)) {
+      return findColorInConfigRecursive(colorNameRest.join(`-`), subConfig);
+    } else if (colorNameRest.length === 0) {
+      return ``;
+    }
+    colorNameStart = `${colorNameStart}-${colorNameRest.shift()}`;
+  }
+
+  return ``;
 }
 
 const MATCH_SHORT_HEX = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
