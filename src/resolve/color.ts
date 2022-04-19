@@ -126,7 +126,7 @@ function findColorInConfigRecursive(colorName: string, config: TwColors): string
     const subConfig = config[colorNameStart];
     if (isObject(subConfig)) {
       return findColorInConfigRecursive(colorNameRest.join(`-`), subConfig);
-    } else if (colorNameRest.length == 0) {
+    } else if (colorNameRest.length === 0) {
       return ``;
     }
     colorNameStart = `${colorNameStart}-${colorNameRest.shift()}`;
