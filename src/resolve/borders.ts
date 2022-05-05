@@ -104,5 +104,17 @@ function expand(ir: StyleIR | null): StyleIR | null {
     ir.style.borderBottomRightRadius = bottom;
     delete ir.style.borderBottomRadius;
   }
+  const left = ir.style.borderLeftRadius;
+  if (left !== undefined) {
+    ir.style.borderBottomLeftRadius = left;
+    ir.style.borderTopLeftRadius = left;
+    delete ir.style.borderLeftRadius;
+  }
+  const right = ir.style.borderRightRadius;
+  if (right !== undefined) {
+    ir.style.borderBottomRightRadius = right;
+    ir.style.borderTopRightRadius = right;
+    delete ir.style.borderRightRadius;
+  }
   return ir;
 }
