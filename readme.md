@@ -290,7 +290,7 @@ module.exports = {
         btn: {
           padding: 3,
           borderRadius: 10,
-          textTranform: `uppercase`,
+          textTransform: `uppercase`,
           backgroundColor: `#333`,
         },
         'resize-repeat': {
@@ -308,7 +308,7 @@ instead of using **CSS-in-JS** style objects:
 ```js
 module.exports = {
   plugins: [
-    plugin(() => ({ addUtilities }) {
+    plugin(({ addUtilities }) => {
       addUtilities({
         // 😎 similar to `@apply`
         btn: `px-4 py-1 rounded-full bg-red-800 text-white`,
