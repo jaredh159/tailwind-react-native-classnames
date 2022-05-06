@@ -38,9 +38,9 @@ describe(`border-radius`, () => {
     [`rounded-t-2xl`, { borderTopLeftRadius: 16, borderTopRightRadius: 16 }],
     [`rounded-b-2xl`, { borderBottomLeftRadius: 16, borderBottomRightRadius: 16 }],
     [`rounded-2xl`, { borderRadius: 16 }],
-    [`rounded-l-lg`, { borderLeftRadius: 8 }],
-    [`rounded-l`, { borderLeftRadius: 4 }],
-    [`rounded-r`, { borderRightRadius: 4 }],
+    [`rounded-l-lg`, { borderTopLeftRadius: 8, borderBottomLeftRadius: 8 }],
+    [`rounded-l`, { borderTopLeftRadius: 4, borderBottomLeftRadius: 4 }],
+    [`rounded-r`, { borderTopRightRadius: 4, borderBottomRightRadius: 4 }],
     [`rounded-tl-lg`, { borderTopLeftRadius: 8 }],
 
     // arbitrary
