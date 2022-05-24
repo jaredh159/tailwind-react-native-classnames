@@ -193,7 +193,7 @@ export default tw;
 import tw from './lib/tailwind';
 ```
 
-> ⚠️ Make sure to use `module.exports = {}` instead of `export default {}` in your `tailwind.config.ts` file, as the latter is not supported.
+> ⚠️ Make sure to use `module.exports = {}` instead of `export default {}` in your `tailwind.config.js` file, as the latter is not supported.
 
 ## Enabling Device-Context Prefixes
 
