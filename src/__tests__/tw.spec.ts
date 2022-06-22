@@ -189,6 +189,7 @@ describe(`tw`, () => {
   test(`tw.color()`, () => {
     expect(tw.color(`black`)).toBe(`#000`);
     expect(tw.color(`bg-black`)).toBe(`#000`); // incorrect usage, but still works
+    expect(tw.color(`border-black`)).toBe(`#000`); // incorrect usage, but still works
     expect(tw.color(`white/25`)).toBe(`rgba(255, 255, 255, 0.25)`);
     expect(tw.color(`black opacity-50`)).toBe(`rgba(0, 0, 0, 0.5)`);
     expect(tw.color(`red-500`)).toBe(`#ef4444`);

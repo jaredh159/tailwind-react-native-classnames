@@ -148,7 +148,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     const styleObj = style(
       utils
         .split(/\s+/g)
-        .map((util) => util.replace(/^(bg|text)-/, ``))
+        .map((util) => util.replace(/^(bg|text|border)-/, ``))
         .map((util) => `bg-${util}`)
         .join(` `),
     );
