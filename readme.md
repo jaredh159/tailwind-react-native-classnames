@@ -142,6 +142,9 @@ a tailwind color. Especially useful if you're using a customized color pallette.
 
 ```js
 tw.color('blue-100');
+tw.color('bg-blue-100');
+tw.color('border-blue-100');
+tw.color('text-blue-100');
 // -> "rgba(219, 234, 254, 1)"
 ```
 
