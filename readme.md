@@ -141,10 +141,7 @@ The `tw` function also has a method `color` that can be used to get back a strin
 a tailwind color. Especially useful if you're using a customized color pallette.
 
 ```js
-tw.color('blue-100');
-tw.color('bg-blue-100');
-tw.color('border-blue-100');
-tw.color('text-blue-100');
+tw.color('blue-100'); // `bg|text|border-blue-100` also work
 // -> "rgba(219, 234, 254, 1)"
 ```
 
@@ -196,7 +193,8 @@ export default tw;
 import tw from './lib/tailwind';
 ```
 
-> ⚠️ Make sure to use `module.exports = {}` instead of `export default {}` in your `tailwind.config.js` file, as the latter is not supported.
+> ⚠️ Make sure to use `module.exports = {}` instead of `export default {}` in your
+> `tailwind.config.js` file, as the latter is not supported.
 
 ## Enabling Device-Context Prefixes
 

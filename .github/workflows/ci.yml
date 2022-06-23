@@ -11,6 +11,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: bahmutov/npm-install@v1
+        with:
+          install-command: npm i --legacy-peer-deps
       - name: ts
         run: npm run ts:check
       - name: compile
