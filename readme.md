@@ -356,7 +356,7 @@ style objects. Instead, it offers a number of low-level utilities not present in
 tw`shadow-white`; // > { shadowColor: `#fff` }
 tw`shadow-red-200`; // > { shadowColor: `#fff` }
 tw`shadow-[#eaeaea]`; // > { shadowColor: `#eaeaea` }
-tw`shadow-black shadow-color-opacity-50`; // > { shadowColor: `rgba(0,0,0,0.5)` }
+tw`shadow-black shadow-opacity-50`; // > { shadowColor: `rgba(0,0,0,0.5)` }
 
 // RN `shadowOffset`
 tw`shadow-offset-1`; // > { shadowOffset: { width: 4, height: 4 } }
