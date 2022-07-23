@@ -25,15 +25,12 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   const pluginUtils = getAddedUtilities(config.plugins);
   const customStringUtils: Record<string, string> = {};
   const customStyleUtils = Object.entries(pluginUtils)
-    .map(([util, style]): [string, StyleIR] => {
+    .filterMap(([util, style]): [string, StyleIR] => {
       if (typeof style === `string`) {
-        // mutating while mapping, i know - bad form, but for performance sake... ¯\_(ツ)_/¯
-        customStringUtils[util] = style;
-        return [util, { kind: `null` }];
-      }
+        return ((customStringUtils[util] = style), []);
+      } 
       return [util, complete(style)];
-    })
-    .filter(([, ir]) => ir.kind !== `null`);
+    });
 
   function deriveCacheGroup(): string {
     return (
