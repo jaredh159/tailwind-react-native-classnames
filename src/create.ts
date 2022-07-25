@@ -25,7 +25,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   const pluginUtils = getAddedUtilities(config.plugins);
   const customStringUtils: Record<string, string> = {};
   const customStyleUtils = Object.entries(pluginUtils)
-    .filterMap(([util, style]): [string, StyleIR] => {
+    .flatMap(([util, style]): [string, StyleIR] => {
       if (typeof style === `string`) {
         return ((customStringUtils[util] = style), []);
       } 
