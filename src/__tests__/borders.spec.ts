@@ -17,11 +17,26 @@ describe(`borders`, () => {
     [`border-l-2`, { borderLeftWidth: 2 }],
     [`border-white`, { borderColor: `#fff` }],
     [`border-t-white`, { borderTopColor: `#fff` }],
+    [`border-t-[#e9c46a]`, { borderTopColor: `#e9c46a` }],
     [`border-blue-200`, { borderColor: `#bfdbfe` }],
     [`border-black border-opacity-50`, { borderColor: `rgba(0, 0, 0, 0.5)` }],
     [`border-dashed`, { borderStyle: `dashed` }],
     [`border-solid`, { borderStyle: `solid` }],
     [`border-dotted`, { borderStyle: `dotted` }],
+    // Arbitrary Pixel Values
+    [`border-[25px]`, { borderWidth: 25 }],
+    [`border-t-[25px]`, { borderTopWidth: 25 }],
+    [`border-r-[25px]`, { borderRightWidth: 25 }],
+    [`border-b-[25px]`, { borderBottomWidth: 25 }],
+    [`border-l-[25px]`, { borderLeftWidth: 25 }],
+    // Arbitrary Rem Values
+    [`border-[2.5rem]`, { borderWidth: 40 }],
+    [`border-t-[2.5rem]`, { borderTopWidth: 40 }],
+    [`border-r-[2.5rem]`, { borderRightWidth: 40 }],
+    [`border-b-[2.5rem]`, { borderBottomWidth: 40 }],
+    [`border-l-[2.5rem]`, { borderLeftWidth: 40 }],
+
+    [`border-[7%]`, {}], // not supported in RN
   ];
 
   test.each(basicCases)(`tw\`%s\` -> %s`, (utility, expected) => {

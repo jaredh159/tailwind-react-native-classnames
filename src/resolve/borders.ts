@@ -36,7 +36,22 @@ export function border(value: string, theme?: TwTheme): StyleIR | null {
       break;
   }
 
-  return color(colorType, rest, theme?.borderColor);
+  const colorStyle = color(colorType, rest, theme?.borderColor);
+  if (colorStyle) {
+    return colorStyle;
+  }
+
+  // Finally Handling Arbitrary Width Case
+  // border-[20px] or border-[2.5rem]
+  const prop = `border${direction === `All` ? `` : direction}Width`;
+  rest = rest.replace(/^-/, ``);
+  const numericValue = rest.slice(1, -1);
+  const arbitraryWidth = unconfiggedStyle(prop, numericValue);
+  // can't use % for border-radius in RN
+  if (typeof arbitraryWidth?.style[prop] !== `number`) {
+    return null;
+  }
+  return arbitraryWidth;
 }
 
 function borderWidth(
