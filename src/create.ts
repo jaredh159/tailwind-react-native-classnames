@@ -35,6 +35,30 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     })
     .filter(([, ir]) => ir.kind !== `null`);
 
+  // Allow override default font-<name> style
+  if (customConfig.theme?.fontWeight || customConfig.theme?.extend?.fontWeight) {
+    [
+      ...Object.entries(customConfig.theme?.fontWeight ?? {}),
+      ...Object.entries(customConfig.theme?.extend?.fontWeight ?? {}),
+    ].forEach(([name, value]) => {
+      customStyleUtils.push([
+        `font-` + name,
+        complete({ fontWeight: value.toString() } as Style),
+      ]);
+    });
+  }
+
+  // Allow override default font-<name> style
+  if (`object` === typeof config.theme?.fontFamily) {
+    [
+      ...Object.entries(customConfig.theme?.fontFamily ?? {}),
+      ...Object.entries(customConfig.theme?.extend?.fontFamily ?? {}),
+    ].forEach(([name, value]) => {
+      const fontFamily = Array.isArray(value) ? value[0] : value;
+      customStyleUtils.push([`font-` + name, complete({ fontFamily } as Style)]);
+    });
+  }
+
   function deriveCacheGroup(): string {
     return (
       [
