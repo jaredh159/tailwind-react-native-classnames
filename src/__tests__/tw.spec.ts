@@ -267,12 +267,18 @@ describe(`tw`, () => {
     expect(tw`font-sans`).toEqual({ fontFamily: `ui-sans-serif` });
     expect(tw`font-bold`).toEqual({ fontWeight: `bold` });
 
-    tw = create({ theme: { fontFamily: { bold: `Poppins-bold` }, fontWeight: { 'light': 600 } } });
+    tw = create({
+      theme: { fontFamily: { bold: `Poppins-bold` }, fontWeight: { light: 600 } },
+    });
     expect(tw`font-sans`).toEqual({}); // Erased by override font families
     expect(tw`font-bold`).toEqual({ fontFamily: `Poppins-bold` });
     expect(tw`font-light`).toEqual({ fontWeight: `600` });
 
-    tw = create({ theme: { extend: { fontFamily: { bold: `Poppins-bold` }, fontWeight: { 'light': 600 } } } });
+    tw = create({
+      theme: {
+        extend: { fontFamily: { bold: `Poppins-bold` }, fontWeight: { light: 600 } },
+      },
+    });
     expect(tw`font-sans`).toEqual({ fontFamily: `ui-sans-serif` });
     expect(tw`font-bold`).toEqual({ fontFamily: `Poppins-bold` });
     expect(tw`font-light`).toEqual({ fontWeight: `600` });
