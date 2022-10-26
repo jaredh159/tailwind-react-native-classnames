@@ -261,4 +261,26 @@ describe(`tw`, () => {
     const rnViewStyle: ViewStyle = { backgroundColor: `#ff000` };
     expect(tw.style(rnViewStyle)).toEqual({ backgroundColor: `#ff000` });
   });
+
+  // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/159
+  test(`override font default styles`, () => {
+    expect(tw`font-sans`).toEqual({ fontFamily: `ui-sans-serif` });
+    expect(tw`font-bold`).toEqual({ fontWeight: `bold` });
+
+    tw = create({
+      theme: { fontFamily: { bold: `Poppins-bold` }, fontWeight: { light: 600 } },
+    });
+    expect(tw`font-sans`).toEqual({}); // Erased by override font families
+    expect(tw`font-bold`).toEqual({ fontFamily: `Poppins-bold` });
+    expect(tw`font-light`).toEqual({ fontWeight: `600` });
+
+    tw = create({
+      theme: {
+        extend: { fontFamily: { bold: `Poppins-bold` }, fontWeight: { light: 600 } },
+      },
+    });
+    expect(tw`font-sans`).toEqual({ fontFamily: `ui-sans-serif` });
+    expect(tw`font-bold`).toEqual({ fontFamily: `Poppins-bold` });
+    expect(tw`font-light`).toEqual({ fontWeight: `600` });
+  });
 });
