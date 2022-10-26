@@ -35,29 +35,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     })
     .filter(([, ir]) => ir.kind !== `null`);
 
-  // Allow override default font-<name> style
-  if (customConfig.theme?.fontWeight || customConfig.theme?.extend?.fontWeight) {
-    [
-      ...Object.entries(customConfig.theme?.fontWeight ?? {}),
-      ...Object.entries(customConfig.theme?.extend?.fontWeight ?? {}),
-    ].forEach(([name, value]) => {
-      customStyleUtils.push([
-        `font-` + name,
-        complete({ fontWeight: value.toString() } as Style),
-      ]);
-    });
-  }
-
-  // Allow override default font-<name> style
-  if (`object` === typeof config.theme?.fontFamily) {
-    [
-      ...Object.entries(customConfig.theme?.fontFamily ?? {}),
-      ...Object.entries(customConfig.theme?.extend?.fontFamily ?? {}),
-    ].forEach(([name, value]) => {
-      const fontFamily = Array.isArray(value) ? value[0] : value;
-      customStyleUtils.push([`font-` + name, complete({ fontFamily } as Style)]);
-    });
-  }
+  patchCustomFontUtils(customConfig, customStyleUtils, config);
 
   function deriveCacheGroup(): string {
     return (
@@ -240,4 +218,33 @@ function withContent(config: TwConfig): TwConfig & { content: string[] } {
     // does not rely on knowing content paths to search
     content: [`_no_warnings_please`],
   };
+}
+
+// Allow override default font-<name> style
+// @TODO: long-term, i'd like to think of a more generic way to allow
+// custom configurations not to get masked by default utilities...
+function patchCustomFontUtils(
+  customConfig: TwConfig,
+  customStyleUtils: Array<[string, StyleIR]>,
+  config: TwConfig,
+): void {
+  if (customConfig.theme?.fontWeight || customConfig.theme?.extend?.fontWeight) {
+    [
+      ...Object.entries(customConfig.theme?.fontWeight ?? {}),
+      ...Object.entries(customConfig.theme?.extend?.fontWeight ?? {}),
+    ].forEach(([name, value]) => {
+      customStyleUtils.push([`font-${name}`, complete({ fontWeight: String(value) })]);
+    });
+  }
+  if (`object` === typeof config.theme?.fontFamily) {
+    [
+      ...Object.entries(customConfig.theme?.fontFamily ?? {}),
+      ...Object.entries(customConfig.theme?.extend?.fontFamily ?? {}),
+    ].forEach(([name, value]) => {
+      const fontFamily = Array.isArray(value) ? value[0] : value;
+      if (fontFamily) {
+        customStyleUtils.push([`font-${name}`, complete({ fontFamily })]);
+      }
+    });
+  }
 }

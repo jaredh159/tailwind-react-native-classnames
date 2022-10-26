@@ -42,7 +42,6 @@ describe(`custom registered utilities`, () => {
         // @ts-ignore
         tailwindPlugin(({ addUtilities }) => {
           addUtilities({
-            // @ts-ignore
             btn: { paddingTop: 33 },
             custom: `mt-1 text-white`,
           });
