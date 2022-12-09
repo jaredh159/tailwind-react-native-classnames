@@ -80,8 +80,8 @@ export function flexBasis(
   const configValue = config?.[value];
 
   if (configValue !== undefined) {
-    return getCompleteStyle('flexBasis', configValue, context);
+    return getCompleteStyle(`flexBasis`, configValue, context);
   }
 
-  return unconfiggedStyle('flexBasis', value, context);
+  return unconfiggedStyle(`flexBasis`, value, context);
 }

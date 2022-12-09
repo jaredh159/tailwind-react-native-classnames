@@ -106,8 +106,8 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`w-auto`, complete({ width: `auto` })],
   [`h-auto`, complete({ height: `auto` })],
 
-  [`basis-auto`, complete({ flexBasis: "auto" })],
-  [`flex-basis-auto`, complete({ flexBasis: "auto" })],
+  [`basis-auto`, complete({ flexBasis: `auto` })],
+  [`flex-basis-auto`, complete({ flexBasis: `auto` })],
 
   // default box-shadow implementations
   [
