@@ -30,8 +30,7 @@ describe(`flex grow/shrink`, () => {
     [`flex-basis-1/2`, { flexBasis: `50%` }],
     [`flex-basis-3.5`, { flexBasis: 14 }],
     [`flex-basis-auto`, { flexBasis: `auto` }],
-    [`flex-basis-full`, { flexBasis: `100%` }]
-
+    [`flex-basis-full`, { flexBasis: `100%` }],
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
