@@ -23,7 +23,7 @@ import {
   parseNumericValue,
 } from './helpers';
 import { inset } from './resolve/inset';
-import { flexGrowShrink, flex } from './resolve/flex';
+import { flexGrowShrink, flexBasis, flex } from './resolve/flex';
 import { widthHeight, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
@@ -275,13 +275,20 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`flex-`)) {
-      if (this.consumePeeked(`grow`)) {
+      if (this.consumePeeked(`basis`)) {
+        style = flexBasis(this.rest, this.context, theme?.flexBasis);
+      } else if (this.consumePeeked(`grow`)) {
         style = flexGrowShrink(`Grow`, this.rest, theme?.flexGrow);
       } else if (this.consumePeeked(`shrink`)) {
         style = flexGrowShrink(`Shrink`, this.rest, theme?.flexShrink);
       } else {
         style = flex(this.rest, theme?.flex);
       }
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`basis`)) {
+      style = flexBasis(this.rest, this.context, theme?.flexBasis);
       if (style) return style;
     }
 

@@ -45,6 +45,7 @@
 - 🚨 flex (RN implementation does not match web/tailwindcss)
 - 🚨 flexBasis
 - ✅ flexDirection
+- ✅ flexBasis
 - ✅ flexGrow
 - ✅ flexShrink
 - ✅ flexWrap
