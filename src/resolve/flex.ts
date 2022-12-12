@@ -1,6 +1,6 @@
 import { TwTheme } from '../tw-config';
-import { StyleIR } from '../types';
-import { complete, parseStyleVal } from '../helpers';
+import { ParseContext, StyleIR } from '../types';
+import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle } from '../helpers';
 
 export function flexGrowShrink(
   type: 'Grow' | 'Shrink',
@@ -69,4 +69,19 @@ export function flex(value: string, config?: TwTheme['flex']): StyleIR | null {
   }
 
   return null;
+}
+
+export function flexBasis(
+  value: string,
+  context: ParseContext = {},
+  config?: TwTheme['flexBasis'],
+): StyleIR | null {
+  value = value.replace(/^-/, ``);
+  const configValue = config?.[value];
+
+  if (configValue !== undefined) {
+    return getCompleteStyle(`flexBasis`, configValue, context);
+  }
+
+  return unconfiggedStyle(`flexBasis`, value, context);
 }

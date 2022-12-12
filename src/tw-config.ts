@@ -31,6 +31,7 @@ export interface TwTheme {
   screens?: Record<string, TwScreen>;
   opacity?: Record<string, number | string>;
   flex?: Record<string, string>;
+  flexBasis?: Record<string, string>;
   flexGrow?: Record<string, number | string>;
   flexShrink?: Record<string, number | string>;
   fontWeight?: Record<string, number | string>;

@@ -18,6 +18,19 @@ describe(`flex grow/shrink`, () => {
     [`shrink`, { flexShrink: 1 }],
     [`shrink-0`, { flexShrink: 0 }],
     [`shrink-77`, { flexShrink: 77 }],
+
+    [`basis-0`, { flexBasis: 0 }],
+    [`basis-1`, { flexBasis: 4 }],
+    [`basis-1/2`, { flexBasis: `50%` }],
+    [`basis-3.5`, { flexBasis: 14 }],
+    [`basis-auto`, { flexBasis: `auto` }],
+    [`basis-full`, { flexBasis: `100%` }],
+    [`flex-basis-0`, { flexBasis: 0 }],
+    [`flex-basis-1`, { flexBasis: 4 }],
+    [`flex-basis-1/2`, { flexBasis: `50%` }],
+    [`flex-basis-3.5`, { flexBasis: 14 }],
+    [`flex-basis-auto`, { flexBasis: `auto` }],
+    [`flex-basis-full`, { flexBasis: `100%` }],
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
