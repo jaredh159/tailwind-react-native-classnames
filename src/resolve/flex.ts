@@ -86,12 +86,11 @@ export function flexBasis(
   return unconfiggedStyle(`flexBasis`, value, context);
 }
 
-
 export function gap(
   value: string,
   context: ParseContext = {},
-  config?:TwTheme['gap'],
-):StyleIR | null {
+  config?: TwTheme['gap'],
+): StyleIR | null {
   let gapStyle = `gap`;
 
   value = value.replace(/^-(x|y)-/, (_, dir) => {
@@ -106,8 +105,7 @@ export function gap(
 
   value = value.replace(/^-/, ``);
 
-  const configValue =
-    config === null || config === void 0 ? void 0 : config[value];
+  const configValue = config === null || config === void 0 ? void 0 : config[value];
   if (configValue !== undefined) {
     return getCompleteStyle(gapStyle, configValue, context);
   }
