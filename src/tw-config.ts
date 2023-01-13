@@ -34,6 +34,7 @@ export interface TwTheme {
   flexBasis?: Record<string, string>;
   flexGrow?: Record<string, number | string>;
   flexShrink?: Record<string, number | string>;
+  gap?: Record<string, string>;
   fontWeight?: Record<string, number | string>;
   fontFamily?: Record<string, string | string[]>;
   zIndex?: Record<string, number | string>;

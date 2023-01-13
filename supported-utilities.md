@@ -38,6 +38,7 @@
 - ✅ borderWidth
 - ✅ bottom
 - ✅ color
+- ✅ columnGap (requires RN >= 0.71)
 - 😎 direction (added: `direction-inherit`, `direction-ltr`, `direction-rtl`)
 - ✅ display
 - 😎 elevation (android-only)
@@ -53,6 +54,7 @@
 - ✅ fontStyle
 - ✅ fontVariant
 - ✅ fontWeight (😎 added: `font-100/200...900`)
+- ✅ gap (requires RN >= 0.71)
 - ✅ height
 - 😎 includeFontPadding (android, added: `include-font-padding`, `remove-font-padding`)
 - ✅ justifyContent
@@ -87,6 +89,7 @@
 - ✅ position
 - 🚨 resizeMode // maybe TODO? add classes?
 - ✅ right
+- ✅ rowGap (requires RN >= 0.71)
 - ✅ shadowColor `shadow-red-200`
 - ✅ shadowOffset (ios only) `shadow-offset-width|height-1|[3px]`
 - ✅ shadowOpacity (ios only) `shadow-opacity-70`
