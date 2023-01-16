@@ -303,11 +303,7 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`gap`)) {
-      style = gap(
-        this.rest,
-        this.context,
-        theme?.gap,
-      );
+      style = gap(this.rest, this.context, theme?.gap);
       if (style) return style;
     }
 
