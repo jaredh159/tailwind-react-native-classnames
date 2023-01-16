@@ -306,7 +306,7 @@ export default class ClassParser {
       style = gap(
         this.rest,
         this.context,
-        theme === null || theme === void 0 ? void 0 : theme.gap,
+        theme?.gap,
       );
       if (style) return style;
     }
