@@ -85,3 +85,29 @@ export function flexBasis(
 
   return unconfiggedStyle(`flexBasis`, value, context);
 }
+
+export function gap(
+  value: string,
+  context: ParseContext = {},
+  config?: TwTheme['gap'],
+): StyleIR | null {
+  let gapStyle = `gap`;
+
+  value = value.replace(/^-(x|y)-/, (_, dir) => {
+    if (dir === `x`) {
+      gapStyle = `columnGap`;
+    }
+    if (dir === `y`) {
+      gapStyle = `rowGap`;
+    }
+    return ``;
+  });
+
+  value = value.replace(/^-/, ``);
+
+  const configValue = config === null || config === void 0 ? void 0 : config[value];
+  if (configValue !== undefined) {
+    return getCompleteStyle(gapStyle, configValue, context);
+  }
+  return unconfiggedStyle(gapStyle, value, context);
+}

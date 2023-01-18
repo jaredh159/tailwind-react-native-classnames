@@ -74,3 +74,28 @@ describe(`flex shorthand utilities`, () => {
     expect(tw.style(utility)).toEqual(expected);
   });
 });
+
+describe(`flex gap`, () => {
+  let tw = create();
+  beforeEach(() => (tw = create()));
+
+  const cases: Array<[string, Record<string, string | number>]> = [
+    [`gap-0`, { gap: 0 }],
+    [`gap-1`, { gap: 4 }],
+    [`gap-1.5`, { gap: 6 }],
+    [`gap-y-0`, { rowGap: 0 }],
+    [`gap-y-1`, { rowGap: 4 }],
+    [`gap-y-1.5`, { rowGap: 6 }],
+    [`gap-x-0`, { columnGap: 0 }],
+    [`gap-x-1`, { columnGap: 4 }],
+    [`gap-x-1.5`, { columnGap: 6 }],
+    [`gap-px`, { gap: 1 }],
+    [`gap-1px`, { gap: 1 }],
+    [`gap-[1px]`, { gap: 1 }],
+    [`gap-[10px]`, { gap: 10 }],
+  ];
+
+  test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
+    expect(tw.style(utility)).toEqual(expected);
+  });
+});
