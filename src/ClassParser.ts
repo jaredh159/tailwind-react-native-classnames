@@ -118,6 +118,9 @@ export default class ClassParser {
     // resolve things like ios:hidden, after prefix removed
     const cached = this.cache.getIr(this.rest);
     if (cached) {
+      if (this.order !== undefined) {
+        return { kind: `ordered`, order: this.order, styleIr: cached };
+      }
       return cached;
     }
 
