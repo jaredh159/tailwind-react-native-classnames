@@ -1,13 +1,13 @@
-import { create } from "..";
+import { create } from '..';
 
 describe(`ir caching between breakpoints`, () => {
-  let tw = create();
+  const tw = create();
 
   const cases: Array<
     [
       dims: { width: number; height: number } | null,
       utility: string,
-      expected: Record<string, string | number>
+      expected: Record<string, string | number>,
     ]
   > = [
     [{ width: 1100, height: 600 }, `w-3`, { width: 12 }],
