@@ -52,6 +52,7 @@ const MyComponent = () => (
 - [Box-Shadows](#box-shadows)
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
+- [VS Code Intellisense](#vs-code-intellisense)
 - [Migrating from V2](#migrating-from-v2)
 - [Migrating from V1](#migrating-from-v1)
 - [Prior Art](#prior-art)
@@ -425,6 +426,17 @@ Many of the arbitrary-style utilities made possible by Tailwind JIT are implemen
 
 Not every utility currently supports all variations of arbitrary values, so if you come
 across one you feel is missing, open an issue or a PR.
+
+## VS Code Intellisense
+
+There are [a few ways](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124) to enable autocomplete suggestions for Tailwind classes in VS Code. The easiest way is to install [Tailwind's official plugin](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) and add `style` to the "class attributes" array in its settings:
+
+```jsonc
+"tailwindCSS.classAttributes": [
+    // ...
+    "style"
+]
+```
 
 ## Migrating from V2
 
