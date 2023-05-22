@@ -429,14 +429,21 @@ across one you feel is missing, open an issue or a PR.
 
 ## VS Code Intellisense
 
-There are [a few ways](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124) to enable autocomplete suggestions for Tailwind classes in VS Code. The easiest way is to install [Tailwind's official plugin](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) and add `style` to the "class attributes" array in its settings:
+Add the following to the settings of the [official Tailwind plugin](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) for VS Code.
 
 ```jsonc
+// ...
 "tailwindCSS.classAttributes": [
     // ...
     "style"
+],
+"tailwindCSS.experimental.classRegex": [
+    "tw`([^`]*)",
+    ["tw.style\\(([^)]*)\\)", "'([^']*)'"]
 ]
 ```
+
+More detailed instructions, including how to add snippets, are available [here](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124).
 
 ## Migrating from V2
 
