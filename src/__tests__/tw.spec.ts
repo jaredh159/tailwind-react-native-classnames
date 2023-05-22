@@ -1,7 +1,8 @@
-import rn, { ViewStyle } from 'react-native';
+import rn from 'react-native';
 import { describe, test, expect } from '@jest/globals';
+import type { ViewStyle } from 'react-native';
+import type { TwConfig } from '../tw-config';
 import { create } from '../';
-import { TwConfig } from '../tw-config';
 
 jest.mock(`react-native`, () => ({
   Platform: { OS: `ios` },
@@ -282,5 +283,14 @@ describe(`tw`, () => {
     expect(tw`font-sans`).toEqual({ fontFamily: `ui-sans-serif` });
     expect(tw`font-bold`).toEqual({ fontFamily: `Poppins-bold` });
     expect(tw`font-light`).toEqual({ fontWeight: `600` });
+  });
+
+  test(`ir caching between breakpoints`, () => {
+    const tw = create(); // one creation, reused so cache is shared
+    tw.setWindowDimensions({ width: 1100, height: 600 }); // breakpoint=lg
+
+    expect(tw.style(`w-3`)).toEqual({ width: 12 });
+    expect(tw.style(`w-1 lg:w-3`)).toEqual({ width: 12 });
+    expect(tw.style(`w-1 md:w-2 lg:w-3`)).toEqual({ width: 12 });
   });
 });
