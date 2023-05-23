@@ -219,6 +219,16 @@ export default function App() {
 }
 ```
 
+> ⚠️ If you're using Expo, make sure to make the following change in `app.json` to
+> use the `dark:` prefix as Expo by default locks your app to light mode only.
+```json
+{
+  "expo": {
+    "userInterfaceStyle": "automatic",
+  }
+}
+```
+
 ## Taking Control of Dark Mode
 
 By default, if you use `useDeviceContext()` as outlined above, your app will respond to
