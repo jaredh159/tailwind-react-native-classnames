@@ -25,7 +25,8 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   const pluginUtils = getAddedUtilities(config.plugins);
   const customStringUtils: Record<string, string> = {};
   const customStyleUtils = Object.entries(pluginUtils)
-    .map(([util, style]): [string, StyleIR] => {
+    .map(([rawUtil, style]): [string, StyleIR] => {
+      const util = rawUtil.replace(/^\./, ``);
       if (typeof style === `string`) {
         // mutating while mapping, i know - bad form, but for performance sake... ¯\_(ツ)_/¯
         customStringUtils[util] = style;

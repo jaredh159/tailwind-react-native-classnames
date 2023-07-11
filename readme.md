@@ -286,28 +286,22 @@ module.exports = {
 
 To add custom utilities, use the
 [plugin method](https://tailwindcss.com/docs/adding-new-utilities#using-a-plugin)
-described in the tailwind docs, instead of writing to a `.css` file. `twrnc` provides a
-`plugin()` function you can use, but it's also compatible with the stock `tailwindcss`
-function:
+described in the tailwind docs, instead of writing to a `.css` file.
 
 ```js
-// tailwind.config.js
-const { plugin } = require('twrnc');
-
-// or, you can use tailwinds plugin function:
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
-        btn: {
+        '.btn': {
           padding: 3,
           borderRadius: 10,
           textTransform: `uppercase`,
           backgroundColor: `#333`,
         },
-        'resize-repeat': {
+        '.resize-repeat': {
           resizeMode: `repeat`,
         },
       });
@@ -325,8 +319,8 @@ module.exports = {
     plugin(({ addUtilities }) => {
       addUtilities({
         // 😎 similar to `@apply`
-        btn: `px-4 py-1 rounded-full bg-red-800 text-white`,
-        'body-text': `font-serif leading-relaxed tracking-wide text-gray-800`,
+        '.btn': `px-4 py-1 rounded-full bg-red-800 text-white`,
+        '.body-text': `font-serif leading-relaxed tracking-wide text-gray-800`,
       });
     }),
   ],
