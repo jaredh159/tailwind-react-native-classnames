@@ -22,6 +22,22 @@ describe(`custom registered utilities`, () => {
     expect(tw`custom`).toEqual({ marginTop: 4, color: `#fff` });
   });
 
+  test(`supports leading dot for added utilities`, () => {
+    const config: TwConfig = {
+      plugins: [
+        plugin(({ addUtilities }) => {
+          addUtilities({
+            '.btn': { textTransform: `uppercase` },
+            '.resize-repeat': { resizeMode: `repeat` },
+          });
+        }),
+      ],
+    };
+    const tw = create(config);
+    expect(tw`resize-repeat`).toMatchObject({ resizeMode: `repeat` });
+    expect(tw`btn`).toMatchObject({ textTransform: `uppercase` });
+  });
+
   test(`registered custom utilities merge with regular utilities`, () => {
     const config: TwConfig = {
       plugins: [
