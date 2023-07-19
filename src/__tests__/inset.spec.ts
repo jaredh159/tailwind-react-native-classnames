@@ -25,7 +25,7 @@ describe(`inset`, () => {
     // arbitrary, not configged number
     [`top-15`, { top: 60 }],
     // auto values
-    [`top-auto`, { top: 'auto' }],
+    [`top-auto`, { top: `auto` }],
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {

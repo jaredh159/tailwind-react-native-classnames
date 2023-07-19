@@ -19,7 +19,7 @@ export function inset(
     });
   }
 
-  if (value === 'auto') {
+  if (value === `auto`) {
     return insetStyle(type, insetDir, value);
   }
 
