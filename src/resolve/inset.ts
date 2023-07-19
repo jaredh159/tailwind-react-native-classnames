@@ -19,6 +19,10 @@ export function inset(
     });
   }
 
+  if (value === `auto`) {
+    return insetStyle(type, insetDir, value);
+  }
+
   const configValue = config?.[value];
   if (configValue) {
     const styleVal = parseStyleVal(configValue, { isNegative });
