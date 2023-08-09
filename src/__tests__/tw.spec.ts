@@ -12,6 +12,10 @@ describe(`tw`, () => {
   let tw = create();
   beforeEach(() => (tw = create()));
 
+  test(`cached utilities are === to prevent needless re-renders`, () => {
+    expect(tw`w-0`).toBe(tw`w-0`);
+  });
+
   test(`interpolation supports falsy numbers`, () => {
     const falsyNumber = 0;
     expect(tw`opacity-${falsyNumber}`).toEqual({ opacity: 0 });

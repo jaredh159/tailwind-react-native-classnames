@@ -1,5 +1,5 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
-import {
+import type {
   ClassInput,
   DependentStyle,
   Style,
@@ -10,7 +10,7 @@ import {
   DeviceContext,
   Platform,
 } from './types';
-import { TwConfig } from './tw-config';
+import type { TwConfig } from './tw-config';
 import Cache from './cache';
 import ClassParser from './ClassParser';
 import { parseInputs } from './parse-inputs';
@@ -77,7 +77,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     const joined = utilities.join(` `);
     const cached = cache.getStyle(joined);
     if (cached) {
-      return { ...cached, ...(userStyle ? userStyle : {}) };
+      return userStyle ? { ...cached, ...userStyle } : cached;
     }
 
     for (const utility of utilities) {
