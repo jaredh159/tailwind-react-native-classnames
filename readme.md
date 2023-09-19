@@ -30,7 +30,7 @@ const MyComponent = () => (
 - `vw` and `vh` unit support: `h-screen`, `min-w-screen`, `w-[25vw]`, etc...
 - `retina` device pixel density prefix: `w-4 retina:w-2`
 - arbitrary, JIT-style classes: `mt-[31px] bg-[#eaeaea] text-red-200/75`, etc...
-- tagged template literal synax for most common usage
+- tagged template literal syntax for most common usage
 - merges supplied RN style objects for unsupported utilities or complex use cases
 - supports custom utility creation via standard
   [plugin config](https://tailwindcss.com/docs/adding-new-utilities#using-a-plugin).
@@ -48,7 +48,7 @@ const MyComponent = () => (
 - [Taking Control of Dark Mode](#taking-control-of-dark-mode)
 - [Customizing Breakpoints](#customizing-breakpoints)
 - [Adding Custom Classes](#adding-custom-classes)
-- [Matching Conditional Prefixes](#matchinb-conditional-prefixes)
+- [Matching Conditional Prefixes](#matching-conditional-prefixes)
 - [Box-Shadows](#box-shadows)
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
@@ -394,7 +394,7 @@ tw`shadow-md`;
 ```
 
 To override the default implementations of these named shadow classes,
-[add your own custom utilties](#adding-custom-classes) -- any custom utilities you provide
+[add your own custom utilities](#adding-custom-classes) -- any custom utilities you provide
 with the same names will override the ones this library ships with.
 
 ## RN-Only Additions
