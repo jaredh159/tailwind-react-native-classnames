@@ -199,6 +199,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   tailwindFn.setPixelDensity = (newPixelDensity: 1 | 2) => {
     device.pixelDensity = newPixelDensity;
     cacheGroup = deriveCacheGroup();
+    return cacheGroup;
   };
 
   tailwindFn.setColorScheme = (newColorScheme: RnColorScheme) => {

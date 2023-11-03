@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useColorScheme, useWindowDimensions, Appearance } from 'react-native';
-import { TailwindFn, RnColorScheme } from './types';
+import type { TailwindFn, RnColorScheme } from './types';
 
 type Options = {
   withDeviceColorScheme: boolean;
@@ -9,15 +9,16 @@ type Options = {
 export function useDeviceContext(
   tw: TailwindFn,
   opts: Options = { withDeviceColorScheme: true },
-): void {
+): string {
   const window = useWindowDimensions();
   tw.setWindowDimensions(window);
   tw.setFontScale(window.fontScale);
-  tw.setPixelDensity(window.scale === 1 ? 1 : 2);
+  const memoBuster = tw.setPixelDensity(window.scale === 1 ? 1 : 2);
   const colorScheme = useColorScheme();
   if (opts.withDeviceColorScheme) {
     tw.setColorScheme(colorScheme);
   }
+  return String(memoBuster);
 }
 
 export function useAppColorScheme(
