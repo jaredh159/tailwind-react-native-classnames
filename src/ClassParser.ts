@@ -1,16 +1,11 @@
+import type { TwConfig } from './tw-config';
+import type { StyleIR, DeviceContext, ParseContext, Platform } from './types';
+import type Cache from './cache';
 import fontSize from './resolve/font-size';
 import lineHeight from './resolve/line-height';
 import spacing from './resolve/spacing';
 import screens from './screens';
-import { TwConfig } from './tw-config';
-import {
-  StyleIR,
-  isOrientation,
-  isPlatform,
-  DeviceContext,
-  ParseContext,
-  Platform,
-} from './types';
+import { isOrientation, isPlatform } from './types';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
@@ -28,7 +23,6 @@ import { widthHeight, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
-import Cache from './cache';
 
 export default class ClassParser {
   private position = 0;

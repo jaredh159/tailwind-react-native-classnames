@@ -1,4 +1,4 @@
-import { ClassInput, Style } from './types';
+import type { ClassInput, Style } from './types';
 
 export function parseInputs(
   inputs: ClassInput[],

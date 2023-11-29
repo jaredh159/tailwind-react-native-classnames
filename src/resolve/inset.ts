@@ -1,5 +1,5 @@
-import { TwTheme } from '../tw-config';
-import { StyleIR } from '../types';
+import type { TwTheme } from '../tw-config';
+import type { StyleIR } from '../types';
 import { complete, parseStyleVal, parseUnconfigged } from '../helpers';
 
 type Inset = 'bottom' | 'top' | 'left' | 'right' | 'inset';

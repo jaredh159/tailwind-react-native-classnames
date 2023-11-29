@@ -1,5 +1,6 @@
-import { TwTheme } from '../tw-config';
-import { ParseContext, Style, StyleIR, Unit } from '../types';
+import type { TwTheme } from '../tw-config';
+import type { ParseContext, Style, StyleIR } from '../types';
+import { Unit } from '../types';
 import {
   getCompleteStyle,
   complete,

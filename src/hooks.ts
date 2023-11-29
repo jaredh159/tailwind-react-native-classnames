@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useColorScheme, useWindowDimensions, Appearance } from 'react-native';
-import { TailwindFn, RnColorScheme } from './types';
+import type { TailwindFn, RnColorScheme } from './types';
 
 type Options = {
   withDeviceColorScheme: boolean;

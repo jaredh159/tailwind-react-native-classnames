@@ -1,4 +1,4 @@
-import { PluginFunction } from './types';
+import type { PluginFunction } from './types';
 
 type TwFontSize =
   | string

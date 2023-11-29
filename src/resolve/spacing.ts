@@ -1,5 +1,6 @@
-import { TwTheme } from '../tw-config';
-import { Direction, Unit, StyleIR } from '../types';
+import type { TwTheme } from '../tw-config';
+import type { Direction, StyleIR } from '../types';
+import { Unit } from '../types';
 import { parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
 
 export default function spacing(

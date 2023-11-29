@@ -1,4 +1,4 @@
-import { StyleIR, Style } from './types';
+import type { StyleIR, Style } from './types';
 import defaultStyles from './styles';
 
 export default class Cache {

@@ -1,5 +1,5 @@
-import { TwTheme } from '../tw-config';
-import { ColorStyleType, Direction, StyleIR } from '../types';
+import type { TwTheme } from '../tw-config';
+import type { ColorStyleType, Direction, StyleIR } from '../types';
 import {
   parseAndConsumeDirection,
   complete,

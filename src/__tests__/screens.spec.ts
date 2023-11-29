@@ -1,5 +1,5 @@
 import { expect, test, describe } from '@jest/globals';
-import { TwTheme } from '../tw-config';
+import type { TwTheme } from '../tw-config';
 import screens from '../screens';
 
 describe(`screens()`, () => {
