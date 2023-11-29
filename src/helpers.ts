@@ -1,4 +1,5 @@
-import { Unit, Style, Direction, CompleteStyle, ParseContext } from './types';
+import type { Style, Direction, CompleteStyle, ParseContext } from './types';
+import { Unit } from './types';
 
 export function complete(style: Style): CompleteStyle {
   return { kind: `complete`, style };

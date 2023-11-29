@@ -1,6 +1,6 @@
 import { describe, test, expect } from '@jest/globals';
+import type { Style } from '../types';
 import { create } from '../';
-import { Style } from '../types';
 
 describe(`simple style mappings`, () => {
   const tw = create();

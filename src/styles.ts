@@ -1,4 +1,4 @@
-import { StyleIR, DependentStyle } from './types';
+import type { StyleIR, DependentStyle } from './types';
 import { complete } from './helpers';
 
 const defaultStyles: Array<[string, StyleIR]> = [

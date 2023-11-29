@@ -1,6 +1,6 @@
 import { describe, test, expect } from '@jest/globals';
+import type { TwConfig } from '../tw-config';
 import { create } from '..';
-import { TwConfig } from '../tw-config';
 
 describe(`font size`, () => {
   let tw = create();

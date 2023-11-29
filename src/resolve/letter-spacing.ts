@@ -1,5 +1,6 @@
-import { TwTheme } from '../tw-config';
-import { DependentStyle, StyleIR, Unit } from '../types';
+import type { TwTheme } from '../tw-config';
+import type { DependentStyle, StyleIR } from '../types';
+import { Unit } from '../types';
 import {
   parseNumericValue,
   complete,

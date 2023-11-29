@@ -1,5 +1,6 @@
-import { ColorStyleType, isObject, isString, Style, StyleIR } from '../types';
-import { TwColors } from '../tw-config';
+import type { ColorStyleType, Style, StyleIR } from '../types';
+import type { TwColors } from '../tw-config';
+import { isObject, isString } from '../types';
 import { warn, complete } from '../helpers';
 
 export function color(

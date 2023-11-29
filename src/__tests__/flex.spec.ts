@@ -1,6 +1,6 @@
 import { describe, expect, test } from '@jest/globals';
+import type { TwTheme } from '../tw-config';
 import { create } from '..';
-import { TwTheme } from '../tw-config';
 
 describe(`flex grow/shrink`, () => {
   let tw = create();

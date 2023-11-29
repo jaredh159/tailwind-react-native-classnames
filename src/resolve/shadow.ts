@@ -1,4 +1,4 @@
-import { StyleIR } from '../types';
+import type { StyleIR } from '../types';
 import { parseUnconfigged } from '../helpers';
 
 export function shadowOpacity(value: string): StyleIR | null {

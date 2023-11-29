@@ -1,5 +1,5 @@
-import { TwTheme } from '../tw-config';
-import { StyleIR } from '../types';
+import type { TwTheme } from '../tw-config';
+import type { StyleIR } from '../types';
 import { complete } from '../helpers';
 
 export default function fontFamily(

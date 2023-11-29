@@ -1,5 +1,5 @@
-import { TwConfig } from './tw-config';
-import { AddedUtilities, CreatePlugin, PluginFunction } from './types';
+import type { TwConfig } from './tw-config';
+import type { AddedUtilities, CreatePlugin, PluginFunction } from './types';
 
 const plugin: CreatePlugin = (handler) => {
   return { handler, config: undefined };

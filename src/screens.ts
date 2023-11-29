@@ -1,4 +1,4 @@
-import { TwTheme } from './tw-config';
+import type { TwTheme } from './tw-config';
 import { toPx, warn } from './helpers';
 
 type Screens = Record<string, [min: number, max: number, order: number]>;

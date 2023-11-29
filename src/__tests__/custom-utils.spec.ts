@@ -1,9 +1,8 @@
 import { describe, test, expect } from '@jest/globals';
-import { create, plugin } from '../';
-import { TwConfig } from '../tw-config';
-
 // @ts-ignore
 import tailwindPlugin from 'tailwindcss/plugin';
+import type { TwConfig } from '../tw-config';
+import { create, plugin } from '../';
 
 describe(`custom registered utilities`, () => {
   test(`register custom utilities, using package plugin fn`, () => {
@@ -20,6 +19,10 @@ describe(`custom registered utilities`, () => {
     const tw = create(config);
     expect(tw`btn`).toEqual({ paddingTop: 33 });
     expect(tw`custom`).toEqual({ marginTop: 4, color: `#fff` });
+    // works with media queries
+    expect(tw`md:btn`).toEqual({});
+    tw.setWindowDimensions({ width: 800, height: 800 });
+    expect(tw`md:btn`).toEqual({ paddingTop: 33 });
   });
 
   test(`supports leading dot for added utilities`, () => {
