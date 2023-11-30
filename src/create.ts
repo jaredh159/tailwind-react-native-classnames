@@ -166,7 +166,8 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     strings.forEach((string, i) => {
       str += string + (values[i] ?? ``);
     });
-    return style(str);
+    const cached = getCache().getStyle(str);
+    return cached ? cached : style(str);
   };
 
   tailwindFn.style = style;
