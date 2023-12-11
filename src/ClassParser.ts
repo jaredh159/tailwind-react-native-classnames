@@ -349,7 +349,7 @@ export default class ClassParser {
     if (this.consumePeeked(`z-`)) {
       const zIndex = Number(theme?.zIndex?.[this.rest] ?? this.rest);
       if (!Number.isNaN(zIndex)) {
-        return complete({ zIndex });
+        return complete({ zIndex: this.isNegative ? -zIndex : zIndex });
       }
     }
 

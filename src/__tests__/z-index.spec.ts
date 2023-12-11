@@ -9,6 +9,7 @@ describe(`z-index utilities`, () => {
     [`z-0`, { zIndex: 0 }],
     [`z-10`, { zIndex: 10 }],
     [`z-30`, { zIndex: 30 }],
+    [`-z-30`, { zIndex: -30 }],
     [`z-100`, { zIndex: 100 }],
     // arbitrary
     [`z-194`, { zIndex: 194 }],
