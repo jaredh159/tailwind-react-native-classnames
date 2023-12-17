@@ -23,6 +23,7 @@ describe(`custom registered utilities`, () => {
     expect(tw`md:btn`).toEqual({});
     tw.setWindowDimensions({ width: 800, height: 800 });
     expect(tw`md:btn`).toEqual({ paddingTop: 33 });
+    expect(tw`md:custom`).toEqual({ marginTop: 4, color: `#fff` });
   });
 
   test(`supports leading dot for added utilities`, () => {
