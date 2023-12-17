@@ -28,7 +28,6 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     .map(([rawUtil, style]): [string, StyleIR] => {
       const util = rawUtil.replace(/^\./, ``);
       if (typeof style === `string`) {
-        // mutating while mapping, i know - bad form, but for performance sake... ¯\_(ツ)_/¯
         customStringUtils[util] = style;
         return [util, { kind: `null` }];
       }
@@ -52,21 +51,27 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     );
   }
 
-  let cacheGroup = deriveCacheGroup();
   const contextCaches: Record<string, Cache> = {};
+  let cache = new Cache();
+  configureCache();
 
-  function getCache(): Cache {
+  function configureCache(): void {
+    const cacheGroup = deriveCacheGroup();
     const existing = contextCaches[cacheGroup];
     if (existing) {
-      return existing;
+      cache = existing;
+      return;
     }
-    const cache = new Cache(customStyleUtils);
-    contextCaches[cacheGroup] = cache;
-    return cache;
+    const newCache = new Cache(customStyleUtils);
+    contextCaches[cacheGroup] = newCache;
+    // set custom string utils into cache, so they are resolvable at all breakpoints
+    for (const [key, value] of Object.entries(customStringUtils)) {
+      newCache.setIr(key, complete(style(value)));
+    }
+    cache = newCache;
   }
 
   function style(...inputs: ClassInput[]): Style {
-    const cache = getCache();
     let resolved: Style = {};
     const dependents: DependentStyle[] = [];
     const ordered: OrderedStyle[] = [];
@@ -82,16 +87,10 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
 
     for (const utility of utilities) {
       let styleIr = cache.getIr(utility);
-
-      if (!styleIr && utility in customStringUtils) {
-        const customStyle = style(customStringUtils[utility]);
-        cache.setIr(utility, complete(customStyle));
-        resolved = { ...resolved, ...customStyle };
-        continue;
+      if (!styleIr) {
+        const parser = new ClassParser(utility, config, cache, device, platform);
+        styleIr = parser.parse();
       }
-
-      const parser = new ClassParser(utility, config, cache, device, platform);
-      styleIr = parser.parse();
 
       switch (styleIr.kind) {
         case `complete`:
@@ -174,7 +173,6 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
 
   tailwindFn.prefixMatch = (...prefixes: string[]) => {
     const joined = prefixes.sort().join(`:`);
-    const cache = getCache();
     const cached = cache.getPrefixMatch(joined);
     if (cached !== undefined) {
       return cached;
@@ -188,22 +186,22 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
 
   tailwindFn.setWindowDimensions = (newDimensions: { width: number; height: number }) => {
     device.windowDimensions = newDimensions;
-    cacheGroup = deriveCacheGroup();
+    configureCache();
   };
 
   tailwindFn.setFontScale = (newFontScale: number) => {
     device.fontScale = newFontScale;
-    cacheGroup = deriveCacheGroup();
+    configureCache();
   };
 
   tailwindFn.setPixelDensity = (newPixelDensity: 1 | 2) => {
     device.pixelDensity = newPixelDensity;
-    cacheGroup = deriveCacheGroup();
+    configureCache();
   };
 
   tailwindFn.setColorScheme = (newColorScheme: RnColorScheme) => {
     device.colorScheme = newColorScheme;
-    cacheGroup = deriveCacheGroup();
+    configureCache();
   };
 
   return tailwindFn;
