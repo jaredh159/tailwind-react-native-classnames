@@ -12,5 +12,5 @@
     "declaration": true,
     "moduleResolution": "node"
   },
-  "exclude": ["./dist","**/*.spec.ts"]
+  "exclude": ["./dist", "**/*.spec.ts"]
 }

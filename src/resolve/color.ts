@@ -105,9 +105,9 @@ function hexToRgba(hex: string): string {
     return `rgba(0, 0, 0, 1)`;
   }
 
-  const r = parseInt(result[1]!, 16);
-  const g = parseInt(result[2]!, 16);
-  const b = parseInt(result[3]!, 16);
+  const r = parseInt(result[1] ?? ``, 16);
+  const g = parseInt(result[2] ?? ``, 16);
+  const b = parseInt(result[3] ?? ``, 16);
   return `rgba(${r}, ${g}, ${b}, 1)`;
 }
 

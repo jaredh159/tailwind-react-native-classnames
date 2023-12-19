@@ -1,8 +1,11 @@
+import { describe, beforeEach, test, expect } from '@jest/globals';
 import { create } from '../';
 
 describe(`arbitrary breakpoint prefixes`, () => {
   let tw = create();
-  beforeEach(() => (tw = create()));
+  beforeEach(() => {
+    tw = create();
+  });
 
   const cases: Array<
     [
