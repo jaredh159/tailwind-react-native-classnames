@@ -220,7 +220,7 @@ function unconfiggedStyleVal(
 }
 
 function consoleWarn(...args: any[]): void {
-  console.warn(...args);
+  console.warn(...args); // eslint-disable-line no-console
 }
 
 function noopWarn(..._: any[]): void {

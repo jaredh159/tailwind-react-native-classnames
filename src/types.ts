@@ -23,7 +23,7 @@ export type ClassInput =
   | ImageStyle;
 
 export const PLATFORMS = [`ios`, `android`, `windows`, `macos`, `web`] as const;
-export type Platform = typeof PLATFORMS[number];
+export type Platform = (typeof PLATFORMS)[number];
 
 export function isPlatform(x: string): x is Platform {
   return PLATFORMS.includes(x as Platform);

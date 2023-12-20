@@ -219,12 +219,13 @@ export default function App() {
 }
 ```
 
-> ⚠️ If you're using Expo, make sure to make the following change in `app.json` to
-> use the `dark:` prefix as Expo by default locks your app to light mode only.
+> ⚠️ If you're using Expo, make sure to make the following change in `app.json` to use the
+> `dark:` prefix as Expo by default locks your app to light mode only.
+
 ```json
 {
   "expo": {
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "automatic"
   }
 }
 ```
@@ -394,8 +395,8 @@ tw`shadow-md`;
 ```
 
 To override the default implementations of these named shadow classes,
-[add your own custom utilities](#adding-custom-classes) -- any custom utilities you provide
-with the same names will override the ones this library ships with.
+[add your own custom utilities](#adding-custom-classes) -- any custom utilities you
+provide with the same names will override the ones this library ships with.
 
 ## RN-Only Additions
 
@@ -433,7 +434,9 @@ across one you feel is missing, open an issue or a PR.
 
 ## VS Code Intellisense
 
-Add the following to the settings of the [official Tailwind plugin](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss) for VS Code.
+Add the following to the settings of the
+[official Tailwind plugin](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
+for VS Code.
 
 ```jsonc
 // ...
@@ -447,7 +450,8 @@ Add the following to the settings of the [official Tailwind plugin](https://mark
 ]
 ```
 
-More detailed instructions, including how to add snippets, are available [here](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124).
+More detailed instructions, including how to add snippets, are available
+[here](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124).
 
 ## Migrating from V2
 
