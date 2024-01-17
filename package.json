@@ -9,10 +9,12 @@
   "exports": {
     "./package.json": "./package.json",
     ".": {
+      "types": "./dist/esm/index.d.ts",
       "import": "./dist/esm/index.js",
       "require": "./dist/cjs/index.js"
     },
     "./create": {
+      "types": "./dist/esm/create.d.ts",
       "import": "./dist/esm/create.js",
       "require": "./dist/cjs/create.js"
     }
