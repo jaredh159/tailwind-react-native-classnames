@@ -204,6 +204,10 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     configureCache();
   };
 
+  tailwindFn.getColorScheme = () => {
+    return device.colorScheme;
+  };
+
   return tailwindFn;
 }
 

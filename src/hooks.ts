@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useColorScheme, useWindowDimensions, Appearance } from 'react-native';
+import { useColorScheme, useWindowDimensions } from 'react-native';
 import type { TailwindFn, RnColorScheme } from './types';
 
 type Options = {
@@ -29,7 +29,7 @@ export function useAppColorScheme(
   setColorScheme: (colorScheme: RnColorScheme) => void,
 ] {
   const [colorScheme, setColorScheme] = useState<RnColorScheme>(
-    initialValue ?? Appearance.getColorScheme(),
+    initialValue ?? tw.getColorScheme(),
   );
   return [
     colorScheme,
