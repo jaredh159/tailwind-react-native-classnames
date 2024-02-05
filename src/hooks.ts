@@ -28,9 +28,12 @@ export function useAppColorScheme(
   toggleColorScheme: () => void,
   setColorScheme: (colorScheme: RnColorScheme) => void,
 ] {
-  const [colorScheme, setColorScheme] = useState<RnColorScheme>(
-    initialValue ?? Appearance.getColorScheme(),
-  );
+  const [colorScheme, setColorScheme] = useState(() => {
+    const init = initialValue ?? Appearance.getColorScheme();
+    tw.setColorScheme(init);
+    return init;
+  });
+
   return [
     colorScheme,
     () => {

@@ -10,7 +10,8 @@
     "lib": ["ES2019"],
     "target": "ES2019",
     "declaration": true,
-    "moduleResolution": "node"
+    "moduleResolution": "node",
+    "jsx": "react"
   },
   "exclude": ["./dist", "**/*.spec.ts"]
 }
