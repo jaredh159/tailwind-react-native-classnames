@@ -40,10 +40,10 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   function deriveCacheGroup(): string {
     return (
       [
+        device.colorScheme === `dark` ? `dark` : false,
         device.windowDimensions ? `w${device.windowDimensions.width}` : false,
         device.windowDimensions ? `h${device.windowDimensions.height}` : false,
         device.fontScale ? `fs${device.fontScale}` : false,
-        device.colorScheme === `dark` ? `dark` : false,
         device.pixelDensity === 2 ? `retina` : false,
       ]
         .filter(Boolean)
@@ -51,12 +51,28 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     );
   }
 
+  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
+  const tailwindFn = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
+    let str = ``;
+    strings.forEach((string, i) => {
+      str += string + (values[i] ?? ``);
+    });
+    return style(str);
+  };
+
   const contextCaches: Record<string, Cache> = {};
   let cache = new Cache();
+  tailwindFn.memoBuster = ``;
   configureCache();
+
+  // get back to cjs
+  // probably need to implement the check for if isset
+  //   in order to not be a breaking change
+  // also, in this branch, add _unstableUpdateContext func
 
   function configureCache(): void {
     const cacheGroup = deriveCacheGroup();
+    tailwindFn.memoBuster = `twrnc-memobuster-key--${cacheGroup}`;
     const existing = contextCaches[cacheGroup];
     if (existing) {
       cache = existing;
@@ -159,15 +175,6 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
       : undefined;
   }
 
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const tailwindFn = (strings: TemplateStringsArray, ...values: (string | number)[]) => {
-    let str = ``;
-    strings.forEach((string, i) => {
-      str += string + (values[i] ?? ``);
-    });
-    return style(str);
-  };
-
   tailwindFn.style = style;
   tailwindFn.color = color;
 
@@ -201,6 +208,23 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
 
   tailwindFn.setColorScheme = (newColorScheme: RnColorScheme) => {
     device.colorScheme = newColorScheme;
+    configureCache();
+  };
+
+  tailwindFn.getColorScheme = () => device.colorScheme;
+
+  tailwindFn.updateDeviceContext = (
+    window: { width: number; height: number },
+    fontScale: number,
+    pixelDensity: 1 | 2,
+    colorScheme: RnColorScheme | 'skip',
+  ) => {
+    device.windowDimensions = window;
+    device.fontScale = fontScale;
+    device.pixelDensity = pixelDensity;
+    if (colorScheme !== `skip`) {
+      device.colorScheme = colorScheme;
+    }
     configureCache();
   };
 
