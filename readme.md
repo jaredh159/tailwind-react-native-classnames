@@ -21,6 +21,8 @@ const MyComponent = () => (
   [image](https://reactnative.dev/docs/image-style-props),
   [shadow](https://reactnative.dev/docs/shadow-props), and
   [text](https://reactnative.dev/docs/text-style-props)).
+- very fast: best performance of all RN styling libraries, according to
+  [this benchmark](https://github.com/efstathiosntonas/react-native-style-libraries-benchmark).
 - compatible with Tailwind CSS v3 and v2
 - respects your `tailwind.config.js` for full configuration
 - platform prefixes: `android:mt-4 ios:mt-2`
@@ -34,7 +36,6 @@ const MyComponent = () => (
 - merges supplied RN style objects for unsupported utilities or complex use cases
 - supports custom utility creation via standard
   [plugin config](https://tailwindcss.com/docs/adding-new-utilities#using-a-plugin).
-- heavily optimized for performance - styles resolved once, then stored in in-memory cache
 - flexible, conditional styles based on
   [classnames package api](https://github.com/JedWatson/classnames).
 - written 100% in Typescript, ships with types
@@ -53,8 +54,7 @@ const MyComponent = () => (
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
 - [VS Code Intellisense](#vs-code-intellisense)
-- [Migrating from V2](#migrating-from-v2)
-- [Migrating from V1](#migrating-from-v1)
+- [Migrating from previous versions](#migrating-from-previous-versions)
 - [Prior Art](#prior-art)
 
 ## Installation
@@ -453,48 +453,9 @@ for VS Code.
 More detailed instructions, including how to add snippets, are available
 [here](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124).
 
-## Migrating from V2
+## Migrating from Previous Versions
 
-**Color renames**. In line with the
-[upgrade guide](https://tailwindcss.com/docs/upgrade-guide#removed-color-aliases),
-tailwind v3 has mapped `green`, `yellow`, and `purple` to their extended colors.
-Additionally,
-[gray colors](https://tailwindcss.com/docs/upgrade-guide#renamed-gray-scales) were renamed
-in the extended colors to be more specific. Both of these can be resolved by following
-tailwind's upgrade guide and optionally re-aliasing the colors in your
-`tailwind.config.js`.
-
-Other than checking on any changes caused by color renames in tailwindcss, there are no
-breaking changes in V3 of this library, no further changes should be necessary.
-
-New v3 prefixes and classes are being added as we identify use cases. If you do have a
-feature that would help your development, please
-[open an issue](https://github.com/jaredh159/tailwind-react-native-classnames/issues/new)
-and include any libraries / hooks that could help someone in the community put a PR
-together.
-
-## Migrating from V1
-
-**1.** During the rewrite, the package name on npm was changed to `twrnc`. To remove the
-old library and install v2, run:
-
-```
-npm uninstall tailwind-react-native-classnames
-npm install twrnc
-```
-
-**2.** Grep through your project replacing `from 'tailwind-react-native-classnames'` with
-`from 'twrnc'`.
-
-**3.** If you were using a `tailwind.config.js` you can `git rm` your `tw-rn-styles.json`
-file, and switch to passing your config directly to `create` as shown below: (details
-[here](#customization))
-
-```js
-const tw = create(require(`../../tailwind.config.js`));
-```
-
-That's it! 🎉 The core API and functionality should work exactly the same from v1 to v2.
+See [migration-guide.md](/migration-guide.md).
 
 ## Prior Art
 
