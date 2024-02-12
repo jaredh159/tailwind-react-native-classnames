@@ -2,6 +2,36 @@
 
 ## 🚨 Breaking Changes
 
+### Breakpoint Boundaries
+
+Prior to `v4.0.0` `twrnc` displayed subtly different behavior for media query ranges from
+TailwindCSS. Specifically, TailwindCSS media queries are **inclusive** of the _minimum_,
+and older versions of `twrnc` were **exclusive** of the range minimum. In practical terms
+that means that a utility like `md:bg-black` is applicable in TailwindCSS _when the screen
+size is **exactly** `768px` wide,_ whereas in `twrnc@3.x.x` that class would only begin to
+apply at **`769px`.** Version `4.0.0` corrects this off-by-one error, making the library
+more consistent with TailwindCSS.
+
+We think that this will not affect most library consumers, but it is possible that you
+could see a difference in appearance if your device window size is precisely the same as a
+media query range minimum, so this is technically a breaking change.
+
+If you'd like to restore the prior behavior, you can customize your theme's `screens`,
+settings:
+
+```js
+module.exports = {
+  theme: {
+    screens: {
+      sm: '641px',
+      md: '769px',
+      lg: '1025px',
+      xl: '1281px',
+    },
+  },
+};
+```
+
 ### `useAppColorScheme()` Initialization
 
 _NB: If you were not using dark mode, or were only observing the device's color scheme

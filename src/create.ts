@@ -65,11 +65,6 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   tailwindFn.memoBuster = ``;
   configureCache();
 
-  // get back to cjs
-  // probably need to implement the check for if isset
-  //   in order to not be a breaking change
-  // also, in this branch, add _unstableUpdateContext func
-
   function configureCache(): void {
     const cacheGroup = deriveCacheGroup();
     tailwindFn.memoBuster = `twrnc-memobuster-key--${cacheGroup}`;
