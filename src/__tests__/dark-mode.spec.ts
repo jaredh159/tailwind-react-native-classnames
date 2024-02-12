@@ -35,10 +35,18 @@ describe(`dark mode`, () => {
       backgroundColor: `rgba(243, 244, 246, 0.5)`,
     });
 
+    expect(tw`bg-white dark:bg-white/50`).toEqual({
+      backgroundColor: `#fff`,
+    });
+
     tw.setColorScheme(`dark`);
 
     expect(tw`bg-gray-100/50 dark:bg-gray-800/50`).toEqual({
       backgroundColor: `rgba(31, 41, 55, 0.5)`,
+    });
+
+    expect(tw`bg-white dark:bg-white/50`).toEqual({
+      backgroundColor: `rgba(255, 255, 255, 0.5)`,
     });
   });
 });

@@ -1,7 +1,7 @@
 import type { ColorStyleType, Style, StyleIR } from '../types';
 import type { TwColors } from '../tw-config';
 import { isObject, isString } from '../types';
-import { warn, complete } from '../helpers';
+import { warn } from '../helpers';
 
 export function color(
   type: ColorStyleType,
@@ -36,7 +36,12 @@ export function color(
     const opacity = Number(shorthandOpacity);
     if (!Number.isNaN(opacity)) {
       color = addOpacity(color, opacity / 100);
-      return complete({ [STYLE_PROPS[type].color]: color });
+      return {
+        kind: `dependent`,
+        complete(style) {
+          style[STYLE_PROPS[type].color] = color;
+        },
+      };
     }
   }
 
