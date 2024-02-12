@@ -21,6 +21,8 @@ const MyComponent = () => (
   [image](https://reactnative.dev/docs/image-style-props),
   [shadow](https://reactnative.dev/docs/shadow-props), and
   [text](https://reactnative.dev/docs/text-style-props)).
+- very fast: best performance of all RN styling libraries, according to
+  [this benchmark](https://github.com/efstathiosntonas/react-native-style-libraries-benchmark).
 - compatible with Tailwind CSS v3 and v2
 - respects your `tailwind.config.js` for full configuration
 - platform prefixes: `android:mt-4 ios:mt-2`
@@ -34,7 +36,6 @@ const MyComponent = () => (
 - merges supplied RN style objects for unsupported utilities or complex use cases
 - supports custom utility creation via standard
   [plugin config](https://tailwindcss.com/docs/adding-new-utilities#using-a-plugin).
-- heavily optimized for performance - styles resolved once, then stored in in-memory cache
 - flexible, conditional styles based on
   [classnames package api](https://github.com/JedWatson/classnames).
 - written 100% in Typescript, ships with types
