@@ -39,6 +39,16 @@ describe(`dark mode`, () => {
       backgroundColor: `#fff`,
     });
 
+    // ignores dark:bg-opacity-25 when merging, not dark mode
+    expect(tw`bg-white dark:bg-white/50 dark:bg-opacity-25`).toEqual({
+      backgroundColor: `#fff`,
+    });
+
+    // merges bg-opacity-50
+    expect(tw`bg-white dark:bg-white/75 bg-opacity-50`).toEqual({
+      backgroundColor: `rgba(255, 255, 255, 0.5)`,
+    });
+
     tw.setColorScheme(`dark`);
 
     expect(tw`bg-gray-100/50 dark:bg-gray-800/50`).toEqual({
@@ -46,6 +56,11 @@ describe(`dark mode`, () => {
     });
 
     expect(tw`bg-white dark:bg-white/50`).toEqual({
+      backgroundColor: `rgba(255, 255, 255, 0.5)`,
+    });
+
+    // shorthand opacity wins over "merged" bg-opacity-X
+    expect(tw`bg-white dark:bg-white/50 bg-opacity-75 dark:bg-opacity-25`).toEqual({
       backgroundColor: `rgba(255, 255, 255, 0.5)`,
     });
   });

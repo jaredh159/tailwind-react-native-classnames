@@ -37,6 +37,9 @@ export function color(
     if (!Number.isNaN(opacity)) {
       color = addOpacity(color, opacity / 100);
       return {
+        // even though we know the bg opacity, return `dependent` to work around
+        // subtle dark-mode ordering issue when combining shorthand & non-shorthand
+        // @see https://github.com/jaredh159/tailwind-react-native-classnames/pull/269
         kind: `dependent`,
         complete(style) {
           style[STYLE_PROPS[type].color] = color;

@@ -34,6 +34,10 @@ describe(`colors`, () => {
   test(`color with opacity shorthand`, () => {
     expect(tw`bg-black/50`).toEqual({ backgroundColor: `rgba(0, 0, 0, 0.5)` });
     expect(tw`text-red-300/75`).toEqual({ color: `rgba(252, 165, 165, 0.75)` });
+    // shorthand preferred
+    expect(tw`bg-black/50 bg-opacity-75`).toEqual({
+      backgroundColor: `rgba(0, 0, 0, 0.5)`,
+    });
   });
 
   test(`bg colors with customized configs`, () => {
