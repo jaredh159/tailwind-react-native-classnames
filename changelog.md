@@ -6,6 +6,28 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.0.0] - 2024-02-15
+
+> See [migration guide](./migration-guide.md) for upgrading instructions.
+
+### Fixed
+
+- media-query off by one pixel error
+  [(#223)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/223)
+- initialization of color scheme when managing color scheme manually (not listening to
+  device changes) (see
+  [#266](https://github.com/jaredh159/tailwind-react-native-classnames/pull/266))
+
+### Changed
+
+- `useDeviceContext()` options when opting-out of listening to device color scheme changes
+  (see [migration-guide](./migration-guide.md))
+- `useAppColorScheme()` no longer allows initial value, moved to `useDeviceContext()` (see
+  [migration guide](./migration-guide.md) and
+  [#266](https://github.com/jaredh159/tailwind-react-native-classnames/pull/266))
+- media-query minimum (see
+  [#223](https://github.com/jaredh159/tailwind-react-native-classnames/issues/223))
+
 ## [3.6.9] - 2024-02-12
 
 ### Fixed
