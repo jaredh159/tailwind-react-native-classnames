@@ -54,7 +54,6 @@ describe(`screens()`, () => {
   ];
 
   // https://tailwindcss.com/docs/breakpoints#custom-media-queries
-
   test.each(cases)(`converts tw screens to ranges`, (input, expected) => {
     expect(screens(input)).toEqual(expected);
   });

@@ -54,6 +54,7 @@ const MyComponent = () => (
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
 - [VS Code Intellisense](#vs-code-intellisense)
+- [Memo-Busting](#memo-busting)
 - [Migrating from previous versions](#migrating-from-previous-versions)
 - [Prior Art](#prior-art)
 
@@ -241,25 +242,25 @@ you'll need to configure things slightly differently:
 import { useDeviceContext, useAppColorScheme } from 'twrnc';
 
 export default function App() {
-  // 1️⃣  opt OUT of listening to DEVICE color scheme events
-  useDeviceContext(tw, { withDeviceColorScheme: false });
+  useDeviceContext(tw, {
+    // 1️⃣  opt OUT of listening to DEVICE color scheme events
+    observeDeviceColorSchemeChanges: false
+    // 2️⃣  and supply an initial color scheme
+    initialColorScheme: `light`, // 'light' | 'dark' | 'device'
+  });
 
-  // 2️⃣  use the `useAppColorScheme` hook to get a reference to the current color
-  // scheme, with some functions to modify it (triggering re-renders) when you need to
+  // 3️⃣  use the `useAppColorScheme` hook anywhere to get a reference to the current
+  // colorscheme, with functions to modify it (triggering re-renders) when you need
   const [colorScheme, toggleColorScheme, setColorScheme] = useAppColorScheme(tw);
 
   return (
-    {/* 3️⃣ use one of the setter functions, like `toggleColorScheme` in your app */}
+    {/* 4️⃣ use one of the setter functions, like `toggleColorScheme` in your app */}
     <TouchableOpacity onPress={toggleColorScheme}>
       <Text style={tw`text-black dark:text-white`}>Switch Color Scheme</Text>
     </TouchableOpacity>
   );
 }
 ```
-
-`useAppColorScheme()` accepts an optional second argument of an _initial value for the
-color scheme._ If not supplied, it will be initialized to the current system setting at
-the time the function is called.
 
 ## Customizing Breakpoints
 
@@ -452,6 +453,26 @@ for VS Code.
 
 More detailed instructions, including how to add snippets, are available
 [here](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124).
+
+## Memo Busting
+
+If you're using device-context prefixes (like `dark:`, and `md:`), _memoized_ components
+can cause problems by preventing re-renders when the color scheme or window size changes.
+You may not be memoizing explicitly yourself as many third-party librarys (like
+`react-navigation`) memoizes its own components.
+
+In order to help with this problem, `twrnc` exposes a `.memoBuster` property on the `tw`
+object. This string property is meant to passed as a `key` prop to break memoization
+boundaries. It is stable (preventing re-renders) until something in the device context
+changes, at which point it deterministically updates:
+
+```tsx
+<SomeMemoizedComponent key={tw.memoBuster} />
+```
+
+> This is not a perfect solution for **all** memoization issues. For caveats and more
+> context, see
+> [#112](https://github.com/jaredh159/tailwind-react-native-classnames/issues/112).
 
 ## Migrating from Previous Versions
 

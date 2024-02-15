@@ -63,7 +63,7 @@ export default class ClassParser {
         const windowWidth = device.windowDimensions?.width;
         if (windowWidth) {
           const [min, max] = widthBreakpoints[prefix] ?? [0, 0];
-          if (windowWidth <= min || windowWidth > max) {
+          if (windowWidth < min || windowWidth >= max) {
             // breakpoint does not match
             this.isNull = true;
           }

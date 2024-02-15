@@ -1,4 +1,83 @@
-## Migrating from 2.x.x
+# Migrating to 4.x.x
+
+## 🚨 Breaking Changes
+
+### Breakpoint Boundaries
+
+Prior to `v4.0.0` `twrnc` displayed subtly different behavior for media query ranges from
+TailwindCSS. Specifically, TailwindCSS media queries are **inclusive** of the _minimum_,
+and older versions of `twrnc` were **exclusive** of the range minimum. In practical terms
+that means that a utility like `md:bg-black` is applicable in TailwindCSS _when the screen
+size is **exactly** `768px` wide,_ whereas in `twrnc@3.x.x` that class would only begin to
+apply at **`769px`.** Version `4.0.0` corrects this off-by-one error, making the library
+more consistent with TailwindCSS.
+
+We think that this will not affect most library consumers, but it is possible that you
+could see a difference in appearance if your device window size is precisely the same as a
+media query range minimum, so this is technically a breaking change.
+
+If you'd like to restore the prior behavior, you can customize your theme's `screens`,
+settings:
+
+```js
+module.exports = {
+  theme: {
+    screens: {
+      sm: '641px',
+      md: '769px',
+      lg: '1025px',
+      xl: '1281px',
+    },
+  },
+};
+```
+
+### `useAppColorScheme()` Initialization
+
+_NB: If you were not using dark mode, or were only observing the device's color scheme
+(which is the default and most common), you can ignore this section._
+
+The mechanism for opting-out of listening to device color scheme changes in order to
+_control color scheme manually_ from your app has changed in `v4.0.0`. First,
+`useAppColorScheme()` no longer takes a second parameter for initialization:
+
+```diff
+-const [colorScheme, ...] = useAppColorScheme(tw, `light`);
++const [colorScheme, ...] = useAppColorScheme(tw);
+```
+
+This means that `useAppColorScheme()` is now safe to use multiple times in your app,
+anywhere you need to read or modify the app color scheme. As part of this change the
+**initialization has moved** to `useDeviceContext()` (which should only ever be called
+once, at the root of the app):
+
+```diff
+useDeviceContext(tw, {
+-  withDeviceColorScheme: false,
++  observeDeviceColorSchemeChanges: false,
++  initialColorScheme: "light",
+});
+```
+
+The value for `initialColorScheme` can be `"light"`, `"dark"`, or `"device"`. `device`
+means initialize to the _current_ color scheme of the device one time before the app
+assumes control.
+
+_Please note:_ there was a bug in `v3.x.x` when omitting the optional initialization param
+(now removed) passed to `useAppColorScheme()` that caused the color scheme to not be
+correctly initialized when the device was in **dark mode**. Version `4.x.x` fixes this
+issue, but the bugfix can result in an observable difference in your app's initialization
+for users whose devices are set to dark mode. If you want to replicate the former behavior
+before the bug was fixed, you should explicitly pass `"light"` for `initialColorScheme`
+when calling `useDeviceContext()`.
+
+## 💃 New Features
+
+The main `tw` object now exposes a `.memoBuster` string property, which can be useful for
+resolving some simple memoization re-render failure issues. See
+[here for more](./readme.md#memo-busting).
+
+# Migrating to 3.x.x
 
 **Color renames**. In line with the
 [upgrade guide](https://tailwindcss.com/docs/upgrade-guide#removed-color-aliases),
@@ -18,7 +97,7 @@ feature that would help your development, please
 and include any libraries / hooks that could help someone in the community put a PR
 together.
 
-## Migrating from 1.x.x
+# Migrating to 2.x.x
 
 **1.** During the rewrite, the package name on npm was changed to `twrnc`. To remove the
 old library and install v2, run:

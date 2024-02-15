@@ -5,10 +5,39 @@ export interface TailwindFn {
   style: (...inputs: ClassInput[]) => Style;
   color: (color: string) => string | undefined;
   prefixMatch: (...prefixes: string[]) => boolean;
+  memoBuster: string;
+
+  // NB: @see https://www.typescriptlang.org/tsconfig#stripInternal
+
+  /**
+   * @internal
+   */
   setWindowDimensions: (dimensions: { width: number; height: number }) => unknown;
+  /**
+   * @internal
+   */
   setFontScale: (fontScale: number) => unknown;
+  /**
+   * @internal
+   */
   setPixelDensity: (pixelDensity: 1 | 2) => unknown;
+  /**
+   * @internal
+   */
   setColorScheme: (colorScheme: RnColorScheme) => unknown;
+  /**
+   * @internal
+   */
+  getColorScheme: () => RnColorScheme;
+  /**
+   * @internal
+   */
+  updateDeviceContext: (
+    dimensions: { width: number; height: number },
+    fontScale: number,
+    pixelDensity: 1 | 2,
+    colorScheme: RnColorScheme | 'skip',
+  ) => unknown;
 }
 
 export type ClassInput =

@@ -3,5 +3,5 @@
   "transform": {
     "^.+\\.tsx?$": "ts-jest"
   },
-  "testRegex": "__tests__/.*spec\\.ts$"
+  "testRegex": "__tests__/.*spec\\.tsx?$"
 }
