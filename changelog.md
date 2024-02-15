@@ -10,6 +10,11 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 > See [migration guide](./migration-guide.md) for upgrading instructions.
 
+### Added
+
+- `tw.memoBuster` property for breaking memoization, [see here](./readme.md#memo-busting)
+  for more details.
+
 ### Fixed
 
 - media-query off by one pixel error

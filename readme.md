@@ -461,8 +461,8 @@ More detailed instructions, including how to add snippets, are available
 
 If you're using device-context prefixes (like `dark:`, and `md:`), _memoized_ components
 can cause problems by preventing re-renders when the color scheme or window size changes.
-You may not be memoizing explicitly yourself as many third-party librarys (like
-`react-navigation`) memoizes its own components.
+You may not be memoizing explicitly yourself as many third-party libraries (like
+`react-navigation`) memoizes their own components.
 
 In order to help with this problem, `twrnc` exposes a `.memoBuster` property on the `tw`
 object. This string property is meant to passed as a `key` prop to break memoization
