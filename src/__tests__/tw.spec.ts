@@ -328,4 +328,9 @@ describe(`tw`, () => {
     expect(tw.style(`w-1 lg:w-3`)).toEqual({ width: 12 });
     expect(tw.style(`w-1 md:w-2 lg:w-3`)).toEqual({ width: 12 });
   });
+
+  test(`duplicated style priority`, () => {
+    expect(tw`bg-white bg-black`).toEqual({ backgroundColor: `#000` });
+    expect(tw`bg-white bg-black bg-white`).toEqual({ backgroundColor: `#fff` });
+  });
 });

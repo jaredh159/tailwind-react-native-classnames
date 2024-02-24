@@ -32,5 +32,5 @@ function split(str: string): string[] {
 }
 
 function unique(className: string, index: number, classes: string[]): boolean {
-  return classes.indexOf(className) === index;
+  return classes.lastIndexOf(className) === index;
 }
