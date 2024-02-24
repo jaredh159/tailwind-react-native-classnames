@@ -1,8 +1,9 @@
-import type { ViewStyle, TextStyle, ImageStyle } from 'react-native';
+import type { ViewStyle, TextStyle, ImageStyle, StyleProp } from 'react-native';
 
 export interface TailwindFn {
   (strings: TemplateStringsArray, ...values: (string | number)[]): Style;
   style: (...inputs: ClassInput[]) => Style;
+  sx<T>(classes: ClassInput, style: StyleProp<T>): Style | StyleProp<T>;
   color: (color: string) => string | undefined;
   prefixMatch: (...prefixes: string[]) => boolean;
   memoBuster: string;

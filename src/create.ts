@@ -1,4 +1,5 @@
 import resolveConfig from 'tailwindcss/resolveConfig';
+import type { StyleProp } from 'react-native';
 import type {
   ClassInput,
   DependentStyle,
@@ -157,6 +158,20 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     return resolved;
   }
 
+  /**
+   * Returns a merged style that can be used in React Native by combining two styles.
+   *
+   * @param twStyle The style returned by TailwindFn.
+   * @param style The style used in React Native.
+   */
+  function sx<T>(classes: ClassInput, style: StyleProp<T>): Style | StyleProp<T> {
+    const tailwindStyle = tailwindFn.style(classes);
+
+    if (!style || typeof style !== `object`) return tailwindStyle;
+
+    return { ...tailwindStyle, ...style };
+  }
+
   function color(utils: string): string | undefined {
     const styleObj = style(
       utils
@@ -171,6 +186,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   }
 
   tailwindFn.style = style;
+  tailwindFn.sx = sx;
   tailwindFn.color = color;
 
   tailwindFn.prefixMatch = (...prefixes: string[]) => {
