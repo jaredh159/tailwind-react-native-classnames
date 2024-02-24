@@ -12,6 +12,7 @@ export { useDeviceContext, useAppColorScheme } from './hooks';
 
 const tailwind = create();
 const style = tailwind.style;
+const sx = tailwind.sx;
 
 export default tailwind;
 

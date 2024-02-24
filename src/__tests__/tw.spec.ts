@@ -3,6 +3,7 @@ import { describe, test, expect } from '@jest/globals';
 import type { ViewStyle } from 'react-native';
 import type { TwConfig } from '../tw-config';
 import { create } from '../';
+import lineHeight from '../resolve/line-height';
 
 jest.mock(`react-native`, () => ({
   Platform: { OS: `ios` },
@@ -327,5 +328,20 @@ describe(`tw`, () => {
     expect(tw.style(`w-3`)).toEqual({ width: 12 });
     expect(tw.style(`w-1 lg:w-3`)).toEqual({ width: 12 });
     expect(tw.style(`w-1 md:w-2 lg:w-3`)).toEqual({ width: 12 });
+  });
+
+  test(`Returns a merged style that can be used in React Native by combining two styles`, () => {
+    const tw = create();
+    expect(tw.sx(`text-xs font-bold`, tw`leading-[14px] font-medium`)).toEqual({
+      fontSize: 12,
+      lineHeight: 14,
+      fontWeight: `500`,
+    });
+    // more case
+    expect(tw.sx(`text-xs font-bold`, { fontSize: 16, lineHeight: 14 })).toEqual({
+      fontSize: 16,
+      lineHeight: 14,
+      fontWeight: `bold`,
+    });
   });
 });
