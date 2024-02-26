@@ -13,10 +13,10 @@ import type {
 import type { TwConfig } from './tw-config';
 import Cache from './cache';
 import ClassParser from './ClassParser';
+import { configColor, removeOpacityHelpers } from './resolve/color';
 import { parseInputs } from './parse-inputs';
 import { complete, warn } from './helpers';
 import { getAddedUtilities } from './plugin';
-import { removeOpacityHelpers } from './resolve/color';
 
 export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
   const config = resolveConfig(withContent(customConfig) as any) as TwConfig;
@@ -165,9 +165,13 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
         .map((util) => `bg-${util}`)
         .join(` `),
     );
-    return typeof styleObj.backgroundColor === `string`
-      ? styleObj.backgroundColor
-      : undefined;
+    if (typeof styleObj.backgroundColor === `string`) {
+      return styleObj.backgroundColor;
+    } else if (config.theme?.colors) {
+      return configColor(utils, config.theme.colors) ?? undefined;
+    } else {
+      return undefined;
+    }
   }
 
   tailwindFn.style = style;
