@@ -25,7 +25,7 @@ export function color(
 
     // search for color in config
   } else {
-    color = findColorInConfigRecursive(value, config);
+    color = configColor(value, config) ?? ``;
   }
 
   if (!color) {
@@ -119,14 +119,14 @@ function hexToRgba(hex: string): string {
   return `rgba(${r}, ${g}, ${b}, 1)`;
 }
 
-function findColorInConfigRecursive(colorName: string, config: TwColors): string {
-  const configColor = config[colorName];
+export function configColor(colorName: string, config: TwColors): string | null {
+  const color = config[colorName];
 
   // the color is found at the current config level
-  if (isString(configColor)) {
-    return configColor;
-  } else if (isObject(configColor) && isString(configColor.DEFAULT)) {
-    return configColor.DEFAULT;
+  if (isString(color)) {
+    return color;
+  } else if (isObject(color) && isString(color.DEFAULT)) {
+    return color.DEFAULT;
   }
 
   // search for a matching sub-string at the current config level
@@ -134,14 +134,14 @@ function findColorInConfigRecursive(colorName: string, config: TwColors): string
   while (colorNameStart !== colorName) {
     const subConfig = config[colorNameStart];
     if (isObject(subConfig)) {
-      return findColorInConfigRecursive(colorNameRest.join(`-`), subConfig);
+      return configColor(colorNameRest.join(`-`), subConfig);
     } else if (colorNameRest.length === 0) {
-      return ``;
+      return null;
     }
     colorNameStart = `${colorNameStart}-${colorNameRest.shift()}`;
   }
 
-  return ``;
+  return null;
 }
 
 const MATCH_SHORT_HEX = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;

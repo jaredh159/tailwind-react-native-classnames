@@ -230,6 +230,11 @@ describe(`tw`, () => {
     expect(tw.color(`white/25`)).toBe(`rgba(255, 255, 255, 0.25)`);
     expect(tw.color(`black opacity-50`)).toBe(`rgba(0, 0, 0, 0.5)`);
     expect(tw.color(`red-500`)).toBe(`#ef4444`);
+    // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/273
+    tw = create({
+      theme: { extend: { colors: { text: { primary: `#F9E` } } } },
+    });
+    expect(tw.color(`text-primary`)).toBe(`#F9E`);
   });
 
   test(`merging in user styles`, () => {
