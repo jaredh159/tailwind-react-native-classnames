@@ -6,6 +6,17 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.0.1] - 2024-02-26
+
+### Fixed
+
+- when duplicate utilities, last now wins
+  [(#245)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/245) and
+  [(#279)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/279)
+- resolve unusual color values from config in `tw.color()`
+  [(#273)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/273) and
+  [(#280)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/280)
+
 ## [4.0.0] - 2024-02-15
 
 > See [migration guide](./migration-guide.md) for upgrading instructions.
