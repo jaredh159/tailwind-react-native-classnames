@@ -35,17 +35,16 @@ export function useAppColorScheme(
   toggleColorScheme: () => void,
   setColorScheme: (colorScheme: RnColorScheme) => void,
 ] {
-  const [colorScheme, setColorScheme] = useState(tw.getColorScheme());
+  const [helper, setHelper] = useState(0);
   return [
-    colorScheme,
+    tw.getColorScheme(),
     () => {
-      const toggled = colorScheme === `dark` ? `light` : `dark`;
-      tw.setColorScheme(toggled);
-      setColorScheme(toggled);
+      tw.setColorScheme(tw.getColorScheme() === `dark` ? `light` : `dark`);
+      setHelper(helper + 1);
     },
     (newColorScheme) => {
       tw.setColorScheme(newColorScheme);
-      setColorScheme(newColorScheme);
+      setHelper(helper + 1);
     },
   ];
 }
