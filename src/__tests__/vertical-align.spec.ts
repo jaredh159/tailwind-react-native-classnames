@@ -5,7 +5,7 @@ describe(`vertical align`, () => {
   let tw = create();
   beforeEach(() => (tw = create()));
 
-  const cases: Array<[string, Record<string, string | number | Record<string, number>>]> =
+  const cases: Array<[string, Record<string, string>]> =
     [
       [`align-auto`, { verticalAlign: `auto` }],
       [`align-top`, { verticalAlign: `top` }],
