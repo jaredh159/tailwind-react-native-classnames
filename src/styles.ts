@@ -109,6 +109,11 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`basis-auto`, complete({ flexBasis: `auto` })],
   [`flex-basis-auto`, complete({ flexBasis: `auto` })],
 
+  [`align-auto`, complete({ verticalAlign: `auto` })],
+  [`align-top`, complete({ verticalAlign: `top` })],
+  [`align-bottom`, complete({ verticalAlign: `bottom` })],
+  [`align-middle`, complete({ verticalAlign: `middle` })],
+
   // default box-shadow implementations
   [
     `shadow-sm`,
