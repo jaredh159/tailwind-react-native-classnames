@@ -96,7 +96,7 @@
 - ✅ shadowRadius `shadow-radius-1[3px]`
 - 🚨 start
 - ✅ textAlign
-- 🚨 textAlignVertical (android only)
+- ✅ textAlignVertical (android only)
 - 🚨 textDecorationColor (ios only)
 - ✅ textDecorationLine
 - 🚨 textDecorationStyle (ios only)

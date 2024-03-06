@@ -6,6 +6,13 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.1.0] - 2024-03-06
+
+### Added
+
+- added Android-only text vertical align (thanks @menghany)
+  [(#284)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/284)
+
 ## [4.0.2] - 2024-03-04
 
 ### Fixed
