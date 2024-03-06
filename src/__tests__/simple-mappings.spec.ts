@@ -86,6 +86,11 @@ describe(`simple style mappings`, () => {
     [`capitalize`, { textTransform: `capitalize` }],
     [`normal-case`, { textTransform: `none` }],
 
+    [`align-auto`, { verticalAlign: `auto` }],
+    [`align-top`, { verticalAlign: `top` }],
+    [`align-bottom`, { verticalAlign: `bottom` }],
+    [`align-middle`, { verticalAlign: `middle` }],
+
     // default box-shadow implementations
     [
       `shadow-sm`,
