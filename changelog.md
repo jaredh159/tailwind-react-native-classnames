@@ -6,6 +6,17 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.2.0] - 2024-03-22
+
+### Added
+
+- added support for arbitrary viewport spacing (eg. `mx-[10vh]`)
+  [(#285)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/285) and
+  [(#287)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/287)
+- added support for arbitrary flex-grow/shrink syntax (eg. `grow-[7]`)
+  [(#146)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/146) and
+  [(#287)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/287)
+
 ## [4.1.0] - 2024-03-06
 
 ### Added
