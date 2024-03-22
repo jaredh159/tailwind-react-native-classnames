@@ -8,6 +8,9 @@ export function flexGrowShrink(
   config?: TwTheme['flexGrow'] | TwTheme['flexShrink'],
 ): StyleIR | null {
   value = value.replace(/^-/, ``);
+  if (value[0] === `[` && value.endsWith(`]`)) {
+    value = value.slice(1, -1);
+  }
   const configKey = value === `` ? `DEFAULT` : value;
   const numericValue = Number(config?.[configKey] ?? value);
   if (!Number.isNaN(numericValue)) {

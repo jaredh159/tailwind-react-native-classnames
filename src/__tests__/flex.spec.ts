@@ -15,6 +15,7 @@ describe(`flex grow/shrink`, () => {
     [`grow`, { flexGrow: 1 }],
     [`grow-0`, { flexGrow: 0 }],
     [`grow-33`, { flexGrow: 33 }],
+    [`grow-[33]`, { flexGrow: 33 }],
     [`shrink`, { flexShrink: 1 }],
     [`shrink-0`, { flexShrink: 0 }],
     [`shrink-77`, { flexShrink: 77 }],
