@@ -146,8 +146,8 @@ export default class ClassParser {
           const style = spacing(
             prop,
             spacingDirection,
-            this.isNegative,
             this.rest,
+            this.context,
             this.config.theme?.[prop],
           );
           if (style) return style;

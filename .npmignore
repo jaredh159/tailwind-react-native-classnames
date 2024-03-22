@@ -7,3 +7,5 @@ src/
 tsconfig.json
 tsconfig.cjs.json
 babel.config.js
+.prettierignore
+.prettierrc.json

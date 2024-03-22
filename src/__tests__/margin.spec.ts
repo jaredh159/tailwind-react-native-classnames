@@ -3,7 +3,10 @@ import { create } from '../';
 
 describe(`margin`, () => {
   let tw = create();
-  beforeEach(() => (tw = create()));
+  beforeEach(() => {
+    tw = create();
+    tw.setWindowDimensions({ width: 800, height: 600 });
+  });
 
   const cases: Array<[string, Record<string, string | number>]> = [
     [
@@ -31,6 +34,9 @@ describe(`margin`, () => {
     [`mt-px`, { marginTop: 1 }],
     [`ml-[333px]`, { marginLeft: 333 }],
     [`-ml-1`, { marginLeft: -4 }],
+    [`mb-[100vh]`, { marginBottom: 600 }],
+    [`ml-[100vw]`, { marginLeft: 800 }],
+    [`mr-[1vw]`, { marginRight: 8 }],
   ];
 
   test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {

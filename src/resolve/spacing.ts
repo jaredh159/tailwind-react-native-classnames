@@ -1,13 +1,13 @@
 import type { TwTheme } from '../tw-config';
-import type { Direction, StyleIR } from '../types';
+import type { Direction, ParseContext, StyleIR } from '../types';
 import { Unit } from '../types';
 import { parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
 
 export default function spacing(
   type: 'margin' | 'padding',
   direction: Direction,
-  isNegative: boolean,
   value: string,
+  context: ParseContext,
   config?: TwTheme['margin'] | TwTheme['padding'],
 ): StyleIR | null {
   let numericValue = ``;
@@ -19,7 +19,7 @@ export default function spacing(
     if (!configValue) {
       const unconfigged = parseUnconfigged(value);
       if (unconfigged && typeof unconfigged === `number`) {
-        return spacingStyle(unconfigged, Unit.px, direction, type);
+        return spacingStyle(unconfigged, Unit.px, direction, type, context);
       }
       return null;
     } else {
@@ -36,12 +36,9 @@ export default function spacing(
     return null;
   }
 
-  let [number, unit] = parsed;
-  if (isNegative) {
-    number = -number;
-  }
+  const [number, unit] = parsed;
 
-  return spacingStyle(number, unit, direction, type);
+  return spacingStyle(number, unit, direction, type, context);
 }
 
 function spacingStyle(
@@ -49,8 +46,9 @@ function spacingStyle(
   unit: Unit,
   direction: Direction,
   type: 'margin' | 'padding',
+  context: ParseContext,
 ): StyleIR | null {
-  const pixels = toStyleVal(number, unit);
+  const pixels = toStyleVal(number, unit, context);
   if (pixels === null) {
     return null;
   }
