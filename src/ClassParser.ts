@@ -50,58 +50,7 @@ export default class ClassParser {
       prefixes = parts;
     }
     this.char = this.string[0];
-
-    const widthBreakpoints = screens(this.config.theme?.screens);
-
-    // loop through the prefixes ONE time, extracting useful info
-    for (const prefix of prefixes) {
-      if (widthBreakpoints[prefix]) {
-        const breakpointOrder = widthBreakpoints[prefix]?.[2];
-        if (breakpointOrder !== undefined) {
-          this.order = (this.order ?? 0) + breakpointOrder;
-        }
-        const windowWidth = device.windowDimensions?.width;
-        if (windowWidth) {
-          const [min, max] = widthBreakpoints[prefix] ?? [0, 0];
-          if (windowWidth < min || windowWidth >= max) {
-            // breakpoint does not match
-            this.isNull = true;
-          }
-        } else {
-          this.isNull = true;
-        }
-      } else if (isPlatform(prefix)) {
-        this.isNull = prefix !== platform;
-      } else if (isOrientation(prefix)) {
-        if (!device.windowDimensions) {
-          this.isNull = true;
-        } else {
-          const deviceOrientation =
-            device.windowDimensions.width > device.windowDimensions.height
-              ? `landscape`
-              : `portrait`;
-          if (deviceOrientation !== prefix) {
-            this.isNull = true;
-          } else {
-            this.incrementOrder();
-          }
-        }
-      } else if (prefix === `retina`) {
-        if (device.pixelDensity === 2) {
-          this.incrementOrder();
-        } else {
-          this.isNull = true;
-        }
-      } else if (prefix === `dark`) {
-        if (device.colorScheme !== `dark`) {
-          this.isNull = true;
-        } else {
-          this.incrementOrder();
-        }
-      } else if (!this.handlePossibleArbitraryBreakpointPrefix(prefix)) {
-        this.isNull = true;
-      }
-    }
+    this.parsePrefixes(prefixes, device, platform);
   }
 
   public parse(): StyleIR {
@@ -410,6 +359,64 @@ export default class ClassParser {
       return true;
     }
     return false;
+  }
+
+  private parsePrefixes(
+    prefixes: string[],
+    device: DeviceContext,
+    platform: Platform,
+  ): void {
+    const widthBreakpoints = screens(this.config.theme?.screens);
+
+    // loop through the prefixes ONE time, extracting useful info
+    for (const prefix of prefixes) {
+      if (widthBreakpoints[prefix]) {
+        const breakpointOrder = widthBreakpoints[prefix]?.[2];
+        if (breakpointOrder !== undefined) {
+          this.order = (this.order ?? 0) + breakpointOrder;
+        }
+        const windowWidth = device.windowDimensions?.width;
+        if (windowWidth) {
+          const [min, max] = widthBreakpoints[prefix] ?? [0, 0];
+          if (windowWidth < min || windowWidth >= max) {
+            // breakpoint does not match
+            this.isNull = true;
+          }
+        } else {
+          this.isNull = true;
+        }
+      } else if (isPlatform(prefix)) {
+        this.isNull = prefix !== platform;
+      } else if (isOrientation(prefix)) {
+        if (!device.windowDimensions) {
+          this.isNull = true;
+        } else {
+          const deviceOrientation =
+            device.windowDimensions.width > device.windowDimensions.height
+              ? `landscape`
+              : `portrait`;
+          if (deviceOrientation !== prefix) {
+            this.isNull = true;
+          } else {
+            this.incrementOrder();
+          }
+        }
+      } else if (prefix === `retina`) {
+        if (device.pixelDensity === 2) {
+          this.incrementOrder();
+        } else {
+          this.isNull = true;
+        }
+      } else if (prefix === `dark`) {
+        if (device.colorScheme !== `dark`) {
+          this.isNull = true;
+        } else {
+          this.incrementOrder();
+        }
+      } else if (!this.handlePossibleArbitraryBreakpointPrefix(prefix)) {
+        this.isNull = true;
+      }
+    }
   }
 
   private parseIsNegative(): void {

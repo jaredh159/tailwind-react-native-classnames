@@ -67,13 +67,6 @@ export function isOrientation(x: string): x is Orientation {
 
 export type RnColorScheme = 'light' | 'dark' | null | undefined;
 
-export interface RnWindow {
-  fontScale: number;
-  height: number;
-  width: number;
-  scale: number; // always 1 or 2
-}
-
 export interface DeviceContext {
   windowDimensions?: {
     width: number;
@@ -168,57 +161,57 @@ export type PluginFunction = (obj: {
   addUtilities(utilities: AddedUtilities): unknown;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   addComponents: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   addBase: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   addVariant: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   e: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   prefix: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   theme: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   variants: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   config: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   corePlugins: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   matchUtilities: NotImplemented;
 
   /**
-   * @deprecated not supported in @jaredh159/twrn
+   * @deprecated not supported in @jaredh159/twrnc
    */
   postcss: unknown;
 }) => unknown;

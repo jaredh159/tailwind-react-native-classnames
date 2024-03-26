@@ -28,6 +28,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     .map(([rawUtil, style]): [string, StyleIR] => {
       const util = rawUtil.replace(/^\./, ``);
       if (typeof style === `string`) {
+        // sacrifice functional purity to only iterate once
         customStringUtils[util] = style;
         return [util, { kind: `null` }];
       }
