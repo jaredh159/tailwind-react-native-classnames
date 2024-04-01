@@ -9,14 +9,7 @@ import { isOrientation, isPlatform } from './types';
 import fontFamily from './resolve/font-family';
 import { color, colorOpacity } from './resolve/color';
 import { border, borderRadius } from './resolve/borders';
-import {
-  getCompleteStyle,
-  getDirection,
-  unconfiggedStyle,
-  warn,
-  complete,
-  parseNumericValue,
-} from './helpers';
+import * as h from './helpers';
 import { inset } from './resolve/inset';
 import { flexGrowShrink, flexBasis, flex, gap } from './resolve/flex';
 import { widthHeight, minMaxWidthHeight } from './resolve/width-height';
@@ -24,7 +17,7 @@ import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
 
-export default class ClassParser {
+export default class UtilityParser {
   private position = 0;
   private string: string;
   private char?: string;
@@ -91,7 +84,7 @@ export default class ClassParser {
         if (match) {
           const prop = this.char === `m` ? `margin` : `padding`;
           this.advance((match[0]?.length ?? 0) + 1);
-          const spacingDirection = getDirection(match[1]);
+          const spacingDirection = h.getDirection(match[1]);
           const style = spacing(
             prop,
             spacingDirection,
@@ -159,9 +152,9 @@ export default class ClassParser {
 
     if (this.consumePeeked(`aspect-`)) {
       if (this.consumePeeked(`ratio-`)) {
-        warn(`\`aspect-ratio-{ratio}\` is deprecated, use \`aspect-{ratio}\` instead`);
+        h.warn(`\`aspect-ratio-{ratio}\` is deprecated, use \`aspect-{ratio}\` instead`);
       }
-      style = getCompleteStyle(`aspectRatio`, this.rest, { fractions: true });
+      style = h.getCompleteStyle(`aspectRatio`, this.rest, { fractions: true });
       if (style) return style;
     }
 
@@ -269,7 +262,7 @@ export default class ClassParser {
     }
 
     if (this.consumePeeked(`shadow-radius-`)) {
-      style = unconfiggedStyle(`shadowRadius`, this.rest);
+      style = h.unconfiggedStyle(`shadowRadius`, this.rest);
       if (style) return style;
     }
 
@@ -281,7 +274,7 @@ export default class ClassParser {
     if (this.consumePeeked(`elevation-`)) {
       const elevation = parseInt(this.rest, 10);
       if (!Number.isNaN(elevation)) {
-        return complete({ elevation });
+        return h.complete({ elevation });
       }
     }
 
@@ -298,11 +291,11 @@ export default class ClassParser {
     if (this.consumePeeked(`z-`)) {
       const zIndex = Number(theme?.zIndex?.[this.rest] ?? this.rest);
       if (!Number.isNaN(zIndex)) {
-        return complete({ zIndex: this.isNegative ? -zIndex : zIndex });
+        return h.complete({ zIndex: this.isNegative ? -zIndex : zIndex });
       }
     }
 
-    warn(`\`${this.rest}\` unknown or invalid utility`);
+    h.warn(`\`${this.rest}\` unknown or invalid utility`);
     return null;
   }
 
@@ -321,7 +314,7 @@ export default class ClassParser {
     const windowDims = this.context.device.windowDimensions;
     const [, type = ``, dir = ``, amount = ``] = match;
     const checkDimension = dir === `w` ? windowDims.width : windowDims.height;
-    const parsedAmount = parseNumericValue(amount, this.context);
+    const parsedAmount = h.parseNumericValue(amount, this.context);
     if (parsedAmount === null) {
       this.isNull = true;
       return true;

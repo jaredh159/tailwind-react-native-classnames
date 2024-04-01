@@ -12,7 +12,7 @@ import type {
 } from './types';
 import type { TwConfig } from './tw-config';
 import Cache from './cache';
-import ClassParser from './ClassParser';
+import UtilityParser from './UtilityParser';
 import { configColor, removeOpacityHelpers } from './resolve/color';
 import { parseInputs } from './parse-inputs';
 import { complete, warn } from './helpers';
@@ -100,7 +100,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     for (const utility of utilities) {
       let styleIr = cache.getIr(utility);
       if (!styleIr) {
-        const parser = new ClassParser(utility, config, cache, device, platform);
+        const parser = new UtilityParser(utility, config, cache, device, platform);
         styleIr = parser.parse();
       }
 
@@ -184,7 +184,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     if (cached !== undefined) {
       return cached;
     }
-    const parser = new ClassParser(`${joined}:flex`, config, cache, device, platform);
+    const parser = new UtilityParser(`${joined}:flex`, config, cache, device, platform);
     const ir = parser.parse();
     const prefixMatches = ir.kind !== `null`;
     cache.setPrefixMatch(joined, prefixMatches);
