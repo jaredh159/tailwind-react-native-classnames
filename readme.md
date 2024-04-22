@@ -13,9 +13,6 @@ const MyComponent = () => (
 );
 ```
 
-> 👋 NB: `v4.0.0` was just released! See [migration guide](./migration-guide.md) for
-> upgrading instructions.
-
 ## Features 🚀
 
 - full support for all _native_ RN styles with tailwind counterparts:
