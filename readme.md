@@ -297,13 +297,13 @@ module.exports = {
   plugins: [
     plugin(({ addUtilities }) => {
       addUtilities({
-        '.btn': {
+        'btn': {
           padding: 3,
           borderRadius: 10,
           textTransform: `uppercase`,
           backgroundColor: `#333`,
         },
-        '.resize-repeat': {
+        'resize-repeat': {
           resizeMode: `repeat`,
         },
       });
@@ -321,8 +321,8 @@ module.exports = {
     plugin(({ addUtilities }) => {
       addUtilities({
         // 😎 similar to `@apply`
-        '.btn': `px-4 py-1 rounded-full bg-red-800 text-white`,
-        '.body-text': `font-serif leading-relaxed tracking-wide text-gray-800`,
+        'btn': `px-4 py-1 rounded-full bg-red-800 text-white`,
+        'body-text': `font-serif leading-relaxed tracking-wide text-gray-800`,
       });
     }),
   ],
