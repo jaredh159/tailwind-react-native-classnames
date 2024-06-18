@@ -9,13 +9,26 @@ import {
   parseNumericValue,
   unconfiggedStyle,
 } from '../helpers';
+import resolveLineHeight from './line-height';
 
 export default function fontSize(
   value: string,
-  config?: TwTheme['fontSize'],
+  config?: TwTheme,
   context: ParseContext = {},
 ): StyleIR | null {
-  const configValue = config?.[value];
+  if (value.includes(`/`)) {
+    const [fontSizeValue = ``, lineHeightValue = ``] = value.split(`/`, 2);
+    const lh = resolveLineHeight(lineHeightValue, config?.lineHeight);
+    const fs = fontSize(fontSizeValue, config, context);
+    if (fs?.kind === `complete` && lh?.kind === `complete`) {
+      return {
+        kind: `complete`,
+        style: { ...fs.style, ...lh.style },
+      };
+    }
+  }
+
+  const configValue = config?.fontSize?.[value];
   if (!configValue) {
     return unconfiggedStyle(`fontSize`, value, context);
   }
@@ -25,17 +38,19 @@ export default function fontSize(
   }
 
   let style: Style = {};
-  const [fontSize, rest] = configValue;
-  const fontSizeStyle = getStyle(`fontSize`, fontSize);
+  const [sizePart, otherProps] = configValue;
+  const fontSizeStyle = getStyle(`fontSize`, sizePart);
   if (fontSizeStyle) {
     style = fontSizeStyle;
   }
 
-  if (typeof rest === `string`) {
-    return complete(mergeStyle(`lineHeight`, calculateLineHeight(rest, style), style));
+  if (typeof otherProps === `string`) {
+    return complete(
+      mergeStyle(`lineHeight`, calculateLineHeight(otherProps, style), style),
+    );
   }
 
-  const { lineHeight, letterSpacing } = rest;
+  const { lineHeight, letterSpacing } = otherProps;
   if (lineHeight) {
     mergeStyle(`lineHeight`, calculateLineHeight(lineHeight, style), style);
   }

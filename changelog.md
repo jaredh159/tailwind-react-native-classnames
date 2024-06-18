@@ -6,6 +6,12 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.3.0] - 2024-06-18
+
+- added support for line-height shorthand with font-size (eg. `text-sm/6`)
+  [(#282)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/292) and
+  [(#293)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/293)
+
 ## [4.2.0] - 2024-03-22
 
 ### Added

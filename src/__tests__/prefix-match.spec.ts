@@ -25,6 +25,14 @@ describe(`tw.prefixMatch()`, () => {
     tw = create();
     expect(tw.prefixMatch(`ios`)).toBe(false);
     expect(tw.prefixMatch(`android`)).toBe(true);
+    expect(tw`web:self-center`).toEqual({});
+    expect(tw`not-valid-util`).toEqual({});
+    rn.Platform.OS = `web`;
+    tw = create();
+    expect(tw.prefixMatch(`ios`)).toBe(false);
+    expect(tw.prefixMatch(`android`)).toBe(false);
+    expect(tw.prefixMatch(`web`)).toBe(true);
+    expect(tw`web:self-center`).toEqual({ alignSelf: `center` });
   });
 
   test(`breakpoint prefixes`, () => {
