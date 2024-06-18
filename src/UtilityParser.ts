@@ -133,7 +133,7 @@ export default class UtilityParser {
     }
 
     if (this.consumePeeked(`text-`)) {
-      style = fontSize(this.rest, theme?.fontSize, this.context);
+      style = fontSize(this.rest, theme, this.context);
       if (style) return style;
 
       style = color(`text`, this.rest, theme?.textColor);

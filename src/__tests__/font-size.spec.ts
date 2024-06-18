@@ -28,6 +28,11 @@ describe(`font size`, () => {
     expect(tw`text-[50vh]`).toMatchObject({ fontSize: 300 });
   });
 
+  test(`line-height shorthand`, () => {
+    expect(tw`text-sm leading-6`).toMatchObject({ fontSize: 14, lineHeight: 24 });
+    expect(tw`text-sm/6`).toMatchObject({ fontSize: 14, lineHeight: 24 });
+  });
+
   test(`font-sizes with relative line-height`, () => {
     const config: TwConfig = {
       theme: {
