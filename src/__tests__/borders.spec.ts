@@ -18,6 +18,7 @@ describe(`borders`, () => {
     [`border-white`, { borderColor: `#fff` }],
     [`border-t-white`, { borderTopColor: `#fff` }],
     [`border-t-[#e9c46a]`, { borderTopColor: `#e9c46a` }],
+    [`border-t-[steelblue]`, { borderTopColor: `steelblue` }],
     [`border-blue-200`, { borderColor: `#bfdbfe` }],
     [`border-black border-opacity-50`, { borderColor: `rgba(0, 0, 0, 0.5)` }],
     [`border-dashed`, { borderStyle: `dashed` }],

@@ -19,11 +19,12 @@ export function color(
 
   let color = ``;
 
-  // for arbitrary support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`
+  // arbitrary hex/rgb(a) support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`
   if (value.startsWith(`[#`) || value.startsWith(`[rgb`)) {
     color = value.slice(1, -1);
-
-    // search for color in config
+    // arbitrary named colors: `bg-[lemonchiffon]`
+  } else if (value.startsWith(`[`) && value.slice(1, -1).match(/^[a-z]{3,}$/)) {
+    color = value.slice(1, -1);
   } else {
     color = configColor(value, config) ?? ``;
   }

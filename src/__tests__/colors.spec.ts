@@ -93,6 +93,7 @@ describe(`colors`, () => {
 
   test(`arbitrary color values`, () => {
     expect(tw`bg-[#012]`).toEqual({ backgroundColor: `#012` });
+    expect(tw`bg-[rebeccapurple]`).toEqual({ backgroundColor: `rebeccapurple` });
     expect(tw`bg-[rgba(3,4,5,0.1)]`).toEqual({
       backgroundColor: `rgba(3,4,5,0.1)`,
     });
