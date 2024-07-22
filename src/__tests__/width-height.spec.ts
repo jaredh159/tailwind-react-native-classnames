@@ -38,6 +38,11 @@ describe(`width/height utilities`, () => {
     // arbitrary
     [`h-[333px]`, { height: 333 }],
 
+    // size-*
+    [`size-1`, { width: 4, height: 4 }],
+    [`size-3/4`, { width: `75%`, height: `75%` }],
+    [`size-[333px]`, { width: 333, height: 333 }],
+
     // not configged, use 0.25rem = 1 as formula
     [`h-81`, { height: (81 / 4) * 16 }],
 

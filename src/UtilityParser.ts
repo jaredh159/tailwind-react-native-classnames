@@ -12,7 +12,7 @@ import { border, borderRadius } from './resolve/borders';
 import * as h from './helpers';
 import { inset } from './resolve/inset';
 import { flexGrowShrink, flexBasis, flex, gap } from './resolve/flex';
-import { widthHeight, minMaxWidthHeight } from './resolve/width-height';
+import { widthHeight, size, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
@@ -293,6 +293,11 @@ export default class UtilityParser {
       if (!Number.isNaN(zIndex)) {
         return h.complete({ zIndex: this.isNegative ? -zIndex : zIndex });
       }
+    }
+
+    if (this.consumePeeked(`size-`)) {
+      style = size(this.rest, this.context, theme);
+      if (style) return style;
     }
 
     h.warn(`\`${this.rest}\` unknown or invalid utility`);
