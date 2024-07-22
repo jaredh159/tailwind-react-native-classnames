@@ -16,6 +16,19 @@ export function widthHeight(
   return unconfiggedStyle(type, value, context);
 }
 
+export function size(
+  value: string,
+  context: ParseContext = {},
+  theme?: TwTheme,
+): StyleIR | null {
+  const width = widthHeight(`width`, value, context, theme?.width);
+  const height = widthHeight(`height`, value, context, theme?.height);
+  if (width?.kind !== `complete` || height?.kind !== `complete`) {
+    return null;
+  }
+  return complete({ ...width.style, ...height.style });
+}
+
 export function minMaxWidthHeight(
   type: 'minWidth' | 'minHeight' | 'maxWidth' | 'maxHeight',
   value: string,

@@ -6,6 +6,12 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.5.0] - 2024-07-22
+
+- added support for `size-*` shorthand utility
+  [(#314)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/314) and
+  [(#315)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/315)
+
 ## [4.4.0] - 2024-07-09
 
 - added support for arbitrary named colors (eg. `text-[lemonchiffon]`)
