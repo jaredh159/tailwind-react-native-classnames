@@ -3,7 +3,7 @@ import type { PluginFunction } from './types';
 type TwFontSize =
   | string
   | [string, string]
-  | [string, { lineHeight?: string; letterSpacing?: string }];
+  | [string, { lineHeight?: string; letterSpacing?: string; fontWeight?: string }];
 
 type TwScreen = string | { max?: string; min?: string };
 
