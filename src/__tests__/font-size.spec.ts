@@ -65,6 +65,9 @@ describe(`font size`, () => {
     tw = create({ theme: { fontSize: { xs: [`0.75rem`, { letterSpacing: `1px` }] } } });
     expect(tw`text-xs`).toEqual({ fontSize: 12, letterSpacing: 1 });
 
+    tw = create({ theme: { fontSize: { xs: [`0.75rem`, { fontWeight: `700` }] } } });
+    expect(tw`text-xs`).toEqual({ fontSize: 12, fontWeight: 700 });
+
     tw = create({
       theme: {
         fontSize: { xs: [`0.75rem`, { lineHeight: `0.5rem`, letterSpacing: `1px` }] },

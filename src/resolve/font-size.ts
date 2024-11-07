@@ -50,13 +50,17 @@ export default function fontSize(
     );
   }
 
-  const { lineHeight, letterSpacing } = otherProps;
+  const { lineHeight, letterSpacing, fontWeight } = otherProps;
   if (lineHeight) {
     mergeStyle(`lineHeight`, calculateLineHeight(lineHeight, style), style);
   }
 
   if (letterSpacing) {
     mergeStyle(`letterSpacing`, letterSpacing, style);
+  }
+
+  if (fontWeight) {
+    mergeStyle(`fontWeight`, fontWeight, style);
   }
 
   return complete(style);
