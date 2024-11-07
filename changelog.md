@@ -6,6 +6,11 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.6.0] - 2024-11-07
+
+- added support for fontWeight sub-customization in fontSize theming (thanks @Gyeop)
+  [(#324)](https://github.com/jaredh159/tailwind-react-native-classnames/pulls/324)
+
 ## [4.5.1] - 2024-08-23
 
 - revised minimum RN version to 0.62.2 after testing, see
