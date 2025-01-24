@@ -6,6 +6,11 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.6.1] - 2025-01-24
+
+- prevent auto-upgrades to `tailwindcss@4.x.x` until we explore/fix compitibility
+  [(#331)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/331)
+
 ## [4.6.0] - 2024-11-07
 
 - added support for fontWeight sub-customization in fontSize theming (thanks @Gyeop)
