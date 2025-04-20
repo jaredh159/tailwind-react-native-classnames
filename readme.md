@@ -445,10 +445,7 @@ for VS Code.
     // ...
     "style"
 ],
-"tailwindCSS.experimental.classRegex": [
-    "tw`([^`]*)",
-    ["tw.style\\(([^)]*)\\)", "'([^']*)'"]
-]
+"tailwindCSS.classFunctions": ["tw", "tw.color", "tw.style"],
 ```
 
 More detailed instructions, including how to add snippets, are available
