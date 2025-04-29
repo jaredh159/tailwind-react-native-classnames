@@ -16,6 +16,7 @@ import { widthHeight, size, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
+import { transform } from './resolve/transform';
 
 export default class UtilityParser {
   private position = 0;
@@ -300,6 +301,11 @@ export default class UtilityParser {
       if (style) return style;
     }
 
+    if (this.consumePeeked(`scale-`)) {
+      style = transform(`scale`, this.rest, this.context, theme?.scale);
+      if (style) return style;
+    }
+
     h.warn(`\`${this.rest}\` unknown or invalid utility`);
     return null;
   }
@@ -429,3 +435,4 @@ export default class UtilityParser {
     this.order = (this.order ?? 0) + 1;
   }
 }
+

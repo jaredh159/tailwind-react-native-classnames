@@ -42,6 +42,7 @@ export interface TwTheme {
   backgroundColor?: TwColors;
   borderColor?: TwColors;
   textColor?: TwColors;
+  scale?: Record<string, string>;
   extend?: Omit<TwTheme, 'extend'>;
 }
 

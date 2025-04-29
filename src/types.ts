@@ -80,6 +80,7 @@ export interface DeviceContext {
 export interface ParseContext {
   isNegative?: boolean;
   fractions?: boolean;
+  isArbitraryValue?: boolean;
   device?: DeviceContext;
 }
 
@@ -108,7 +109,7 @@ export type Direction =
   | 'BottomRight';
 
 export type Style = {
-  [key: string]: string[] | string | number | boolean | Style;
+  [key: string]: string[] | string | number | boolean | Style | Style[];
 };
 
 export enum ConfigType {
