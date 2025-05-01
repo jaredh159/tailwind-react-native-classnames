@@ -80,7 +80,6 @@ export interface DeviceContext {
 export interface ParseContext {
   isNegative?: boolean;
   fractions?: boolean;
-  isArbitraryValue?: boolean;
   device?: DeviceContext;
 }
 
@@ -151,6 +150,8 @@ export enum Unit {
   percent = `%`,
   vw = `vw`,
   vh = `vh`,
+  deg = `deg`,
+  rad = `rad`,
   none = `<no-css-unit>`,
 }
 

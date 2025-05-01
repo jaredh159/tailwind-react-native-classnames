@@ -43,6 +43,10 @@ export function parseNumericValue(
       return [number, Unit.vw];
     case `vh`:
       return [number, Unit.vh];
+    case `deg`:
+      return [number, Unit.deg];
+    case `rad`:
+      return [number, Unit.rad];
     default:
       return null;
   }
@@ -116,6 +120,9 @@ export function toStyleVal(
         return null;
       }
       return device.windowDimensions.height * (number / 100);
+    case Unit.deg:
+    case Unit.rad:
+      return `${number * (isNegative ? -1 : 1)}${unit}`;
     default:
       return null;
   }
@@ -173,8 +180,6 @@ export function parseUnconfigged(
   }
   if (value[0] === `[`) {
     value = value.slice(1, -1);
-    const style = unconfiggedStyleVal(value, { ...context, isArbitraryValue: true });
-    if (style) return style;
   }
   return unconfiggedStyleVal(value, context);
 }
@@ -213,7 +218,7 @@ function unconfiggedStyleVal(
   // not sure if this is the right approach, but this allows arbitrary
   // non-bracket numbers, like top-73 and it INFERS the meaning to be
   // tailwind's default scale for spacing, which is 1 = 0.25rem
-  if (unit === Unit.none && !context.isArbitraryValue) {
+  if (unit === Unit.none) {
     number = number / 4;
     unit = Unit.rem;
   }
