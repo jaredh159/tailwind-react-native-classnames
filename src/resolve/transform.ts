@@ -94,7 +94,7 @@ export function skew(
     styleVal = parseUnconfigged(value, context);
   } else {
     // unconfigged value should should be converted to degrees
-    // e.g `skew-99` should be `99deg`
+    // e.g `skew-x-99` should be `99deg`
     const parsed = parseNumericValue(value);
     styleVal = parsed ? toStyleVal(parsed[0], Unit.deg, context) : null;
   }

@@ -123,7 +123,9 @@ describe(`transform utilities`, () => {
     });
 
     test(`combine repeated rotate utilities into one`, () => {
-      expect(tw.style(`rotate-50 rotate-100`)).toMatchObject({ transform: [{ rotate: `100deg` }] });
+      expect(tw.style(`rotate-50 rotate-100`)).toMatchObject({
+        transform: [{ rotate: `100deg` }],
+      });
       expect(tw.style(`rotate-x-50 rotate-x-100`)).toMatchObject({
         transform: [{ rotateX: `100deg` }],
       });
@@ -247,7 +249,11 @@ describe(`transform utilities`, () => {
   });
 
   test(`combine multiple transform utilities `, () => {
-    expect(tw.style(`scale-50 scale-x-100 scale-y-150 rotate-0 rotate-x-90 rotate-y-45 skew-x-99 skew-y-99 translate-x-px translate-y-px`)).toMatchObject({
+    expect(
+      tw.style(
+        `scale-50 scale-x-100 scale-y-150 rotate-0 rotate-x-90 rotate-y-45 skew-x-99 skew-y-99 translate-x-px translate-y-px`,
+      ),
+    ).toMatchObject({
       transform: [
         { scale: 0.5 },
         { scaleX: 1 },
@@ -264,6 +270,10 @@ describe(`transform utilities`, () => {
   });
 
   test(`transform-none`, () => {
-    expect(tw.style(`scale-50 scale-x-100 scale-y-150 rotate-0 rotate-x-90 rotate-y-45 skew-x-99 skew-y-99 translate-x-px translate-y-px transform-none`)).toMatchObject({ transform: [] });
+    expect(
+      tw.style(
+        `scale-50 scale-x-100 scale-y-150 rotate-0 rotate-x-90 rotate-y-45 skew-x-99 skew-y-99 translate-x-px translate-y-px transform-none`,
+      ),
+    ).toMatchObject({ transform: [] });
   });
 });

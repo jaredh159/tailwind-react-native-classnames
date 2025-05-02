@@ -454,4 +454,3 @@ export default class UtilityParser {
     this.order = (this.order ?? 0) + 1;
   }
 }
-
