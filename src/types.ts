@@ -108,7 +108,7 @@ export type Direction =
   | 'BottomRight';
 
 export type Style = {
-  [key: string]: string[] | string | number | boolean | Style;
+  [key: string]: string[] | string | number | boolean | Style | Style[];
 };
 
 export enum ConfigType {
@@ -150,6 +150,8 @@ export enum Unit {
   percent = `%`,
   vw = `vw`,
   vh = `vh`,
+  deg = `deg`,
+  rad = `rad`,
   none = `<no-css-unit>`,
 }
 

@@ -43,6 +43,10 @@ export function parseNumericValue(
       return [number, Unit.vw];
     case `vh`:
       return [number, Unit.vh];
+    case `deg`:
+      return [number, Unit.deg];
+    case `rad`:
+      return [number, Unit.rad];
     default:
       return null;
   }
@@ -116,6 +120,9 @@ export function toStyleVal(
         return null;
       }
       return device.windowDimensions.height * (number / 100);
+    case Unit.deg:
+    case Unit.rad:
+      return `${number * (isNegative ? -1 : 1)}${unit}`;
     default:
       return null;
   }

@@ -196,7 +196,7 @@ function fontVariant(type: string): DependentStyle {
       if (!style.fontVariant || !Array.isArray(style.fontVariant)) {
         style.fontVariant = [];
       }
-      style.fontVariant.push(type);
+      (style.fontVariant as string[]).push(type);
     },
   };
 }
