@@ -6,6 +6,11 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.7.0] - 2025-05-06
+
+- support transform scale, rotate, skew, translate
+  [(#343)](https://github.com/jaredh159/tailwind-react-native-classnames/pulls/343)
+
 ## [4.6.1] - 2025-01-24
 
 - prevent auto-upgrades to `tailwindcss@4.x.x` until we explore/fix compitibility
