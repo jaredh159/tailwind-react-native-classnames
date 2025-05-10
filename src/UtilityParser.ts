@@ -16,7 +16,14 @@ import { widthHeight, size, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
-import { rotate, scale, skew, transformNone, translate } from './resolve/transform';
+import {
+  origin,
+  rotate,
+  scale,
+  skew,
+  transformNone,
+  translate,
+} from './resolve/transform';
 
 export default class UtilityParser {
   private position = 0;
@@ -323,6 +330,11 @@ export default class UtilityParser {
 
     if (this.consumePeeked(`transform-none`)) {
       return transformNone();
+    }
+
+    if (this.consumePeeked(`origin-`)) {
+      style = origin(this.rest, this.context, theme?.transformOrigin);
+      if (style) return style;
     }
 
     h.warn(`\`${this.rest}\` unknown or invalid utility`);

@@ -199,20 +199,22 @@ describe(`transform utilities`, () => {
         [`-translate-y-px`, { transform: [{ translateY: -1 }] }],
         [`-translate-x-0.5`, { transform: [{ translateX: -2 }] }],
         [`-translate-y-0.5`, { transform: [{ translateY: -2 }] }],
+        [`translate-x-full`, { transform: [{ translateX: `100%` }] }],
+        [`translate-y-full`, { transform: [{ translateY: `100%` }] }],
+        [`translate-x-1/2`, { transform: [{ translateX: `50%` }] }],
+        [`translate-y-1/2`, { transform: [{ translateY: `50%` }] }],
 
         // arbitrary
         [`translate-x-[17rem]`, { transform: [{ translateX: 272 }] }],
         [`translate-y-[17rem]`, { transform: [{ translateY: 272 }] }],
+        [`translate-x-[10%]`, { transform: [{ translateX: `10%` }] }],
+        [`translate-y-[10%]`, { transform: [{ translateY: `10%` }] }],
 
         // not configged
         [`translate-x-81`, { transform: [{ translateX: (81 / 4) * 16 }] }],
         [`translate-y-81`, { transform: [{ translateY: (81 / 4) * 16 }] }],
-
-        // unsupported
-        [`translate-x-full`, {}],
-        [`translate-y-full`, {}],
-        [`translate-x-1/2`, {}],
-        [`translate-y-1/2`, {}],
+        [`translate-x-1/5`, { transform: [{ translateX: `20%` }] }],
+        [`translate-y-1/5`, { transform: [{ translateY: `20%` }] }],
       ];
 
     test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
@@ -275,5 +277,49 @@ describe(`transform utilities`, () => {
         `scale-50 scale-x-100 scale-y-150 rotate-0 rotate-x-90 rotate-y-45 skew-x-99 skew-y-99 translate-x-px translate-y-px transform-none`,
       ),
     ).toMatchObject({ transform: [] });
+  });
+
+  describe(`origin`, () => {
+    const cases: Array<
+      [string, Record<'transformOrigin', string | (string | number)[]>]
+    > = [
+      [`origin-center`, { transformOrigin: `center` }],
+      [`origin-top`, { transformOrigin: `top` }],
+      [`origin-top-right`, { transformOrigin: `top right` }],
+      [`origin-right`, { transformOrigin: `right` }],
+      [`origin-bottom-right`, { transformOrigin: `bottom right` }],
+      [`origin-bottom`, { transformOrigin: `bottom` }],
+      [`origin-bottom-left`, { transformOrigin: `bottom left` }],
+      [`origin-left`, { transformOrigin: `left` }],
+      [`origin-top-left`, { transformOrigin: `top left` }],
+
+      // arbitrary
+      [`origin-[top]`, { transformOrigin: [`top`] }],
+      [`origin-[10%]`, { transformOrigin: [`10%`] }],
+      [`origin-[10px]`, { transformOrigin: [10] }],
+      [`origin-[left_top]`, { transformOrigin: [`left`, `top`] }],
+      [`origin-[-10%_20%_10px]`, { transformOrigin: [`-10%`, `20%`, 10] }],
+      [`origin-[-10px_-10px_-10px]`, { transformOrigin: [-10, -10, -10] }],
+    ];
+
+    test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
+      expect(tw.style(utility)).toMatchObject(expected);
+    });
+
+    test(`origin w/extended theme`, () => {
+      tw = create({
+        theme: {
+          extend: {
+            transformOrigin: {
+              'top-left-1/3-3/4-10': `33% 75% 10px`,
+            },
+          },
+        },
+      });
+
+      expect(tw.style(`origin-top-left-1/3-3/4-10`)).toMatchObject({
+        transformOrigin: `33% 75% 10px`,
+      });
+    });
   });
 });
