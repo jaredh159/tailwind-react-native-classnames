@@ -231,7 +231,7 @@ function createStyle(
   };
 }
 
-export function isArbitraryValue(value: string): boolean {
+function isArbitraryValue(value: string): boolean {
   return value.startsWith(`[`) && value.endsWith(`]`);
 }
 
