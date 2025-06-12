@@ -6,6 +6,12 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.9.0] - 2025-06-12
+
+- support pointer-events-(auto|none|box-only|box-none) (thanks @ferretwithaberet)
+  [(#349)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/349) and
+  [(#350)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/350)
+
 ## [4.8.0] - 2025-05-27
 
 - support arbitrary hsl colors and opacity modifiers (thanks @cpotdevin)
