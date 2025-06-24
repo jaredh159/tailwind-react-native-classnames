@@ -54,6 +54,7 @@ const MyComponent = () => (
 - [RN-Only Additions](#rn-only-additions)
 - [JIT-style Arbitrary Values](#jit-style-arbitrary-values)
 - [VS Code Intellisense](#vs-code-intellisense)
+- [JetBrains IDEs Intellisense](#jetbrains-ides-intellisense)
 - [Memo-Busting](#memo-busting)
 - [Migrating from previous versions](#migrating-from-previous-versions)
 - [Prior Art](#prior-art)
@@ -451,6 +452,23 @@ for VS Code.
 
 More detailed instructions, including how to add snippets, are available
 [here](https://github.com/jaredh159/tailwind-react-native-classnames/discussions/124).
+
+## JetBrains IDEs Intellisense
+
+For JetBrains IDEs (WebStorm, IntelliJ, etc.) Go to Settings | Languages & Frameworks |
+Style Sheets | Tailwind CSS. Add the following configuration options:
+
+```jsonc
+// ...
+"tailwindCSS.classAttributes": [
+    // ...
+    "style"
+],
+"tailwindCSS.classFunctions": ["tw", "tw.color", "tw.style"],
+```
+
+It is important that you have a `tailwind.config.js` in the root of the repository even if
+the content is just `export default {}`, otherwise the Tailwind LSP won't start correctly.
 
 ## Memo Busting
 
