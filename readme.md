@@ -455,8 +455,8 @@ More detailed instructions, including how to add snippets, are available
 
 ## JetBrains IDEs Intellisense
 
-For JetBrains IDEs (WebStorm, IntelliJ, etc.) Go to Settings | Languages & Frameworks | Style Sheets | Tailwind CSS.
-Add the following configuration options:
+For JetBrains IDEs (WebStorm, IntelliJ, etc.) Go to Settings | Languages & Frameworks |
+Style Sheets | Tailwind CSS. Add the following configuration options:
 
 ```jsonc
 // ...
@@ -467,9 +467,8 @@ Add the following configuration options:
 "tailwindCSS.classFunctions": ["tw", "tw.color", "tw.style"],
 ```
 
-It is important that you have a `tailwind.config.js` in the root of the repository even if the content is just 
-`export default {}`, otherwise the Tailwind LSP won't start correctly.
-
+It is important that you have a `tailwind.config.js` in the root of the repository even if
+the content is just `export default {}`, otherwise the Tailwind LSP won't start correctly.
 
 ## Memo Busting
 
