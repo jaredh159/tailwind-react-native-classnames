@@ -69,3 +69,48 @@ describe(`border-radius`, () => {
     expect(tw.style(utility)).toEqual(expected);
   });
 });
+
+describe(`custom borderWidth`, () => {
+  test(`custom borderWidth values from theme config are applied`, () => {
+    const tw = create({
+      theme: {
+        borderWidth: {
+          DEFAULT: `1px`,
+          0: `0`,
+          2: `2px`,
+          4: `4px`,
+          8: `8px`,
+          10: `10px`,
+          0.5: `0.5px`,
+          hw: `0.33`,
+          foo: `3rem`,
+          bar: `57px`,
+        },
+      },
+    });
+    expect(tw.style(`border-bar`)).toEqual({ borderWidth: 57 });
+    expect(tw.style(`border-foo`)).toEqual({ borderWidth: 48 });
+    expect(tw.style(`border-hw`)).toEqual({ borderWidth: 0.33 });
+    expect(tw.style(`border-0.5`)).toEqual({ borderWidth: 0.5 });
+    expect(tw.style(`border`)).toEqual({ borderWidth: 1 });
+  });
+
+  test(`custom borderWidth and width values from theme.extend are applied`, () => {
+    const tw = create({
+      plugins: [],
+      theme: {
+        extend: {
+          borderWidth: {
+            hw: `0.33`,
+            foo: `3rem`,
+            bar: `57px`,
+          },
+          width: { hw: `0.33` },
+        },
+      },
+    });
+    expect(tw.style(`border-hw w-hw`)).toEqual({ borderWidth: 0.33, width: 0.33 });
+    expect(tw.style(`border-bar`)).toEqual({ borderWidth: 57 });
+    expect(tw.style(`border-foo`)).toEqual({ borderWidth: 48 });
+  });
+});
