@@ -6,6 +6,13 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.9.1] - 2025-06-25
+
+### Fixed
+
+- Fixed custom border width [(#325)](https://github.com/jaredh159/twrnc/issues/325) and
+  [(#339)](https://github.com/jaredh159/twrnc/issues/339).
+
 ## [4.9.0] - 2025-06-12
 
 ### Added
