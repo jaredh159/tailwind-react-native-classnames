@@ -178,6 +178,17 @@ You can use `twrnc` right out of the box if you haven't customized your
 tailwind customizations you'd like to use. For that reason, we expose the ability to
 create a **custom configured version** of the `tw` function object.
 
+### Initialize
+
+```js
+// main.js (When the program will be initialized)
+import { configure } from 'twrnc';
+
+configure(require(`./tailwind.config.js`));
+```
+
+### Create your own tw function
+
 ```js
 // lib/tailwind.js
 import { create } from 'twrnc';
