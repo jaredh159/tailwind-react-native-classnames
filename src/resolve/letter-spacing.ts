@@ -12,7 +12,7 @@ import {
 export function letterSpacing(
   value: string,
   isNegative: boolean,
-  config?: TwTheme['letterSpacing'],
+  config?: TwTheme[`letterSpacing`],
 ): StyleIR | null {
   const configValue = config?.[value];
   if (configValue) {

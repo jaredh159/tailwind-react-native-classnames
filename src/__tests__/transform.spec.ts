@@ -8,7 +8,7 @@ describe(`transform utilities`, () => {
   });
 
   describe(`scale`, () => {
-    const cases: Array<[string, Record<'transform', Record<string, number>[]>]> = [
+    const cases: Array<[string, Record<`transform`, Record<string, number>[]>]> = [
       [`scale-0`, { transform: [{ scale: 0 }] }],
       [`scale-x-0`, { transform: [{ scaleX: 0 }] }],
       [`scale-y-0`, { transform: [{ scaleY: 0 }] }],
@@ -62,7 +62,7 @@ describe(`transform utilities`, () => {
   });
 
   describe(`rotate`, () => {
-    const cases: Array<[string, Record<'transform', Record<string, string>[]>]> = [
+    const cases: Array<[string, Record<`transform`, Record<string, string>[]>]> = [
       [`rotate-0`, { transform: [{ rotate: `0deg` }] }],
       [`rotate-x-0`, { transform: [{ rotateX: `0deg` }] }],
       [`rotate-y-0`, { transform: [{ rotateY: `0deg` }] }],
@@ -136,7 +136,7 @@ describe(`transform utilities`, () => {
   });
 
   describe(`skew`, () => {
-    const cases: Array<[string, Record<'transform', Record<string, string>[]>]> = [
+    const cases: Array<[string, Record<`transform`, Record<string, string>[]>]> = [
       [`skew-x-0`, { transform: [{ skewX: `0deg` }] }],
       [`skew-y-0`, { transform: [{ skewY: `0deg` }] }],
       [`skew-x-12`, { transform: [{ skewX: `12deg` }] }],
@@ -187,7 +187,7 @@ describe(`transform utilities`, () => {
   });
 
   describe(`translate`, () => {
-    const cases: Array<[string, Record<'transform', Record<string, number>[]> | object]> =
+    const cases: Array<[string, Record<`transform`, Record<string, number>[]> | object]> =
       [
         [`translate-x-0`, { transform: [{ translateX: 0 }] }],
         [`translate-y-0`, { transform: [{ translateY: 0 }] }],

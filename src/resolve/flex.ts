@@ -3,9 +3,9 @@ import type { ParseContext, StyleIR } from '../types';
 import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle } from '../helpers';
 
 export function flexGrowShrink(
-  type: 'Grow' | 'Shrink',
+  type: `Grow` | `Shrink`,
   value: string,
-  config?: TwTheme['flexGrow'] | TwTheme['flexShrink'],
+  config?: TwTheme[`flexGrow`] | TwTheme[`flexShrink`],
 ): StyleIR | null {
   value = value.replace(/^-/, ``);
   if (value[0] === `[` && value.endsWith(`]`)) {
@@ -19,7 +19,7 @@ export function flexGrowShrink(
   return null;
 }
 
-export function flex(value: string, config?: TwTheme['flex']): StyleIR | null {
+export function flex(value: string, config?: TwTheme[`flex`]): StyleIR | null {
   value = config?.[value] || value;
   if ([`min-content`, `revert`, `unset`].includes(value)) {
     // unsupported
@@ -77,7 +77,7 @@ export function flex(value: string, config?: TwTheme['flex']): StyleIR | null {
 export function flexBasis(
   value: string,
   context: ParseContext = {},
-  config?: TwTheme['flexBasis'],
+  config?: TwTheme[`flexBasis`],
 ): StyleIR | null {
   value = value.replace(/^-/, ``);
   const configValue = config?.[value];
@@ -92,7 +92,7 @@ export function flexBasis(
 export function gap(
   value: string,
   context: ParseContext = {},
-  config?: TwTheme['gap'],
+  config?: TwTheme[`gap`],
 ): StyleIR | null {
   let gapStyle = `gap`;
 

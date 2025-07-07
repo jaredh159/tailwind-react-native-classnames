@@ -58,7 +58,7 @@ export function border(value: string, theme?: TwTheme): StyleIR | null {
 function borderWidth(
   value: string,
   direction: Direction,
-  config?: TwTheme['borderWidth'],
+  config?: TwTheme[`borderWidth`],
 ): StyleIR | null {
   if (!config) {
     return null;
@@ -77,7 +77,7 @@ function borderWidth(
 
 export function borderRadius(
   value: string,
-  config?: TwTheme['borderRadius'],
+  config?: TwTheme[`borderRadius`],
 ): StyleIR | null {
   if (!config) {
     return null;

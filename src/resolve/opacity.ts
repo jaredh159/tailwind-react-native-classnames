@@ -2,7 +2,7 @@ import type { TwTheme } from '../tw-config';
 import type { StyleIR } from '../types';
 import { parseNumericValue, complete } from '../helpers';
 
-export function opacity(value: string, config?: TwTheme['opacity']): StyleIR | null {
+export function opacity(value: string, config?: TwTheme[`opacity`]): StyleIR | null {
   const configValue = config?.[value];
   if (configValue) {
     const parsedConfig = parseNumericValue(String(configValue));

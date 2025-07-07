@@ -4,7 +4,7 @@ import type { TailwindFn, RnColorScheme } from './types';
 
 type AppOptions = {
   observeDeviceColorSchemeChanges: false;
-  initialColorScheme: 'device' | 'light' | 'dark';
+  initialColorScheme: `device` | `light` | `dark`;
 };
 
 export function useDeviceContext(tw: TailwindFn, appOptions?: AppOptions): void {

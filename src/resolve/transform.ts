@@ -14,7 +14,7 @@ type Property = `scale` | `rotate` | `skew` | `translate`;
 export function scale(
   value: string,
   context: ParseContext = {},
-  config?: TwTheme['scale'],
+  config?: TwTheme[`scale`],
 ): StyleIR | null {
   let scaleAxis: Axis = ``;
 
@@ -45,7 +45,7 @@ export function scale(
 export function rotate(
   value: string,
   context: ParseContext = {},
-  config?: TwTheme['rotate'],
+  config?: TwTheme[`rotate`],
 ): StyleIR | null {
   let rotateAxis: Axis = ``;
 
@@ -73,7 +73,7 @@ export function rotate(
 export function skew(
   value: string,
   context: ParseContext = {},
-  config?: TwTheme['skew'],
+  config?: TwTheme[`skew`],
 ): StyleIR | null {
   let skewAxis: Axis = ``;
 
@@ -105,7 +105,7 @@ export function skew(
 export function translate(
   value: string,
   context: ParseContext = {},
-  config?: TwTheme['translate'],
+  config?: TwTheme[`translate`],
 ): StyleIR | null {
   let translateAxis: Axis = ``;
 

@@ -5,7 +5,7 @@ import { parseNumericValue, complete, toStyleVal } from '../helpers';
 
 export default function lineHeight(
   value: string,
-  config?: TwTheme['lineHeight'],
+  config?: TwTheme[`lineHeight`],
 ): StyleIR | null {
   const parseValue =
     config?.[value] ?? (value.startsWith(`[`) ? value.slice(1, -1) : value);

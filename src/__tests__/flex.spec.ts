@@ -40,7 +40,7 @@ describe(`flex grow/shrink`, () => {
 });
 
 describe(`flex shorthand utilities`, () => {
-  const cases: Array<[string, Record<string, string | number>, TwTheme['flex'] | null]> =
+  const cases: Array<[string, Record<string, string | number>, TwTheme[`flex`] | null]> =
     [
       [`flex-auto`, { flexGrow: 1, flexShrink: 1, flexBasis: `auto` }, null],
       [`flex-initial`, { flexGrow: 0, flexShrink: 1, flexBasis: `auto` }, null],

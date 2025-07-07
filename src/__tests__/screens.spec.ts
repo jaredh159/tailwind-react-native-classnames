@@ -3,7 +3,7 @@ import type { TwTheme } from '../tw-config';
 import screens from '../screens';
 
 describe(`screens()`, () => {
-  const cases: Array<[TwTheme['screens'], ReturnType<typeof screens>]> = [
+  const cases: Array<[TwTheme[`screens`], ReturnType<typeof screens>]> = [
     [
       {
         sm: `640px`,

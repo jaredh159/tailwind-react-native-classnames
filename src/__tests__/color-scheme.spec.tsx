@@ -1,4 +1,4 @@
-import TestRenderer from 'react-test-renderer';
+import { render, act } from '@testing-library/react-native';
 import rn from 'react-native';
 import { describe, it, expect } from '@jest/globals';
 import React from 'react';
@@ -11,7 +11,7 @@ jest.mock(`react-native`, () => ({
   useWindowDimensions: () => ({ width: 320, height: 640, fontScale: 1, scale: 2 }),
 }));
 
-const Test: React.FC<{ tw: TailwindFn; initial: 'light' | 'dark' | 'device' }> = ({
+const Test: React.FC<{ tw: TailwindFn; initial: `light` | `dark` | `device` }> = ({
   tw,
   initial,
 }) => {
@@ -32,30 +32,30 @@ describe(`useAppColorScheme()`, () => {
   it(`should initialize to ambient color scheme, if no initializer`, () => {
     rn.useColorScheme = () => `dark`;
 
-    let component = TestRenderer.create(<Test tw={create()} initial="device" />);
+    let component = render(<Test tw={create()} initial="device" />);
     expect(component.toJSON()).toEqual([`dark`, `match:dark`]);
 
     rn.useColorScheme = () => `light`;
-    component = TestRenderer.create(<Test tw={create()} initial="device" />);
+    component = render(<Test tw={create()} initial="device" />);
     expect(component.toJSON()).toEqual([`light`, `no-match:dark`]);
 
     rn.useColorScheme = () => null;
-    component = TestRenderer.create(<Test tw={create()} initial="device" />);
+    component = render(<Test tw={create()} initial="device" />);
     expect(component.toJSON()).toEqual([`null`, `no-match:dark`]);
 
     rn.useColorScheme = () => undefined;
-    component = TestRenderer.create(<Test tw={create()} initial="device" />);
+    component = render(<Test tw={create()} initial="device" />);
     expect(component.toJSON()).toEqual([`undefined`, `no-match:dark`]);
   });
 
   it(`should initialize to explicitly passed color scheme when initializer provided`, () => {
     rn.useColorScheme = () => `dark`;
 
-    let component = TestRenderer.create(<Test tw={create()} initial="light" />);
+    let component = render(<Test tw={create()} initial="light" />);
     expect(component.toJSON()).toEqual([`light`, `no-match:dark`]);
 
     rn.useColorScheme = () => `light`;
-    component = TestRenderer.create(<Test tw={create()} initial="dark" />);
+    component = render(<Test tw={create()} initial="dark" />);
     expect(component.toJSON()).toEqual([`dark`, `match:dark`]);
   });
 
@@ -72,9 +72,11 @@ describe(`useAppColorScheme()`, () => {
       );
     };
 
-    const Toggler: React.FC<{ onPress: () => unknown }> = () => null;
+    const Toggler: React.FC<{ onPress: () => unknown }> = ({ onPress }) => (
+      <rn.TouchableOpacity testID="toggler" onPress={onPress} />
+    );
 
-    const Component: React.FC<{ initial: 'light' | 'dark' | 'device' }> = ({
+    const Component: React.FC<{ initial: `light` | `dark` | `device` }> = ({
       initial,
     }) => {
       useDeviceContext(tw, {
@@ -92,15 +94,15 @@ describe(`useAppColorScheme()`, () => {
       );
     };
 
-    const renderer = TestRenderer.create(<Component initial="light" />);
+    const renderer = render(<Component initial="light" />);
     expect(assertArray(renderer.toJSON())).toEqual([
       `outer:no-match:dark`,
       `outer:light`,
       `nested:no-match:dark`,
       `nested:light`,
     ]);
-    TestRenderer.act(() => {
-      renderer.root.findByType(Toggler).props.onPress();
+    act(() => {
+      renderer.getByTestId(`toggler`).props.onPress();
     });
     expect(assertArray(renderer.toJSON())).toEqual([
       `outer:match:dark`,

@@ -2,14 +2,14 @@ import type { TwTheme } from '../tw-config';
 import type { StyleIR } from '../types';
 import { complete, parseStyleVal, parseUnconfigged } from '../helpers';
 
-type Inset = 'bottom' | 'top' | 'left' | 'right' | 'inset';
-type InsetDir = null | 'x' | 'y';
+type Inset = `bottom` | `top` | `left` | `right` | `inset`;
+type InsetDir = null | `x` | `y`;
 
 export function inset(
   type: Inset,
   value: string,
   isNegative: boolean,
-  config?: TwTheme['inset'],
+  config?: TwTheme[`inset`],
 ): StyleIR | null {
   let insetDir: InsetDir = null;
   if (type === `inset`) {

@@ -7,7 +7,7 @@ const plugin: CreatePlugin = (handler) => {
 
 export default plugin;
 
-export function getAddedUtilities(plugins: TwConfig['plugins']): AddedUtilities {
+export function getAddedUtilities(plugins: TwConfig[`plugins`]): AddedUtilities {
   return (
     plugins?.reduce<AddedUtilities>(
       (utils, plugin) => ({ ...utils, ...callPluginFunction(plugin.handler) }),
