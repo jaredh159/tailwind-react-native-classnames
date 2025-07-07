@@ -3,7 +3,7 @@ import { toPx, warn } from './helpers';
 
 type Screens = Record<string, [min: number, max: number, order: number]>;
 
-export default function screens(input?: TwTheme['screens']): Screens {
+export default function screens(input?: TwTheme[`screens`]): Screens {
   if (!input) {
     return {};
   }

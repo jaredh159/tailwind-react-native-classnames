@@ -217,7 +217,7 @@ export function create(customConfig: TwConfig, platform: Platform): TailwindFn {
     window: { width: number; height: number },
     fontScale: number,
     pixelDensity: 1 | 2,
-    colorScheme: RnColorScheme | 'skip',
+    colorScheme: RnColorScheme | `skip`,
   ) => {
     device.windowDimensions = window;
     device.fontScale = fontScale;

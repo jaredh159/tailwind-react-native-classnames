@@ -3,10 +3,10 @@ import type { ParseContext, StyleIR } from '../types';
 import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle } from '../helpers';
 
 export function widthHeight(
-  type: 'width' | 'height',
+  type: `width` | `height`,
   value: string,
   context: ParseContext = {},
-  config?: TwTheme['width'] | TwTheme['height'],
+  config?: TwTheme[`width`] | TwTheme[`height`],
 ): StyleIR | null {
   const configValue = config?.[value];
   if (configValue !== undefined) {
@@ -30,7 +30,7 @@ export function size(
 }
 
 export function minMaxWidthHeight(
-  type: 'minWidth' | 'minHeight' | 'maxWidth' | 'maxHeight',
+  type: `minWidth` | `minHeight` | `maxWidth` | `maxHeight`,
   value: string,
   context: ParseContext = {},
   config?: Record<string, string>,

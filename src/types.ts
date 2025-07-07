@@ -36,7 +36,7 @@ export interface TailwindFn {
     dimensions: { width: number; height: number },
     fontScale: number,
     pixelDensity: 1 | 2,
-    colorScheme: RnColorScheme | 'skip',
+    colorScheme: RnColorScheme | `skip`,
   ) => unknown;
 }
 
@@ -59,20 +59,20 @@ export function isPlatform(x: string): x is Platform {
 }
 
 export const ORIENTATIONS = [`portrait`, `landscape`];
-export type Orientation = 'portrait' | 'landscape';
+export type Orientation = `portrait` | `landscape`;
 
 export function isOrientation(x: string): x is Orientation {
   return ORIENTATIONS.includes(x as Orientation);
 }
 
-export type RnColorScheme = 'light' | 'dark' | null | undefined;
+export type RnColorScheme = `light` | `dark` | null | undefined;
 
 export interface DeviceContext {
   windowDimensions?: {
     width: number;
     height: number;
   };
-  colorScheme?: 'light' | 'dark' | null;
+  colorScheme?: `light` | `dark` | null;
   fontScale?: number;
   pixelDensity?: 1 | 2;
 }
@@ -84,28 +84,28 @@ export interface ParseContext {
 }
 
 export type ColorStyleType =
-  | 'bg'
-  | 'text'
-  | 'border'
-  | 'borderTop'
-  | 'borderLeft'
-  | 'borderRight'
-  | 'borderBottom'
-  | 'shadow'
-  | 'tint';
+  | `bg`
+  | `text`
+  | `border`
+  | `borderTop`
+  | `borderLeft`
+  | `borderRight`
+  | `borderBottom`
+  | `shadow`
+  | `tint`;
 
 export type Direction =
-  | 'All'
-  | 'Horizontal'
-  | 'Vertical'
-  | 'Left'
-  | 'Right'
-  | 'Top'
-  | 'TopLeft'
-  | 'TopRight'
-  | 'Bottom'
-  | 'BottomLeft'
-  | 'BottomRight';
+  | `All`
+  | `Horizontal`
+  | `Vertical`
+  | `Left`
+  | `Right`
+  | `Top`
+  | `TopLeft`
+  | `TopRight`
+  | `Bottom`
+  | `BottomLeft`
+  | `BottomRight`;
 
 export type Style = {
   [key: string]: string[] | string | number | boolean | Style | Style[];
@@ -117,11 +117,11 @@ export enum ConfigType {
 }
 
 export type NullStyle = {
-  kind: 'null';
+  kind: `null`;
 };
 
 export type CompleteStyle = {
-  kind: 'complete';
+  kind: `complete`;
   style: Style;
 };
 
@@ -132,7 +132,7 @@ export type OrderedStyle = {
 };
 
 export type DependentStyle = {
-  kind: 'dependent';
+  kind: `dependent`;
   complete: (style: Style) => string | void;
 };
 

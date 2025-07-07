@@ -4,11 +4,11 @@ import { Unit } from '../types';
 import { parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
 
 export default function spacing(
-  type: 'margin' | 'padding',
+  type: `margin` | `padding`,
   direction: Direction,
   value: string,
   context: ParseContext,
-  config?: TwTheme['margin'] | TwTheme['padding'],
+  config?: TwTheme[`margin`] | TwTheme[`padding`],
 ): StyleIR | null {
   let numericValue = ``;
   if (value[0] === `[`) {
@@ -45,7 +45,7 @@ function spacingStyle(
   number: number,
   unit: Unit,
   direction: Direction,
-  type: 'margin' | 'padding',
+  type: `margin` | `padding`,
   context: ParseContext,
 ): StyleIR | null {
   const pixels = toStyleVal(number, unit, context);
@@ -57,7 +57,7 @@ function spacingStyle(
 
 function expand(
   direction: Direction,
-  type: 'margin' | 'padding',
+  type: `margin` | `padding`,
   value: number | string,
 ): StyleIR | null {
   switch (direction) {

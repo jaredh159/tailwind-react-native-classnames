@@ -4,7 +4,7 @@ import { complete } from '../helpers';
 
 export default function fontFamily(
   value: string,
-  config?: TwTheme['fontFamily'],
+  config?: TwTheme[`fontFamily`],
 ): StyleIR | null {
   const configValue = config?.[value];
   if (!configValue) {

@@ -46,7 +46,7 @@ export interface TwTheme {
   rotate?: Record<string, string>;
   skew?: Record<string, string>;
   translate?: Record<string, string>;
-  extend?: Omit<TwTheme, 'extend'>;
+  extend?: Omit<TwTheme, `extend`>;
 }
 
 export interface TwConfig {
