@@ -106,6 +106,8 @@
 - ✅ textTransform
 - 😎 tintColor
 - ✅ top
+- ✅ transform
+- ✅ transformOrigin
 - ✅ width
 - 🚨 writingDirection
 - ✅ zIndex
