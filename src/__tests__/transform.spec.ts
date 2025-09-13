@@ -281,7 +281,7 @@ describe(`transform utilities`, () => {
 
   describe(`origin`, () => {
     const cases: Array<
-      [string, Record<'transformOrigin', string | (string | number)[]>]
+      [string, Record<'transformOrigin', string> | Record<string, never>]
     > = [
       [`origin-center`, { transformOrigin: `center` }],
       [`origin-top`, { transformOrigin: `top` }],
@@ -294,12 +294,23 @@ describe(`transform utilities`, () => {
       [`origin-top-left`, { transformOrigin: `top left` }],
 
       // arbitrary
-      [`origin-[top]`, { transformOrigin: [`top`] }],
-      [`origin-[10%]`, { transformOrigin: [`10%`] }],
-      [`origin-[10px]`, { transformOrigin: [10] }],
-      [`origin-[left_top]`, { transformOrigin: [`left`, `top`] }],
-      [`origin-[-10%_20%_10px]`, { transformOrigin: [`-10%`, `20%`, 10] }],
-      [`origin-[-10px_-10px_-10px]`, { transformOrigin: [-10, -10, -10] }],
+      [`origin-[top]`, { transformOrigin: `top` }],
+      [`origin-[10%]`, { transformOrigin: `10%` }],
+      [`origin-[10px]`, { transformOrigin: `10px` }],
+      [`origin-[left_top]`, { transformOrigin: `left top` }],
+      [`origin-[bottom_right]`, { transformOrigin: `bottom right` }],
+      [`origin-[center_center]`, { transformOrigin: `center center` }],
+      [`origin-[center_10%]`, { transformOrigin: `center 10%` }],
+      [`origin-[10px_center]`, { transformOrigin: `10px center` }],
+      [`origin-[10px_10%]`, { transformOrigin: `10px 10%` }],
+      [`origin-[-10%_20%_10px]`, { transformOrigin: `-10% 20% 10px` }],
+      [`origin-[-10px_-10px_-10px]`, { transformOrigin: `-10px -10px -10px` }],
+      [`origin-[left_top_10px]`, { transformOrigin: `left top 10px` }],
+
+      // invalid
+      [`origin-[left_left]`, {}],
+      [`origin-[top_top]`, {}],
+      [`origin-[top_left_10%]`, {}],
     ];
 
     test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
@@ -311,13 +322,13 @@ describe(`transform utilities`, () => {
         theme: {
           extend: {
             transformOrigin: {
-              'top-left-1/3-3/4-10': `33% 75% 10px`,
+              custom: `33% 75% 10px`,
             },
           },
         },
       });
 
-      expect(tw.style(`origin-top-left-1/3-3/4-10`)).toMatchObject({
+      expect(tw.style(`origin-custom`)).toMatchObject({
         transformOrigin: `33% 75% 10px`,
       });
     });

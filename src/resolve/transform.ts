@@ -9,9 +9,11 @@ import {
   toStyleVal,
 } from '../helpers';
 
+const originPositions = [`left`, `center`, `right`, `top`, `bottom`];
+
 type Axis = `x` | `y` | `z` | ``;
 type Property = `scale` | `rotate` | `skew` | `translate`;
-type Position = `left` | `center` | `right` | `top` | `bottom`;
+type OriginPosition = (typeof originPositions)[number];
 
 export function scale(
   value: string,
@@ -149,62 +151,62 @@ export function origin(
     return complete({ transformOrigin: configValue });
   }
 
-  if (isArbitraryValue(value)) {
-    const values = value.slice(1, -1).split(`_`);
-
-    if (values.length === 0 || values.length > 3) {
-      return null;
-    }
-
-    // with a single value, the value must be one of the positions, a percentage or a pixel value
-    if (values.length === 1) {
-      const parsedValue = parseOriginValue(
-        values[0],
-        [`left`, `center`, `right`, `top`, `bottom`],
-        [Unit.percent, Unit.px],
-        context,
-      );
-      return parsedValue === null ? null : complete({ transformOrigin: [parsedValue] });
-    }
-
-    // with two or three values, the first value must be 'left' / 'center' / 'right', a percentage or a pixel value
-    const xOffset = parseOriginValue(
-      values[0],
-      [`left`, `center`, `right`],
-      [Unit.percent, Unit.px],
-      context,
-    );
-
-    if (xOffset === null) {
-      return null;
-    }
-
-    // with two or three values, the second value must be 'top' / 'center' / 'bottom', a percentage or a pixel value
-    const yOffset = parseOriginValue(
-      values[1],
-      [`top`, `center`, `bottom`],
-      [Unit.percent, Unit.px],
-      context,
-    );
-
-    if (yOffset === null) {
-      return null;
-    }
-
-    // with three values, the third value must be a pixel value
-    const zOffset = parseOriginValue(values[2], [], [Unit.px], context);
-
-    if (zOffset === null && values.length === 3) {
-      return null;
-    }
-
-    return complete({
-      transformOrigin:
-        zOffset === null ? [xOffset, yOffset] : [xOffset, yOffset, zOffset],
-    });
+  if (!isArbitraryValue(value)) {
+    return null;
   }
 
-  return null;
+  const values = value.slice(1, -1).split(`_`);
+
+  if (values.length === 0 || values.length > 3) {
+    return null;
+  }
+
+  // the first value must be one of the positions, a percentage or a pixel value
+  const firstOriginValue = parseOriginValue(
+    values[0],
+    originPositions,
+    [Unit.px, Unit.percent],
+    context,
+  );
+
+  if (firstOriginValue === null) {
+    return null;
+  }
+
+  const origin = [firstOriginValue];
+
+  if (values.length >= 2) {
+    // the second value must a position different from the first or `center`, a percentage or a pixel value
+    const secondOriginValue = parseOriginValue(
+      values[1],
+      originPositions.filter(
+        (position) => position === `center` || position !== firstOriginValue,
+      ),
+      [Unit.px, Unit.percent],
+      context,
+    );
+
+    if (secondOriginValue === null) {
+      return null;
+    }
+
+    origin.push(secondOriginValue);
+  }
+
+  if (values.length === 3) {
+    // the third value must be a pixel value
+    const thirdOriginValue = parseOriginValue(values[2], [], [Unit.px], context);
+
+    if (thirdOriginValue === null) {
+      return null;
+    }
+
+    origin.push(thirdOriginValue);
+  }
+
+  return complete({
+    transformOrigin: origin.join(` `),
+  });
 }
 
 function createStyle(
@@ -237,15 +239,15 @@ function isArbitraryValue(value: string): boolean {
 
 function parseOriginValue(
   value: string | undefined,
-  allowedPositions: Position[],
+  allowedPositions: OriginPosition[],
   allowedUnits: Unit[],
   context: ParseContext = {},
-): string | number | null {
+): string | null {
   if (!value) {
     return null;
   }
 
-  if (allowedPositions.includes(value as any)) {
+  if (allowedPositions.includes(value)) {
     return value;
   }
 
@@ -253,5 +255,5 @@ function parseOriginValue(
 
   return parsedValue === null || !allowedUnits.includes(parsedValue[1])
     ? null
-    : toStyleVal(parsedValue[0], parsedValue[1], context);
+    : `${parsedValue[0] * (context.isNegative ? -1 : 1)}${parsedValue[1]}`;
 }
