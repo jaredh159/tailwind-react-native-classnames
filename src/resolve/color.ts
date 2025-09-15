@@ -19,8 +19,8 @@ export function color(
 
   let color = ``;
 
-  // arbitrary hex/rgb(a) support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`
-  if (value.startsWith(`[#`) || value.startsWith(`[rgb`)) {
+  // arbitrary hex/rgb(a)/hsl(a) support: `bg-[#eaeaea]`, `text-[rgba(1, 1, 1, 0.5)]`, `text-[hsla(1, 1%, 1%, 0.5)]`
+  if (value.startsWith(`[#`) || value.startsWith(`[rgb`) || value.startsWith(`[hsl`)) {
     color = value.slice(1, -1);
     // arbitrary named colors: `bg-[lemonchiffon]`
   } else if (value.startsWith(`[`) && value.slice(1, -1).match(/^[a-z]{3,}$/)) {
@@ -78,11 +78,15 @@ export function colorOpacity(type: ColorStyleType, value: string): StyleIR | nul
 function addOpacity(color: string, opacity: number): string {
   if (color.startsWith(`#`)) {
     color = hexToRgba(color);
-  } else if (color.startsWith(`rgb(`)) {
-    color = color.replace(/^rgb\(/, `rgba(`).replace(/\)$/, `, 1)`);
+  } else if (color.startsWith(`rgb(`) || color.startsWith(`hsl(`)) {
+    color = color.replace(/^rgb\(/, `rgba(`).replace(/^hsl\(/, `hsla(`);
+    if (color.includes(`,`)) {
+      color = color.replace(/\)$/, `, 1)`);
+    } else {
+      color = color.replace(/\)$/, ` / 1)`);
+    }
   }
-  // @TODO: support hls/hlsa if anyone opens an issue...
-  return color.replace(/, ?\d*\.?(\d+)\)$/, `, ${opacity})`);
+  return color.replace(/ ?\d*\.?(\d+)\)$/, ` ${opacity})`);
 }
 
 export function removeOpacityHelpers(style: Style): void {

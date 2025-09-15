@@ -24,6 +24,7 @@ import {
   transformNone,
   translate,
 } from './resolve/transform';
+import pointerEvents from './resolve/pointer-events';
 
 export default class UtilityParser {
   private position = 0;
@@ -334,6 +335,11 @@ export default class UtilityParser {
 
     if (this.consumePeeked(`origin-`)) {
       style = origin(this.rest, this.context, theme?.transformOrigin);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`pointer-events-`)) {
+      style = pointerEvents(this.rest);
       if (style) return style;
     }
 

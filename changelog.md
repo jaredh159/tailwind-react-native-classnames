@@ -6,12 +6,38 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.9.1] - 2025-06-25
+
+### Fixed
+
+- Fixed custom border width [(#325)](https://github.com/jaredh159/twrnc/issues/325) and
+  [(#339)](https://github.com/jaredh159/twrnc/issues/339).
+
+## [4.9.0] - 2025-06-12
+
+### Added
+
+- support pointer-events-(auto|none|box-only|box-none) (thanks @ferretwithaberet)
+  [(#349)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/349) and
+  [(#350)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/350)
+
+## [4.8.0] - 2025-05-27
+
+### Added
+
+- support arbitrary hsl colors and opacity modifiers (thanks @cpotdevin)
+  [(#347)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/347)
+
 ## [4.7.0] - 2025-05-06
 
-- support transform scale, rotate, skew, translate
-  [(#343)](https://github.com/jaredh159/tailwind-react-native-classnames/pulls/343)
+### Added
+
+- support transform scale, rotate, skew, translate (thanks @Pedrozxcv)
+  [(#343)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/343)
 
 ## [4.6.1] - 2025-01-24
+
+### Changed
 
 - prevent auto-upgrades to `tailwindcss@4.x.x` until we explore/fix compitibility
   [(#331)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/331)
@@ -19,14 +45,18 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 ## [4.6.0] - 2024-11-07
 
 - added support for fontWeight sub-customization in fontSize theming (thanks @Gyeop)
-  [(#324)](https://github.com/jaredh159/tailwind-react-native-classnames/pulls/324)
+  [(#324)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/324)
 
 ## [4.5.1] - 2024-08-23
+
+### Changed
 
 - revised minimum RN version to 0.62.2 after testing, see
   [(#308)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/308)
 
 ## [4.5.0] - 2024-07-22
+
+### Added
 
 - added support for `size-*` shorthand utility
   [(#314)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/314) and
@@ -34,11 +64,15 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 ## [4.4.0] - 2024-07-09
 
+### Added
+
 - added support for arbitrary named colors (eg. `text-[lemonchiffon]`)
   [(#306)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/306) and
   [(#309)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/309)
 
 ## [4.3.0] - 2024-06-18
+
+### Added
 
 - added support for line-height shorthand with font-size (eg. `text-sm/6`)
   [(#282)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/292) and

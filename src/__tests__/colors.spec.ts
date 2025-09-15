@@ -69,8 +69,16 @@ describe(`colors`, () => {
 
   test(`rgb/a configged colors`, () => {
     tw = create({
-      theme: { colors: { foo: `rgb(1, 2, 3)`, bar: `rgba(4, 5, 6, 0.5)` } },
+      theme: {
+        colors: {
+          foo: `rgb(1, 2, 3)`,
+          bar: `rgba(4, 5, 6, 0.5)`,
+          fizz: `rgb(7 8 9)`,
+          buzz: `rgba(10 11 12 / 0.6)`,
+        },
+      },
     });
+
     expect(tw`text-foo bg-bar`).toEqual({
       color: `rgb(1, 2, 3)`,
       backgroundColor: `rgba(4, 5, 6, 0.5)`,
@@ -78,6 +86,66 @@ describe(`colors`, () => {
 
     expect(tw`text-foo text-opacity-75`).toEqual({
       color: `rgba(1, 2, 3, 0.75)`,
+    });
+
+    expect(tw`text-foo/50 bg-bar/75`).toEqual({
+      color: `rgba(1, 2, 3, 0.5)`,
+      backgroundColor: `rgba(4, 5, 6, 0.75)`,
+    });
+
+    expect(tw`text-fizz bg-buzz`).toEqual({
+      color: `rgb(7 8 9)`,
+      backgroundColor: `rgba(10 11 12 / 0.6)`,
+    });
+
+    expect(tw`text-fizz text-opacity-75`).toEqual({
+      color: `rgba(7 8 9 / 0.75)`,
+    });
+
+    expect(tw`text-fizz/50 bg-buzz/75`).toEqual({
+      color: `rgba(7 8 9 / 0.5)`,
+      backgroundColor: `rgba(10 11 12 / 0.75)`,
+    });
+  });
+
+  test(`hsl/a configged colors`, () => {
+    tw = create({
+      theme: {
+        colors: {
+          foo: `hsl(1, 2%, 3%)`,
+          bar: `hsla(4, 5%, 6%, 0.5)`,
+          fizz: `hsl(7 8% 9%)`,
+          buzz: `hsla(10 11% 12% / 0.6)`,
+        },
+      },
+    });
+
+    expect(tw`text-foo bg-bar`).toEqual({
+      color: `hsl(1, 2%, 3%)`,
+      backgroundColor: `hsla(4, 5%, 6%, 0.5)`,
+    });
+
+    expect(tw`text-foo text-opacity-75`).toEqual({
+      color: `hsla(1, 2%, 3%, 0.75)`,
+    });
+
+    expect(tw`text-foo/50 bg-bar/75`).toEqual({
+      color: `hsla(1, 2%, 3%, 0.5)`,
+      backgroundColor: `hsla(4, 5%, 6%, 0.75)`,
+    });
+
+    expect(tw`text-fizz bg-buzz`).toEqual({
+      color: `hsl(7 8% 9%)`,
+      backgroundColor: `hsla(10 11% 12% / 0.6)`,
+    });
+
+    expect(tw`text-fizz text-opacity-75`).toEqual({
+      color: `hsla(7 8% 9% / 0.75)`,
+    });
+
+    expect(tw`text-fizz/50 bg-buzz/75`).toEqual({
+      color: `hsla(7 8% 9% / 0.5)`,
+      backgroundColor: `hsla(10 11% 12% / 0.75)`,
     });
   });
 
@@ -97,8 +165,18 @@ describe(`colors`, () => {
     expect(tw`bg-[rgba(3,4,5,0.1)]`).toEqual({
       backgroundColor: `rgba(3,4,5,0.1)`,
     });
+    expect(tw`bg-[hsla(6,7%,8%,0.2)]`).toEqual({
+      backgroundColor: `hsla(6,7%,8%,0.2)`,
+    });
+
     expect(tw`bg-[#012] bg-opacity-50`).toEqual({
       backgroundColor: `rgba(0, 17, 34, 0.5)`,
+    });
+    expect(tw`bg-[rgba(3,4,5,0.1)] bg-opacity-50`).toEqual({
+      backgroundColor: `rgba(3,4,5, 0.5)`,
+    });
+    expect(tw`bg-[hsla(6,7%,8%,0.2)] bg-opacity-50`).toEqual({
+      backgroundColor: `hsla(6,7%,8%, 0.5)`,
     });
   });
 

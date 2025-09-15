@@ -10,9 +10,10 @@ import { color } from './color';
 
 export function border(value: string, theme?: TwTheme): StyleIR | null {
   let [rest, direction] = parseAndConsumeDirection(value);
-  const widthUtilityMatch = rest.match(/^(-?(\d)+)?$/);
-  if (widthUtilityMatch) {
-    return borderWidth(rest, direction, theme?.borderWidth);
+  const config = theme?.borderWidth;
+  const key = rest.replace(/^-/, ``);
+  if (config && (config[key] !== undefined || key.match(/^(-?(\d)+)?$/))) {
+    return borderWidth(key, direction, config);
   }
 
   rest = rest.replace(/^-/, ``);
