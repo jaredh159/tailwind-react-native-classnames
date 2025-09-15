@@ -128,8 +128,8 @@ export function translate(
     ? parseStyleVal(configValue, context)
     : parseUnconfigged(value, context);
 
-  // support for percentage values in translate was only added in RN 0.75
-  // and throws an error if used in earlier versions
+  // using percentage values (non-numeric values) causes an error
+  // if used in versions earlier than RN 0.75
   if (
     styleVal === null ||
     (isString(styleVal) &&
