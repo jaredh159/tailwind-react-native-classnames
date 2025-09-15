@@ -46,7 +46,7 @@
     "tailwindcss": ">=2.0.0 <4.0.0"
   },
   "peerDependencies": {
-    "react-native": ">=0.75.0"
+    "react-native": ">=0.62.2"
   },
   "devDependencies": {
     "@babel/preset-typescript": "^7.23.3",

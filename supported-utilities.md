@@ -106,8 +106,8 @@
 - ✅ textTransform
 - 😎 tintColor
 - ✅ top
-- ✅ transform
-- ✅ transformOrigin
+- ✅ transform (percentage values require RN >= 0.75)
+- ✅ transformOrigin (requires RN >= 0.73)
 - ✅ width
 - 🚨 writingDirection
 - ✅ zIndex
