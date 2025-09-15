@@ -19,7 +19,11 @@ import { parseInputs } from './parse-inputs';
 import { complete, warn } from './helpers';
 import { getAddedUtilities } from './plugin';
 
-export function create(customConfig: TwConfig, platform: Platform, reactNativeVersion: Version): TailwindFn {
+export function create(
+  customConfig: TwConfig,
+  platform: Platform,
+  reactNativeVersion: Version,
+): TailwindFn {
   const config = resolveConfig(withContent(customConfig) as any) as TwConfig;
   const device: DeviceContext = {};
 
@@ -101,7 +105,14 @@ export function create(customConfig: TwConfig, platform: Platform, reactNativeVe
     for (const utility of utilities) {
       let styleIr = cache.getIr(utility);
       if (!styleIr) {
-        const parser = new UtilityParser(utility, config, cache, device, platform, reactNativeVersion);
+        const parser = new UtilityParser(
+          utility,
+          config,
+          cache,
+          device,
+          platform,
+          reactNativeVersion,
+        );
         styleIr = parser.parse();
       }
 
@@ -185,7 +196,14 @@ export function create(customConfig: TwConfig, platform: Platform, reactNativeVe
     if (cached !== undefined) {
       return cached;
     }
-    const parser = new UtilityParser(`${joined}:flex`, config, cache, device, platform, reactNativeVersion);
+    const parser = new UtilityParser(
+      `${joined}:flex`,
+      config,
+      cache,
+      device,
+      platform,
+      reactNativeVersion,
+    );
     const ir = parser.parse();
     const prefixMatches = ir.kind !== `null`;
     cache.setPrefixMatch(joined, prefixMatches);
