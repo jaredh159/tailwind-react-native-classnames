@@ -1,6 +1,6 @@
 import type { TwTheme } from '../tw-config';
 import type { DependentStyle, ParseContext, Style, StyleIR } from '../types';
-import { Unit } from '../types';
+import { isString, Unit } from '../types';
 import {
   complete,
   parseNumericValue,
@@ -128,7 +128,19 @@ export function translate(
     ? parseStyleVal(configValue, context)
     : parseUnconfigged(value, context);
 
-  return styleVal === null ? null : createStyle(styleVal, `translate`, translateAxis);
+  // support for percentage values in translate was only added in RN 0.75
+  // and throws an error if used in earlier versions
+  if (
+    styleVal === null ||
+    (isString(styleVal) &&
+      context.reactNativeVersion &&
+      context.reactNativeVersion.major === 0 &&
+      context.reactNativeVersion.minor < 75)
+  ) {
+    return null;
+  }
+
+  return createStyle(styleVal, `translate`, translateAxis);
 }
 
 export function transformNone(): StyleIR {

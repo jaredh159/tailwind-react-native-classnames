@@ -5,7 +5,7 @@ import plugin from './plugin';
 import rawCreate from './create';
 
 // Apply default config and inject RN Platform
-const create = (twConfig: TwConfig = {}): TailwindFn => rawCreate(twConfig, Platform.OS);
+const create = (twConfig: TwConfig = {}): TailwindFn => rawCreate(twConfig, Platform.OS, Platform.constants.reactNativeVersion);
 
 export type { TailwindFn, TwConfig, RnColorScheme, ClassInput, Style };
 export { useDeviceContext, useAppColorScheme } from './hooks';

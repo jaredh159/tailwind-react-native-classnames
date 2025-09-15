@@ -1,3 +1,4 @@
+import rn from 'react-native';
 import { create } from '../';
 
 describe(`transform utilities`, () => {
@@ -199,22 +200,14 @@ describe(`transform utilities`, () => {
         [`-translate-y-px`, { transform: [{ translateY: -1 }] }],
         [`-translate-x-0.5`, { transform: [{ translateX: -2 }] }],
         [`-translate-y-0.5`, { transform: [{ translateY: -2 }] }],
-        [`translate-x-full`, { transform: [{ translateX: `100%` }] }],
-        [`translate-y-full`, { transform: [{ translateY: `100%` }] }],
-        [`translate-x-1/2`, { transform: [{ translateX: `50%` }] }],
-        [`translate-y-1/2`, { transform: [{ translateY: `50%` }] }],
 
         // arbitrary
         [`translate-x-[17rem]`, { transform: [{ translateX: 272 }] }],
         [`translate-y-[17rem]`, { transform: [{ translateY: 272 }] }],
-        [`translate-x-[10%]`, { transform: [{ translateX: `10%` }] }],
-        [`translate-y-[10%]`, { transform: [{ translateY: `10%` }] }],
 
         // not configged
         [`translate-x-81`, { transform: [{ translateX: (81 / 4) * 16 }] }],
         [`translate-y-81`, { transform: [{ translateY: (81 / 4) * 16 }] }],
-        [`translate-x-1/5`, { transform: [{ translateX: `20%` }] }],
-        [`translate-y-1/5`, { transform: [{ translateY: `20%` }] }],
       ];
 
     test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
@@ -247,6 +240,54 @@ describe(`transform utilities`, () => {
       expect(tw.style(`translate-y-2 translate-y-4`)).toMatchObject({
         transform: [{ translateY: 16 }],
       });
+    });
+
+    test(`translate w/percentage values`, () => {
+      rn.Platform.constants.reactNativeVersion = {
+        major: 0,
+        minor: 75,
+        patch: 0,
+      };
+
+      expect(tw.style(`translate-x-full`)).toMatchObject({
+        transform: [{ translateX: `100%` }],
+      });
+      expect(tw.style(`translate-y-full`)).toMatchObject({
+        transform: [{ translateY: `100%` }],
+      });
+      expect(tw.style(`translate-x-1/2`)).toMatchObject({
+        transform: [{ translateX: `50%` }],
+      });
+      expect(tw.style(`translate-y-1/2`)).toMatchObject({
+        transform: [{ translateY: `50%` }],
+      });
+      expect(tw.style(`translate-x-[10%]`)).toMatchObject({
+        transform: [{ translateX: `10%` }],
+      });
+      expect(tw.style(`translate-y-[10%]`)).toMatchObject({
+        transform: [{ translateY: `10%` }],
+      });
+      expect(tw.style(`translate-x-1/5`)).toMatchObject({
+        transform: [{ translateX: `20%` }],
+      });
+      expect(tw.style(`translate-y-1/5`)).toMatchObject({
+        transform: [{ translateY: `20%` }],
+      });
+
+      rn.Platform.constants.reactNativeVersion = {
+        major: 0,
+        minor: 74,
+        patch: 0,
+      };
+
+      expect(tw.style(`translate-x-full`)).toMatchObject({});
+      expect(tw.style(`translate-y-full`)).toMatchObject({});
+      expect(tw.style(`translate-x-1/2`)).toMatchObject({});
+      expect(tw.style(`translate-y-1/2`)).toMatchObject({});
+      expect(tw.style(`translate-x-[10%]`)).toMatchObject({});
+      expect(tw.style(`translate-y-[10%]`)).toMatchObject({});
+      expect(tw.style(`translate-x-1/5`)).toMatchObject({});
+      expect(tw.style(`translate-y-1/5`)).toMatchObject({});
     });
   });
 

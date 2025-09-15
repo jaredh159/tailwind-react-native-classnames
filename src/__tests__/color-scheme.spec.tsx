@@ -6,7 +6,7 @@ import type { TailwindFn } from '../';
 import { create, useDeviceContext, useAppColorScheme } from '../';
 
 jest.mock(`react-native`, () => ({
-  Platform: { OS: `ios` },
+  Platform: { OS: `ios`, constants: { reactNativeVersion: { major: 0, minor: 75, patch: 0 } } },
   useColorScheme: () => `light`,
   useWindowDimensions: () => ({ width: 320, height: 640, fontScale: 1, scale: 2 }),
 }));

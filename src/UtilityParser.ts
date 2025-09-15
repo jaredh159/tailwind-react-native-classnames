@@ -1,5 +1,5 @@
 import type { TwConfig } from './tw-config';
-import type { StyleIR, DeviceContext, ParseContext, Platform } from './types';
+import type { StyleIR, DeviceContext, ParseContext, Platform, Version } from './types';
 import type Cache from './cache';
 import fontSize from './resolve/font-size';
 import lineHeight from './resolve/line-height';
@@ -41,8 +41,10 @@ export default class UtilityParser {
     private cache: Cache,
     device: DeviceContext,
     platform: Platform,
+    reactNativeVersion: Version,
   ) {
     this.context.device = device;
+    this.context.reactNativeVersion = reactNativeVersion;
     const parts = input.trim().split(`:`);
     let prefixes: string[] = [];
     if (parts.length === 1) {
