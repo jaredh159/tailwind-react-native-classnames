@@ -6,6 +6,13 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.10.0] - 2025-09-16
+
+### Added
+
+- support transformOrigin and percentage-based values for translate (thanks @Pedrozxcv)
+  [(#356)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/356)
+
 ## [4.9.1] - 2025-06-25
 
 ### Fixed
