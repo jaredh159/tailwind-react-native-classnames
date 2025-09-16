@@ -1,5 +1,5 @@
 import type { TwConfig } from './tw-config';
-import type { StyleIR, DeviceContext, ParseContext, Platform } from './types';
+import type { StyleIR, DeviceContext, ParseContext, Platform, Version } from './types';
 import type Cache from './cache';
 import fontSize from './resolve/font-size';
 import lineHeight from './resolve/line-height';
@@ -16,7 +16,14 @@ import { widthHeight, size, minMaxWidthHeight } from './resolve/width-height';
 import { letterSpacing } from './resolve/letter-spacing';
 import { opacity } from './resolve/opacity';
 import { shadowOpacity, shadowOffset } from './resolve/shadow';
-import { rotate, scale, skew, transformNone, translate } from './resolve/transform';
+import {
+  origin,
+  rotate,
+  scale,
+  skew,
+  transformNone,
+  translate,
+} from './resolve/transform';
 import pointerEvents from './resolve/pointer-events';
 
 export default class UtilityParser {
@@ -34,8 +41,10 @@ export default class UtilityParser {
     private cache: Cache,
     device: DeviceContext,
     platform: Platform,
+    reactNativeVersion: Version,
   ) {
     this.context.device = device;
+    this.context.reactNativeVersion = reactNativeVersion;
     const parts = input.trim().split(`:`);
     let prefixes: string[] = [];
     if (parts.length === 1) {
@@ -324,6 +333,11 @@ export default class UtilityParser {
 
     if (this.consumePeeked(`transform-none`)) {
       return transformNone();
+    }
+
+    if (this.consumePeeked(`origin-`)) {
+      style = origin(this.rest, this.context, theme?.transformOrigin);
+      if (style) return style;
     }
 
     if (this.consumePeeked(`pointer-events-`)) {

@@ -1,3 +1,4 @@
+import rn from 'react-native';
 import { create } from '../';
 
 describe(`transform utilities`, () => {
@@ -207,12 +208,6 @@ describe(`transform utilities`, () => {
         // not configged
         [`translate-x-81`, { transform: [{ translateX: (81 / 4) * 16 }] }],
         [`translate-y-81`, { transform: [{ translateY: (81 / 4) * 16 }] }],
-
-        // unsupported
-        [`translate-x-full`, {}],
-        [`translate-y-full`, {}],
-        [`translate-x-1/2`, {}],
-        [`translate-y-1/2`, {}],
       ];
 
     test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
@@ -246,6 +241,54 @@ describe(`transform utilities`, () => {
         transform: [{ translateY: 16 }],
       });
     });
+
+    test(`translate w/percentage values`, () => {
+      rn.Platform.constants.reactNativeVersion = {
+        major: 0,
+        minor: 75,
+        patch: 0,
+      };
+
+      expect(tw.style(`translate-x-full`)).toMatchObject({
+        transform: [{ translateX: `100%` }],
+      });
+      expect(tw.style(`translate-y-full`)).toMatchObject({
+        transform: [{ translateY: `100%` }],
+      });
+      expect(tw.style(`translate-x-1/2`)).toMatchObject({
+        transform: [{ translateX: `50%` }],
+      });
+      expect(tw.style(`translate-y-1/2`)).toMatchObject({
+        transform: [{ translateY: `50%` }],
+      });
+      expect(tw.style(`translate-x-[10%]`)).toMatchObject({
+        transform: [{ translateX: `10%` }],
+      });
+      expect(tw.style(`translate-y-[10%]`)).toMatchObject({
+        transform: [{ translateY: `10%` }],
+      });
+      expect(tw.style(`translate-x-1/5`)).toMatchObject({
+        transform: [{ translateX: `20%` }],
+      });
+      expect(tw.style(`translate-y-1/5`)).toMatchObject({
+        transform: [{ translateY: `20%` }],
+      });
+
+      rn.Platform.constants.reactNativeVersion = {
+        major: 0,
+        minor: 74,
+        patch: 0,
+      };
+
+      expect(tw.style(`translate-x-full`)).toMatchObject({});
+      expect(tw.style(`translate-y-full`)).toMatchObject({});
+      expect(tw.style(`translate-x-1/2`)).toMatchObject({});
+      expect(tw.style(`translate-y-1/2`)).toMatchObject({});
+      expect(tw.style(`translate-x-[10%]`)).toMatchObject({});
+      expect(tw.style(`translate-y-[10%]`)).toMatchObject({});
+      expect(tw.style(`translate-x-1/5`)).toMatchObject({});
+      expect(tw.style(`translate-y-1/5`)).toMatchObject({});
+    });
   });
 
   test(`combine multiple transform utilities `, () => {
@@ -275,5 +318,60 @@ describe(`transform utilities`, () => {
         `scale-50 scale-x-100 scale-y-150 rotate-0 rotate-x-90 rotate-y-45 skew-x-99 skew-y-99 translate-x-px translate-y-px transform-none`,
       ),
     ).toMatchObject({ transform: [] });
+  });
+
+  describe(`origin`, () => {
+    const cases: Array<
+      [string, Record<'transformOrigin', string> | Record<string, never>]
+    > = [
+      [`origin-center`, { transformOrigin: `center` }],
+      [`origin-top`, { transformOrigin: `top` }],
+      [`origin-top-right`, { transformOrigin: `top right` }],
+      [`origin-right`, { transformOrigin: `right` }],
+      [`origin-bottom-right`, { transformOrigin: `bottom right` }],
+      [`origin-bottom`, { transformOrigin: `bottom` }],
+      [`origin-bottom-left`, { transformOrigin: `bottom left` }],
+      [`origin-left`, { transformOrigin: `left` }],
+      [`origin-top-left`, { transformOrigin: `top left` }],
+
+      // arbitrary
+      [`origin-[top]`, { transformOrigin: `top` }],
+      [`origin-[10%]`, { transformOrigin: `10%` }],
+      [`origin-[10px]`, { transformOrigin: `10px` }],
+      [`origin-[left_top]`, { transformOrigin: `left top` }],
+      [`origin-[bottom_right]`, { transformOrigin: `bottom right` }],
+      [`origin-[center_center]`, { transformOrigin: `center center` }],
+      [`origin-[center_10%]`, { transformOrigin: `center 10%` }],
+      [`origin-[10px_center]`, { transformOrigin: `10px center` }],
+      [`origin-[10px_10%]`, { transformOrigin: `10px 10%` }],
+      [`origin-[-10%_20%_10px]`, { transformOrigin: `-10% 20% 10px` }],
+      [`origin-[-10px_-10px_-10px]`, { transformOrigin: `-10px -10px -10px` }],
+      [`origin-[left_top_10px]`, { transformOrigin: `left top 10px` }],
+
+      // invalid
+      [`origin-[left_left]`, {}],
+      [`origin-[top_top]`, {}],
+      [`origin-[top_left_10%]`, {}],
+    ];
+
+    test.each(cases)(`tw\`%s\` -> %s`, (utility, expected) => {
+      expect(tw.style(utility)).toMatchObject(expected);
+    });
+
+    test(`origin w/extended theme`, () => {
+      tw = create({
+        theme: {
+          extend: {
+            transformOrigin: {
+              custom: `33% 75% 10px`,
+            },
+          },
+        },
+      });
+
+      expect(tw.style(`origin-custom`)).toMatchObject({
+        transformOrigin: `33% 75% 10px`,
+      });
+    });
   });
 });

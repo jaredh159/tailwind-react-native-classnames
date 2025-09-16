@@ -52,7 +52,6 @@
     "@babel/preset-typescript": "^7.23.3",
     "@types/jest": "^29.5.11",
     "@types/react": "^18.2.55",
-    "@types/react-native": "^0.73.0",
     "@types/react-test-renderer": "^18.0.7",
     "@types/tailwindcss": "^3.1.0",
     "@typescript-eslint/eslint-plugin": "^6.15.0",
@@ -65,7 +64,7 @@
     "metro-react-native-babel-preset": "^0.66.2",
     "prettier": "^3.1.1",
     "react": "^18.2.0",
-    "react-native": "^0.73.4",
+    "react-native": "^0.75.0",
     "react-test-renderer": "^18.2.0",
     "ts-jest": "^29.1.1",
     "typescript": "^5.3.3"

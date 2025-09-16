@@ -2,14 +2,18 @@ import type { TwTheme } from '../tw-config';
 import type { DependentStyle, ParseContext, Style, StyleIR } from '../types';
 import { isString, Unit } from '../types';
 import {
+  complete,
   parseNumericValue,
   parseStyleVal,
   parseUnconfigged,
   toStyleVal,
 } from '../helpers';
 
+const originPositions = [`left`, `center`, `right`, `top`, `bottom`];
+
 type Axis = `x` | `y` | `z` | ``;
 type Property = `scale` | `rotate` | `skew` | `translate`;
+type OriginPosition = (typeof originPositions)[number];
 
 export function scale(
   value: string,
@@ -124,13 +128,19 @@ export function translate(
     ? parseStyleVal(configValue, context)
     : parseUnconfigged(value, context);
 
-  // support for percentage values in translate was only added in RN 0.75
-  // source: https://reactnative.dev/blog/2024/08/12/release-0.75#percentage-values-in-translation
-  // since the support of this package starts at RN 0.62.2
-  // we need to filter out percentages which are non-numeric values
-  return styleVal === null || isString(styleVal)
-    ? null
-    : createStyle(styleVal, `translate`, translateAxis);
+  // using percentage values (non-numeric values) causes an error
+  // if used in versions earlier than RN 0.75
+  if (
+    styleVal === null ||
+    (isString(styleVal) &&
+      context.reactNativeVersion &&
+      context.reactNativeVersion.major === 0 &&
+      context.reactNativeVersion.minor < 75)
+  ) {
+    return null;
+  }
+
+  return createStyle(styleVal, `translate`, translateAxis);
 }
 
 export function transformNone(): StyleIR {
@@ -140,6 +150,75 @@ export function transformNone(): StyleIR {
       style.transform = [];
     },
   };
+}
+
+export function origin(
+  value: string,
+  context: ParseContext = {},
+  config?: TwTheme['transformOrigin'],
+): StyleIR | null {
+  const configValue = config?.[value];
+
+  if (configValue) {
+    return complete({ transformOrigin: configValue });
+  }
+
+  if (!isArbitraryValue(value)) {
+    return null;
+  }
+
+  const values = value.slice(1, -1).split(`_`);
+
+  if (values.length === 0 || values.length > 3) {
+    return null;
+  }
+
+  // the first value must be one of the positions, a percentage or a pixel value
+  const firstOriginValue = parseOriginValue(
+    values[0],
+    originPositions,
+    [Unit.px, Unit.percent],
+    context,
+  );
+
+  if (firstOriginValue === null) {
+    return null;
+  }
+
+  const origin = [firstOriginValue];
+
+  if (values.length >= 2) {
+    // the second value must a position different from the first or `center`, a percentage or a pixel value
+    const secondOriginValue = parseOriginValue(
+      values[1],
+      originPositions.filter(
+        (position) => position === `center` || position !== firstOriginValue,
+      ),
+      [Unit.px, Unit.percent],
+      context,
+    );
+
+    if (secondOriginValue === null) {
+      return null;
+    }
+
+    origin.push(secondOriginValue);
+  }
+
+  if (values.length === 3) {
+    // the third value must be a pixel value
+    const thirdOriginValue = parseOriginValue(values[2], [], [Unit.px], context);
+
+    if (thirdOriginValue === null) {
+      return null;
+    }
+
+    origin.push(thirdOriginValue);
+  }
+
+  return complete({
+    transformOrigin: origin.join(` `),
+  });
 }
 
 function createStyle(
@@ -168,4 +247,25 @@ function createStyle(
 
 function isArbitraryValue(value: string): boolean {
   return value.startsWith(`[`) && value.endsWith(`]`);
+}
+
+function parseOriginValue(
+  value: string | undefined,
+  allowedPositions: OriginPosition[],
+  allowedUnits: Unit[],
+  context: ParseContext = {},
+): string | null {
+  if (!value) {
+    return null;
+  }
+
+  if (allowedPositions.includes(value)) {
+    return value;
+  }
+
+  const parsedValue = parseNumericValue(value, context);
+
+  return parsedValue === null || !allowedUnits.includes(parsedValue[1])
+    ? null
+    : `${parsedValue[0] * (context.isNegative ? -1 : 1)}${parsedValue[1]}`;
 }

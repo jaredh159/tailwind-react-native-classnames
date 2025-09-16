@@ -3,7 +3,10 @@ import { describe, test, expect } from '@jest/globals';
 import { create } from '../';
 
 jest.mock(`react-native`, () => ({
-  Platform: { OS: `ios` },
+  Platform: {
+    OS: `ios`,
+    constants: { reactNativeVersion: { major: 0, minor: 75, patch: 0 } },
+  },
 }));
 
 describe(`tw.prefixMatch()`, () => {
