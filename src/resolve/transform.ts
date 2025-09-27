@@ -133,9 +133,10 @@ export function translate(
   if (
     styleVal === null ||
     (isString(styleVal) &&
-      context.reactNativeVersion &&
-      context.reactNativeVersion.major === 0 &&
-      context.reactNativeVersion.minor < 75)
+      context.device?.platform !== `web` &&
+      (!context.reactNativeVersion ||
+        (context.reactNativeVersion.major === 0 &&
+          context.reactNativeVersion.minor < 75)))
   ) {
     return null;
   }

@@ -75,6 +75,7 @@ export interface DeviceContext {
   colorScheme?: 'light' | 'dark' | null;
   fontScale?: number;
   pixelDensity?: 1 | 2;
+  platform?: Platform;
 }
 
 export interface ParseContext {
@@ -232,8 +233,10 @@ export function isObject(value: unknown): value is Record<string, unknown> {
   return typeof value === `object`;
 }
 
-export type Version = {
-  major: number;
-  minor: number;
-  patch: number;
-};
+export type Version =
+  | {
+      major: number;
+      minor: number;
+      patch: number;
+    }
+  | undefined;

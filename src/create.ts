@@ -25,7 +25,9 @@ export function create(
   reactNativeVersion: Version,
 ): TailwindFn {
   const config = resolveConfig(withContent(customConfig) as any) as TwConfig;
-  const device: DeviceContext = {};
+  const device: DeviceContext = {
+    platform,
+  };
 
   const pluginUtils = getAddedUtilities(config.plugins);
   const customStringUtils: Record<string, string> = {};
@@ -110,7 +112,6 @@ export function create(
           config,
           cache,
           device,
-          platform,
           reactNativeVersion,
         );
         styleIr = parser.parse();
@@ -201,7 +202,6 @@ export function create(
       config,
       cache,
       device,
-      platform,
       reactNativeVersion,
     );
     const ir = parser.parse();
