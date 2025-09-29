@@ -1,5 +1,5 @@
 import type { TwConfig } from './tw-config';
-import type { StyleIR, DeviceContext, ParseContext, Platform, Version } from './types';
+import type { StyleIR, DeviceContext, ParseContext, Version } from './types';
 import type Cache from './cache';
 import fontSize from './resolve/font-size';
 import lineHeight from './resolve/line-height';
@@ -40,7 +40,6 @@ export default class UtilityParser {
     private config: TwConfig = {},
     private cache: Cache,
     device: DeviceContext,
-    platform: Platform,
     reactNativeVersion: Version,
   ) {
     this.context.device = device;
@@ -54,7 +53,7 @@ export default class UtilityParser {
       prefixes = parts;
     }
     this.char = this.string[0];
-    this.parsePrefixes(prefixes, device, platform);
+    this.parsePrefixes(prefixes, device);
   }
 
   public parse(): StyleIR {
@@ -404,11 +403,7 @@ export default class UtilityParser {
     return false;
   }
 
-  private parsePrefixes(
-    prefixes: string[],
-    device: DeviceContext,
-    platform: Platform,
-  ): void {
+  private parsePrefixes(prefixes: string[], device: DeviceContext): void {
     const widthBreakpoints = screens(this.config.theme?.screens);
 
     // loop through the prefixes ONE time, extracting useful info
@@ -429,7 +424,7 @@ export default class UtilityParser {
           this.isNull = true;
         }
       } else if (isPlatform(prefix)) {
-        this.isNull = prefix !== platform;
+        this.isNull = prefix !== device.platform;
       } else if (isOrientation(prefix)) {
         if (!device.windowDimensions) {
           this.isNull = true;
