@@ -6,6 +6,14 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.10.1] - 2025-09-29
+
+### Fixed
+
+- Fixed error in RN web from missing platform constants (thanks @Pedrozxcv)
+  [(#359)](https://github.com/jaredh159/twrnc/issues/359) and
+  [(#339)](https://github.com/jaredh159/twrnc/issues/358).
+
 ## [4.10.0] - 2025-09-16
 
 ### Added
