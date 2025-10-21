@@ -11,7 +11,7 @@ import type {
   Platform,
   Version,
 } from './types';
-import type { TwConfig } from './tw-config';
+import { PREFIX_COLOR_PROP_MAP, type TwConfig } from './tw-config';
 import Cache from './cache';
 import UtilityParser from './UtilityParser';
 import { configColor, removeOpacityHelpers } from './resolve/color';
@@ -172,20 +172,50 @@ export function create(
   }
 
   function color(utils: string): string | undefined {
-    const styleObj = style(
-      utils
-        .split(/\s+/g)
-        .map((util) => util.replace(/^(bg|text|border)-/, ``))
-        .map((util) => `bg-${util}`)
-        .join(` `),
-    );
-    if (typeof styleObj.backgroundColor === `string`) {
-      return styleObj.backgroundColor;
-    } else if (config.theme?.colors) {
-      return configColor(utils, config.theme.colors) ?? undefined;
-    } else {
+    if (!config.theme) {
       return undefined;
     }
+
+    // Prefer prefix-specific colors within the theme config.
+    // Only support theme objects which do not require a plugin. See:
+    // https://v2.tailwindcss.com/docs/theme#configuration-reference
+    // https://v3.tailwindcss.com/docs/theme#configuration-reference
+
+    // Iterate supported theme objects and try to find a match
+    for (const key of Object.keys(PREFIX_COLOR_PROP_MAP)) {
+      const prefix = key as keyof typeof PREFIX_COLOR_PROP_MAP;
+      const suffix = utils.slice(prefix.length);
+      const themePropertyName = PREFIX_COLOR_PROP_MAP[prefix];
+      const themeColors = config.theme[themePropertyName];
+
+      if (suffix && utils.startsWith(prefix) && themeColors) {
+        return configColor(suffix, themeColors) ?? undefined;
+      }
+    }
+
+    // Check for computed styles (e.g. `white/25` or `black opacity-50`)
+    // Only supported for values defined under `colors` or Tailwind defaults
+    if (/\s/.test(utils) || utils.includes(`/`)) {
+      const styleObj = style(
+        utils
+          .split(/\s+/g)
+          .map((util) => util.replace(/^(bg|text|border)-/, ``))
+          .map((util) => `bg-${util}`)
+          .join(` `),
+      );
+
+      if (typeof styleObj.backgroundColor === `string`) {
+        return styleObj.backgroundColor;
+      }
+    }
+
+    // `colors` - Last priority
+    if (config.theme.colors) {
+      return configColor(utils, config.theme.colors) ?? undefined;
+    }
+
+    // Just in case - abide by return type
+    return undefined;
   }
 
   tailwindFn.style = style;

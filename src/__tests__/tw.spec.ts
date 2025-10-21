@@ -237,7 +237,43 @@ describe(`tw`, () => {
     tw = create({
       theme: { extend: { colors: { text: { primary: `#F9E` } } } },
     });
-    expect(tw.color(`text-primary`)).toBe(`#F9E`);
+    expect(tw.color(`text-text-primary`)).toBe(`#F9E`);
+  });
+
+  test(`tw.color() : prefix-specific color priority`, () => {
+    // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/361
+    tw = create({
+      theme: {
+        extend: {
+          colors: { primary: `r`, secondary: `#000` },
+          textColor: { primary: `a`, secondary: `#FFF` },
+          backgroundColor: { primary: `i` },
+          ringColor: { primary: `n` },
+          caretColor: { primary: `b` },
+          accentColor: { primary: `o` },
+          borderColor: { primary: `w` },
+          outlineColor: { primary: `e` },
+          divideColor: { primary: `d` },
+        },
+      },
+    });
+
+    expect(tw.color(`primary`)).toBe(`r`);
+    expect(tw.color(`text-primary`)).toBe(`a`);
+    expect(tw.color(`bg-primary`)).toBe(`i`);
+    expect(tw.color(`ring-primary`)).toBe(`n`);
+    expect(tw.color(`caret-primary`)).toBe(`b`);
+    expect(tw.color(`accent-primary`)).toBe(`o`);
+    expect(tw.color(`border-primary`)).toBe(`w`);
+    expect(tw.color(`outline-primary`)).toBe(`e`);
+    expect(tw.color(`divide-primary`)).toBe(`d`);
+
+    expect(tw.color(`secondary opacity-25`)).toBe(`rgba(0, 0, 0, 0.25)`);
+    expect(tw.color(`secondary opacity-50`)).toBe(`rgba(0, 0, 0, 0.5)`);
+
+    // Currently modifiers are only supported for base color values defined under `colors`
+    expect(tw.color(`text-secondary opacity-50`)).toBe(undefined);
+    expect(tw.color(`text-secondary/25`)).toBe(undefined);
   });
 
   test(`merging in user styles`, () => {

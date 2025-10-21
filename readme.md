@@ -40,6 +40,10 @@ const MyComponent = () => (
   [classnames package api](https://github.com/JedWatson/classnames).
 - written 100% in Typescript, ships with types
 
+> [!IMPORTANT]
+> This package has been minimally tested using TailwindCSS 4. 
+> Contributions are welcome to help support newer TW features. 
+
 ## Docs:
 
 - [Installation](#installation)
