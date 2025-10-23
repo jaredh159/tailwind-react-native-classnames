@@ -181,6 +181,8 @@ export function create(
     // https://v2.tailwindcss.com/docs/theme#configuration-reference
     // https://v3.tailwindcss.com/docs/theme#configuration-reference
 
+    let color: string | null;
+
     // Iterate supported theme objects and try to find a match
     for (const key of Object.keys(PREFIX_COLOR_PROP_MAP)) {
       const prefix = key as keyof typeof PREFIX_COLOR_PROP_MAP;
@@ -189,32 +191,50 @@ export function create(
       const themeColors = config.theme[themePropertyName];
 
       if (suffix && utils.startsWith(prefix) && themeColors) {
-        return configColor(suffix, themeColors) ?? undefined;
+        color = configColor(suffix, themeColors);
+
+        if (color) {
+          return color;
+        }
       }
     }
 
-    // Check for computed styles (e.g. `white/25` or `black opacity-50`)
-    // Only supported for values defined under `colors` or Tailwind defaults
-    if (/\s/.test(utils) || utils.includes(`/`)) {
-      const styleObj = style(
-        utils
-          .split(/\s+/g)
-          .map((util) => util.replace(/^(bg|text|border)-/, ``))
-          .map((util) => `bg-${util}`)
-          .join(` `),
-      );
+    // Check `colors` if `utils` is not a computed value (e.g. `secondary opacity-50` or `white/25`)
+    if (!/\s+/.test(utils) && !utils.includes(`/`) && config.theme.colors) {
+      color = configColor(utils, config.theme.colors);
 
-      if (typeof styleObj.backgroundColor === `string`) {
-        return styleObj.backgroundColor;
+      if (color) {
+        return color;
       }
     }
 
-    // `colors` - Last priority
-    if (config.theme.colors) {
-      return configColor(utils, config.theme.colors) ?? undefined;
+    // Fall back to attempting style parsing
+    let toStyle = utils;
+
+    if (!/^(bg-|text-|border-)/.test(utils)) {
+      toStyle = utils
+        .split(/\s+/g)
+        .map((util) => util.replace(/^(bg|text|border)-/, ``))
+        .map((util) => `bg-${util}`)
+        .join(` `);
     }
 
-    // Just in case - abide by return type
+    const styleObj = style(toStyle);
+
+    const foundColorKey = [
+      `backgroundColor`,
+      `borderColor`,
+      `borderLeftColor`,
+      `borderRightColor`,
+      `borderTopColor`,
+      `borderBottomColor`,
+      `color`,
+    ].find((key) => typeof styleObj?.[key] === `string`);
+
+    if (foundColorKey) {
+      return styleObj?.[foundColorKey] as string;
+    }
+
     return undefined;
   }
 

@@ -235,8 +235,20 @@ describe(`tw`, () => {
     expect(tw.color(`red-500`)).toBe(`#ef4444`);
     // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/273
     tw = create({
-      theme: { extend: { colors: { text: { primary: `#F9E` } } } },
+      theme: {
+        extend: { colors: { text: { primary: `#F9E` } } },
+      },
     });
+    expect(tw.color(`text-primary`)).toBe(`#F9E`);
+
+    tw = create({
+      theme: {
+        extend: { colors: { text: { primary: `#F9E` } }, textColor: { primary: `#FFF` } },
+      },
+    });
+    // `textColor` will take priority
+    expect(tw.color(`text-primary`)).toBe(`#FFF`);
+    // When using both, be specific
     expect(tw.color(`text-text-primary`)).toBe(`#F9E`);
   });
 
@@ -248,12 +260,7 @@ describe(`tw`, () => {
           colors: { primary: `r`, secondary: `#000` },
           textColor: { primary: `a`, secondary: `#FFF` },
           backgroundColor: { primary: `i` },
-          ringColor: { primary: `n` },
-          caretColor: { primary: `b` },
-          accentColor: { primary: `o` },
-          borderColor: { primary: `w` },
-          outlineColor: { primary: `e` },
-          divideColor: { primary: `d` },
+          borderColor: { primary: `n` },
         },
       },
     });
@@ -261,19 +268,19 @@ describe(`tw`, () => {
     expect(tw.color(`primary`)).toBe(`r`);
     expect(tw.color(`text-primary`)).toBe(`a`);
     expect(tw.color(`bg-primary`)).toBe(`i`);
-    expect(tw.color(`ring-primary`)).toBe(`n`);
-    expect(tw.color(`caret-primary`)).toBe(`b`);
-    expect(tw.color(`accent-primary`)).toBe(`o`);
-    expect(tw.color(`border-primary`)).toBe(`w`);
-    expect(tw.color(`outline-primary`)).toBe(`e`);
-    expect(tw.color(`divide-primary`)).toBe(`d`);
+    expect(tw.color(`border-primary`)).toBe(`n`);
+    expect(tw.color(`border-t-primary`)).toBe(`n`);
+    expect(tw.color(`border-r-primary`)).toBe(`n`);
+    expect(tw.color(`border-b-primary`)).toBe(`n`);
+    expect(tw.color(`border-l-primary`)).toBe(`n`);
 
     expect(tw.color(`secondary opacity-25`)).toBe(`rgba(0, 0, 0, 0.25)`);
     expect(tw.color(`secondary opacity-50`)).toBe(`rgba(0, 0, 0, 0.5)`);
 
-    // Currently modifiers are only supported for base color values defined under `colors`
-    expect(tw.color(`text-secondary opacity-50`)).toBe(undefined);
-    expect(tw.color(`text-secondary/25`)).toBe(undefined);
+    // Text can have opacity directly applied so this shouldn't alter the color
+    expect(tw.color(`text-secondary opacity-50`)).toBe(`#FFF`);
+
+    expect(tw.color(`text-secondary/25`)).toBe(`rgba(255, 255, 255, 0.25)`);
   });
 
   test(`merging in user styles`, () => {

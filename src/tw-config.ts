@@ -49,22 +49,12 @@ export interface TwTheme {
   backgroundColor?: TwColors; // bg-
   borderColor?: TwColors; // border-
   textColor?: TwColors; // text-
-  accentColor?: TwColors; // accent-
-  caretColor?: TwColors; // caret-
-  outlineColor?: TwColors; // outline-
-  ringColor?: TwColors; // ring-
-  divideColor?: TwColors; // divide-
 }
 
 export const PREFIX_COLOR_PROP_MAP = {
   'bg-': `backgroundColor`,
   'border-': `borderColor`,
   'text-': `textColor`,
-  'accent-': `accentColor`,
-  'caret-': `caretColor`,
-  'outline-': `outlineColor`,
-  'ring-': `ringColor`,
-  'divide-': `divideColor`,
 } as const;
 
 export interface TwConfig {
