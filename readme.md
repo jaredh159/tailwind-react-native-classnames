@@ -40,10 +40,6 @@ const MyComponent = () => (
   [classnames package api](https://github.com/JedWatson/classnames).
 - written 100% in Typescript, ships with types
 
-> [!IMPORTANT]
-> This package has been minimally tested using TailwindCSS 4. 
-> Contributions are welcome to help support newer TW features. 
-
 ## Docs:
 
 - [Installation](#installation)
@@ -145,39 +141,11 @@ tw.style(`mt-1`, {
 ```
 
 The `tw` function also has a method `color` that can be used to get back a string value of
-a tailwind color or class. Especially useful if you're using a customized color pallette.
+a tailwind color. Especially useful if you're using a customized color pallette.
 
 ```js
 tw.color('blue-100'); // `bg|text|border-blue-100` also work
 // -> "rgba(219, 234, 254, 1)"
-```
-
-> [!IMPORTANT]
-> Specific color configurations will take priority over the base `colors`
-> Currently `textColor`, `backgroundColor`, and `borderColor` fields are supported.
-
-For example, if you have a config that looks like this:
-
-```js
-const tw = create({
-  theme: {
-    extend: {
-      colors: {
-        text: {
-          primary: '#000'
-        }
-      },
-      textColor: {
-        primary: '#F9E'
-      }
-    }
-  }
-});
-
-tw.color('text-primary') // Will yield `#F9E`
-
-// You can still select the color named `text-primary` by being more explicit using:
-tw.color('text-text-primary');
 ```
 
 You can import the main `tw` function and reach for `tw.style` only when you need it:
