@@ -6,13 +6,23 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.11.0] - 2025-11-05
+
+### Added
+
+- Add support for resolving color from more color configurations and uitilities (thanks
+  @DaltonPelkey)
+  [(#360)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/360) and
+  [(#361)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/361) and
+  [(#362)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/362).
+
 ## [4.10.1] - 2025-09-29
 
 ### Fixed
 
 - Fixed error in RN web from missing platform constants (thanks @Pedrozxcv)
-  [(#359)](https://github.com/jaredh159/twrnc/issues/359) and
-  [(#339)](https://github.com/jaredh159/twrnc/issues/358).
+  [(#359)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/359) and
+  [(#339)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/358).
 
 ## [4.10.0] - 2025-09-16
 
@@ -25,8 +35,9 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 ### Fixed
 
-- Fixed custom border width [(#325)](https://github.com/jaredh159/twrnc/issues/325) and
-  [(#339)](https://github.com/jaredh159/twrnc/issues/339).
+- Fixed custom border width
+  [(#325)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/325) and
+  [(#339)](https://github.com/jaredh159/tailwind-react-native-classnames/issues/339).
 
 ## [4.9.0] - 2025-06-12
 
