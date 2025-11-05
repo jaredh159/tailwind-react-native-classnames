@@ -235,9 +235,52 @@ describe(`tw`, () => {
     expect(tw.color(`red-500`)).toBe(`#ef4444`);
     // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/273
     tw = create({
-      theme: { extend: { colors: { text: { primary: `#F9E` } } } },
+      theme: {
+        extend: { colors: { text: { primary: `#F9E` } } },
+      },
     });
     expect(tw.color(`text-primary`)).toBe(`#F9E`);
+
+    tw = create({
+      theme: {
+        extend: { colors: { text: { primary: `#F9E` } }, textColor: { primary: `#FFF` } },
+      },
+    });
+    // `textColor` will take priority
+    expect(tw.color(`text-primary`)).toBe(`#FFF`);
+    // When using both, be specific
+    expect(tw.color(`text-text-primary`)).toBe(`#F9E`);
+  });
+
+  test(`tw.color() : prefix-specific color priority`, () => {
+    // @see https://github.com/jaredh159/tailwind-react-native-classnames/issues/361
+    tw = create({
+      theme: {
+        extend: {
+          colors: { primary: `r`, secondary: `#000` },
+          textColor: { primary: `a`, secondary: `#FFF` },
+          backgroundColor: { primary: `i` },
+          borderColor: { primary: `n` },
+        },
+      },
+    });
+
+    expect(tw.color(`primary`)).toBe(`r`);
+    expect(tw.color(`text-primary`)).toBe(`a`);
+    expect(tw.color(`bg-primary`)).toBe(`i`);
+    expect(tw.color(`border-primary`)).toBe(`n`);
+    expect(tw.color(`border-t-primary`)).toBe(`n`);
+    expect(tw.color(`border-r-primary`)).toBe(`n`);
+    expect(tw.color(`border-b-primary`)).toBe(`n`);
+    expect(tw.color(`border-l-primary`)).toBe(`n`);
+
+    expect(tw.color(`secondary opacity-25`)).toBe(`rgba(0, 0, 0, 0.25)`);
+    expect(tw.color(`secondary opacity-50`)).toBe(`rgba(0, 0, 0, 0.5)`);
+
+    // Text can have opacity directly applied so this shouldn't alter the color
+    expect(tw.color(`text-secondary opacity-50`)).toBe(`#FFF`);
+
+    expect(tw.color(`text-secondary/25`)).toBe(`rgba(255, 255, 255, 0.25)`);
   });
 
   test(`merging in user styles`, () => {

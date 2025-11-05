@@ -38,17 +38,24 @@ export interface TwTheme {
   fontWeight?: Record<string, number | string>;
   fontFamily?: Record<string, string | string[]>;
   zIndex?: Record<string, number | string>;
-  colors?: TwColors;
-  backgroundColor?: TwColors;
-  borderColor?: TwColors;
-  textColor?: TwColors;
   scale?: Record<string, string>;
   rotate?: Record<string, string>;
   skew?: Record<string, string>;
   translate?: Record<string, string>;
   transformOrigin?: Record<string, string>;
   extend?: Omit<TwTheme, 'extend'>;
+  //
+  colors?: TwColors;
+  backgroundColor?: TwColors; // bg-
+  borderColor?: TwColors; // border-
+  textColor?: TwColors; // text-
 }
+
+export const PREFIX_COLOR_PROP_MAP = {
+  'bg-': `backgroundColor`,
+  'border-': `borderColor`,
+  'text-': `textColor`,
+} as const;
 
 export interface TwConfig {
   theme?: TwTheme;
