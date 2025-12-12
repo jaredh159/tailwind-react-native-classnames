@@ -141,7 +141,7 @@ tw.style(`mt-1`, {
 ```
 
 The `tw` function also has a method `color` that can be used to get back a string value of
-a tailwind color. Especially useful if you're using a customized color pallette.
+a tailwind color. Especially useful if you're using a customized color palette.
 
 ```js
 tw.color('blue-100'); // `bg|text|border-blue-100` also work
@@ -196,8 +196,8 @@ export default tw;
 import tw from './lib/tailwind';
 ```
 
-> ⚠️ Make sure to use `module.exports = {}` instead of `export default {}` in your
-> `tailwind.config.js` file, as the latter is not supported.
+> [!note]
+> If you are using `export default {}` in your `tailwind.config.js` file, you need to pass the `default` to `create` util from your config require: `require('../../tailwind.config.js').default`.
 
 ## Enabling Device-Context Prefixes
 
@@ -207,7 +207,7 @@ context information. The library exports a React hook called `useDeviceContext` 
 care of this for you. It should be included **one time**, at the _root of your component
 hierarchy,_ as shown below:
 
-```js
+```jsx
 import tw from './lib/tailwind'; // or, if no custom config: `from 'twrnc'`
 import { useDeviceContext } from 'twrnc';
 
@@ -239,13 +239,13 @@ ambient changes in the _device's color scheme_ (set in system preferences). If y
 prefer to **explicitly control** the color scheme of your app with some in-app mechanism,
 you'll need to configure things slightly differently:
 
-```js
+```jsx
 import { useDeviceContext, useAppColorScheme } from 'twrnc';
 
 export default function App() {
   useDeviceContext(tw, {
     // 1️⃣  opt OUT of listening to DEVICE color scheme events
-    observeDeviceColorSchemeChanges: false
+    observeDeviceColorSchemeChanges: false,
     // 2️⃣  and supply an initial color scheme
     initialColorScheme: `light`, // 'light' | 'dark' | 'device'
   });
@@ -266,7 +266,7 @@ export default function App() {
 ## Customizing Breakpoints
 
 You can **customize the breakpoints** in the same way as a
-[tailwindcss web project](https://tailwindcss.com/docs/breakpoints), using
+[tailwindcss web project](https://v3.tailwindcss.com/docs/breakpoints), using
 `tailwind.config.js`. The defaults that ship with `tailwindcss` are geared towards the
 web, so you likely want to set your own for device sizes you're interested in, like this:
 
@@ -288,7 +288,7 @@ module.exports = {
 ## Adding Custom Classes
 
 To add custom utilities, use the
-[plugin method](https://tailwindcss.com/docs/adding-new-utilities#using-a-plugin)
+[plugin method](https://v3.tailwindcss.com/docs/adding-new-utilities#using-a-plugin)
 described in the tailwind docs, instead of writing to a `.css` file.
 
 ```js
@@ -381,7 +381,7 @@ tw`shadow-radius-[10px]`; // { shadowRadius: 10 }
 ```
 
 We also provide a _default implementation_ of the `shadow-<X>` utils
-[provided by tailwindcss](https://tailwindcss.com/docs/box-shadow), so you can use:
+[provided by tailwindcss](https://v3.tailwindcss.com/docs/box-shadow), so you can use:
 
 ```js
 tw`shadow-md`;
