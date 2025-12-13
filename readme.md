@@ -196,8 +196,12 @@ export default tw;
 import tw from './lib/tailwind';
 ```
 
+<!-- prettier-ignore-start -->
 > [!note]
-> If you are using `export default {}` in your `tailwind.config.js` file, you need to pass the `default` to `create` util from your config require: `require('../../tailwind.config.js').default`.
+> If you are using `export default {}` in your `tailwind.config.js` file, you need
+> to pass the `default` to `create` util from your config require:
+> `require('../../tailwind.config.js').default`.
+<!-- prettier-ignore-end -->
 
 ## Enabling Device-Context Prefixes
 
