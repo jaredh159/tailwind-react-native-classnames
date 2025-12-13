@@ -25,6 +25,7 @@ import {
   translate,
 } from './resolve/transform';
 import pointerEvents from './resolve/pointer-events';
+import userSelect from './resolve/user-select';
 
 export default class UtilityParser {
   private position = 0;
@@ -341,6 +342,11 @@ export default class UtilityParser {
 
     if (this.consumePeeked(`pointer-events-`)) {
       style = pointerEvents(this.rest);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`select-`)) {
+      style = userSelect(this.rest);
       if (style) return style;
     }
 
