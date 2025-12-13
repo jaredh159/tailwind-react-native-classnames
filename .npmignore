@@ -9,3 +9,8 @@ tsconfig.cjs.json
 babel.config.js
 .prettierignore
 .prettierrc.json
+.github
+.vscode
+.eslintrc.js
+__tests__
+*.vim
