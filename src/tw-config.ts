@@ -49,12 +49,14 @@ export interface TwTheme {
   backgroundColor?: TwColors; // bg-
   borderColor?: TwColors; // border-
   textColor?: TwColors; // text-
+  textDecorationColor?: TwColors; // decoration-
 }
 
 export const PREFIX_COLOR_PROP_MAP = {
   'bg-': `backgroundColor`,
   'border-': `borderColor`,
   'text-': `textColor`,
+  'decoration-': `textDecorationColor`,
 } as const;
 
 export interface TwConfig {
