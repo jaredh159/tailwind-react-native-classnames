@@ -26,6 +26,7 @@ import {
 } from './resolve/transform';
 import pointerEvents from './resolve/pointer-events';
 import userSelect from './resolve/user-select';
+import textDecorationStyle from './resolve/text-decoration-style';
 
 export default class UtilityParser {
   private position = 0;
@@ -347,6 +348,14 @@ export default class UtilityParser {
 
     if (this.consumePeeked(`select-`)) {
       style = userSelect(this.rest);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`decoration-`)) {
+      style = textDecorationStyle(this.rest);
+      if (style) return style;
+
+      style = color(`decoration`, this.rest, theme?.colors);
       if (style) return style;
     }
 

@@ -94,7 +94,8 @@ export type ColorStyleType =
   | 'borderRight'
   | 'borderBottom'
   | 'shadow'
-  | 'tint';
+  | 'tint'
+  | 'decoration';
 
 export type Direction =
   | 'All'
