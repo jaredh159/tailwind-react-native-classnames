@@ -356,7 +356,7 @@ export default class UtilityParser {
       style = textDecorationStyle(this.rest);
       if (style) return style;
 
-      style = color(`decoration`, this.rest, theme?.textDecorationColor);
+      style = color(`decoration`, this.rest, theme?.colors);
       if (style) return style;
     }
 
