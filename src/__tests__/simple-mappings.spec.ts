@@ -91,6 +91,9 @@ describe(`simple style mappings`, () => {
     [`align-bottom`, { verticalAlign: `bottom` }],
     [`align-middle`, { verticalAlign: `middle` }],
 
+    [`box-border`, { boxSizing: `border-box` }],
+    [`box-content`, { boxSizing: `content-box` }],
+
     // default box-shadow implementations
     [
       `shadow-sm`,
