@@ -6,6 +6,13 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.13.0] - 2025-12-16
+
+### Added
+
+- Add support for `textDecoration` utilities (thanks @Simek)
+  [(#368)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/368).
+
 ## [4.12.0] - 2025-12-13
 
 ### Added
