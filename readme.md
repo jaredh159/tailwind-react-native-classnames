@@ -38,7 +38,7 @@ const MyComponent = () => (
   [plugin config](https://tailwindcss.com/docs/adding-new-utilities#using-a-plugin).
 - flexible, conditional styles based on
   [classnames package api](https://github.com/JedWatson/classnames).
-- written 100% in Typescript, ships with types
+- written 100% in TypeScript, ships with types
 
 ## Docs:
 
@@ -86,8 +86,8 @@ for **platform prefixes** to conditionally apply styles based on the current pla
 tw`ios:pt-4 android:pt-2`;
 ```
 
-Media query-like breakpoint prefixes supported (see [Breakpoints](#breakpoints) for
-configuration):
+Media query-like breakpoint prefixes supported (see
+[Breakpoints](#customizing-breakpoints) for configuration):
 
 ```js
 // 😎 faux media queries
@@ -248,18 +248,18 @@ import { useDeviceContext, useAppColorScheme } from 'twrnc';
 
 export default function App() {
   useDeviceContext(tw, {
-    // 1️⃣  opt OUT of listening to DEVICE color scheme events
+    // 1️⃣ opt OUT of listening to DEVICE color scheme events
     observeDeviceColorSchemeChanges: false,
-    // 2️⃣  and supply an initial color scheme
+    // 2️⃣ and supply an initial color scheme
     initialColorScheme: `light`, // 'light' | 'dark' | 'device'
   });
 
-  // 3️⃣  use the `useAppColorScheme` hook anywhere to get a reference to the current
+  // 3️⃣ use the `useAppColorScheme` hook anywhere to get a reference to the current
   // colorscheme, with functions to modify it (triggering re-renders) when you need
   const [colorScheme, toggleColorScheme, setColorScheme] = useAppColorScheme(tw);
 
   return (
-    {/* 4️⃣ use one of the setter functions, like `toggleColorScheme` in your app */}
+    // 4️⃣ use one of the setter functions, like `toggleColorScheme` in your app
     <TouchableOpacity onPress={toggleColorScheme}>
       <Text style={tw`text-black dark:text-white`}>Switch Color Scheme</Text>
     </TouchableOpacity>
@@ -348,7 +348,7 @@ re-implementing all that logic on your own:
 ```tsx
 const SomeComponent = () => (
   <View>
-    <Thumbnail imageSize={tw.prefixMatch(`portrait`) ? 60 : 90} />;
+    <Thumbnail imageSize={tw.prefixMatch(`portrait`) ? 60 : 90} />
     {tw.prefixMatch(`ios`, `dark`) ? <CustomIosDarkModeThing /> : <Thing />}
   </View>
 );
@@ -411,13 +411,13 @@ not web) style props. But it also adds a sprinkling of RN-only utilities which d
 to web-css, including:
 
 - [low-level shadow utilities](#box-shadows)
-- [elevation](https://reactnative.dev/docs/view-style-props#elevation-android) (android
+- [elevation](https://reactnative.dev/docs/view-style-props#elevation-android) (Android
   only), eg: `elevation-1`, `elevation-4`
 - `small-caps` -> `{fontVariant: 'small-caps'}`
 - number based font-weight utilities `font-100`, `font-400`, (100...900)
 - `direction-(inherit|ltr|rtl)`
 - `align-self: baseline;` via `self-baseline`
-- `include-font-padding` and `remove-font-padding` (android only: `includeFontPadding`)
+- `include-font-padding` and `remove-font-padding` (Android only: `includeFontPadding`)
 - image tint color control (`tint-{color}` e.g. `tint-red-200`)
 - `pointer-events-(box-only|box-none)`
 
@@ -464,11 +464,11 @@ Style Sheets | Tailwind CSS. Add the following configuration options:
 
 ```jsonc
 // ...
-"tailwindCSS.classAttributes": [
+"classAttributes": [
     // ...
     "style"
 ],
-"tailwindCSS.classFunctions": ["tw", "tw.color", "tw.style"],
+"classFunctions": ["tw", "tw.color", "tw.style"],
 ```
 
 It is important that you have a `tailwind.config.js` in the root of the repository even if
