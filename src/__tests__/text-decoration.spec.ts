@@ -6,10 +6,6 @@ describe(`text-decoration utilities`, () => {
   beforeEach(() => (tw = create()));
 
   const cases: Array<[string, Record<string, string>]> = [
-    // decoration line
-    [`underline`, { textDecorationLine: `underline` }],
-    [`line-through`, { textDecorationLine: `line-through` }],
-    [`no-underline`, { textDecorationLine: `none` }],
     // decoration style
     [`decoration-solid`, { textDecorationStyle: `solid` }],
     [`decoration-double`, { textDecorationStyle: `double` }],

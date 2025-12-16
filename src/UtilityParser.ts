@@ -27,7 +27,6 @@ import {
 import pointerEvents from './resolve/pointer-events';
 import userSelect from './resolve/user-select';
 import textDecorationStyle from './resolve/text-decoration-style';
-import textDecorationLine from './resolve/text-decoration-line';
 
 export default class UtilityParser {
   private position = 0;
@@ -357,11 +356,6 @@ export default class UtilityParser {
       if (style) return style;
 
       style = color(`decoration`, this.rest, theme?.colors);
-      if (style) return style;
-    }
-
-    if ([`underline`, `no-underline`, `line-through`].includes(this.string)) {
-      style = textDecorationLine(this.string);
       if (style) return style;
     }
 
