@@ -33,6 +33,7 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`direction-rtl`, complete({ direction: `rtl` })],
 
   [`hidden`, complete({ display: `none` })],
+  [`contents`, complete({ display: `contents` })],
   [`flex`, complete({ display: `flex` })],
 
   [`flex-row`, complete({ flexDirection: `row` })],

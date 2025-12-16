@@ -27,6 +27,7 @@ describe(`simple style mappings`, () => {
     [`direction-ltr`, { direction: `ltr` }],
     [`direction-rtl`, { direction: `rtl` }],
     [`hidden`, { display: `none` }],
+    [`contents`, { display: `contents` }],
     [`flex`, { display: `flex` }],
     [`flex-row`, { flexDirection: `row` }],
     [`flex-row-reverse`, { flexDirection: `row-reverse` }],
