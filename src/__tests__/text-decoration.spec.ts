@@ -26,11 +26,11 @@ describe(`text-decoration utilities`, () => {
     ],
     // all values mix
     [
-      `underline decoration-dashed decoration-black`,
+      `underline decoration-dashed decoration-[#58c4dc]`,
       {
         textDecorationLine: `underline`,
         textDecorationStyle: `dashed`,
-        textDecorationColor: `#000`,
+        textDecorationColor: `#58c4dc`,
       },
     ],
     [
