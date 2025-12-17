@@ -27,6 +27,7 @@ describe(`simple style mappings`, () => {
     [`direction-ltr`, { direction: `ltr` }],
     [`direction-rtl`, { direction: `rtl` }],
     [`hidden`, { display: `none` }],
+    [`contents`, { display: `contents` }],
     [`flex`, { display: `flex` }],
     [`flex-row`, { flexDirection: `row` }],
     [`flex-row-reverse`, { flexDirection: `row-reverse` }],
@@ -90,6 +91,9 @@ describe(`simple style mappings`, () => {
     [`align-top`, { verticalAlign: `top` }],
     [`align-bottom`, { verticalAlign: `bottom` }],
     [`align-middle`, { verticalAlign: `middle` }],
+
+    [`box-border`, { boxSizing: `border-box` }],
+    [`box-content`, { boxSizing: `content-box` }],
 
     // default box-shadow implementations
     [

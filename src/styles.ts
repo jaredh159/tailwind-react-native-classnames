@@ -33,6 +33,7 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`direction-rtl`, complete({ direction: `rtl` })],
 
   [`hidden`, complete({ display: `none` })],
+  [`contents`, complete({ display: `contents` })],
   [`flex`, complete({ display: `flex` })],
 
   [`flex-row`, complete({ flexDirection: `row` })],
@@ -113,6 +114,9 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`align-top`, complete({ verticalAlign: `top` })],
   [`align-bottom`, complete({ verticalAlign: `bottom` })],
   [`align-middle`, complete({ verticalAlign: `middle` })],
+
+  [`box-border`, complete({ boxSizing: `border-box` })],
+  [`box-content`, complete({ boxSizing: `content-box` })],
 
   // default box-shadow implementations
   [
