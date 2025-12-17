@@ -1,4 +1,5 @@
 .DS_Store
+.idea
 dist/
 node_modules/
 jest.config.js
