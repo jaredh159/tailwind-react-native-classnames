@@ -114,6 +114,9 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`align-bottom`, complete({ verticalAlign: `bottom` })],
   [`align-middle`, complete({ verticalAlign: `middle` })],
 
+  [`box-border`, complete({ boxSizing: `border-box` })],
+  [`box-content`, complete({ boxSizing: `content-box` })],
+
   // default box-shadow implementations
   [
     `shadow-sm`,
