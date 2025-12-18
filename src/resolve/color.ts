@@ -107,6 +107,7 @@ const STYLE_PROPS = {
   borderRight: { opacity: `__opacity_border`, color: `borderRightColor` },
   shadow: { opacity: `__opacity_shadow`, color: `shadowColor` },
   decoration: { opacity: `__opacity_decoration`, color: `textDecorationColor` },
+  outline: { opacity: `__opacity_decoration`, color: `outlineColor` },
   tint: { opacity: `__opacity_tint`, color: `tintColor` },
 };
 

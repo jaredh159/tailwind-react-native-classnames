@@ -27,6 +27,7 @@ import {
 import pointerEvents from './resolve/pointer-events';
 import userSelect from './resolve/user-select';
 import textDecorationStyle from './resolve/text-decoration-style';
+import { outlineOffset, outlineStyle, outlineWidth } from './resolve/outline';
 
 export default class UtilityParser {
   private position = 0;
@@ -359,7 +360,23 @@ export default class UtilityParser {
       if (style) return style;
     }
 
-    h.warn(`\`${this.rest}\` unknown or invalid utility`);
+    if (this.consumePeeked(`outline-`)) {
+      if (this.consumePeeked(`offset-`)) {
+        style = outlineOffset(this.rest, this.isNegative, theme?.outlineOffset);
+        if (style) return style;
+      }
+
+      style = outlineWidth(this.rest, theme?.outlineWidth);
+      if (style) return style;
+
+      style = outlineStyle(this.rest);
+      if (style) return style;
+
+      style = color(`outline`, this.rest, theme?.colors);
+      if (style) return style;
+    }
+
+    h.warn(`\`${this.isNegative ? `-` : ``}${this.rest}\` unknown or invalid utility`);
     return null;
   }
 
