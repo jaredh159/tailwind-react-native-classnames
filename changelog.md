@@ -10,10 +10,10 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 ### Added
 
-- Add missing for `contents` value for `display` utility (thanks @Simek)
-  [(#373)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/373).
-- Add support for `boxSizing` utilities (thanks @Simek)
+- Add missing `contents` value for `display` utility (thanks @Simek)
   [(#372)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/372).
+- Add support for `boxSizing` utilities (thanks @Simek)
+  [(#371)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/371).
 
 ## [4.13.0] - 2025-12-16
 

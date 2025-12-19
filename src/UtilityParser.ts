@@ -376,7 +376,7 @@ export default class UtilityParser {
       if (style) return style;
     }
 
-    h.warn(`\`${this.rest}\` unknown or invalid utility`);
+    h.warn(`\`${this.isNegative ? `-` : ``}${this.rest}\` unknown or invalid utility`);
     return null;
   }
 
