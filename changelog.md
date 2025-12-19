@@ -6,6 +6,20 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.15.0] - 2025-12-19
+
+### Added
+
+- Add support for `outline*` style props (thanks @Simek)
+  [(#378)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/378).
+- Add support for `cursor` style prop (thanks @Simek)
+  [(#376)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/376).
+
+### Fixed
+
+- Print `-` in invalid utility warning if it was present in class (thanks @Simek)
+  [(#377)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/377).
+
 ## [4.14.0] - 2025-12-17
 
 ### Added
