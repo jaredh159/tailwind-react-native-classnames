@@ -43,6 +43,8 @@ export interface TwTheme {
   skew?: Record<string, string>;
   translate?: Record<string, string>;
   transformOrigin?: Record<string, string>;
+  outlineOffset?: Record<string, string>;
+  outlineWidth?: Record<string, string>;
   extend?: Omit<TwTheme, 'extend'>;
   //
   colors?: TwColors;
@@ -50,6 +52,7 @@ export interface TwTheme {
   borderColor?: TwColors; // border-
   textColor?: TwColors; // text-
   textDecorationColor?: TwColors; // decoration-
+  outlineColor?: TwColors; // outline-
 }
 
 export const PREFIX_COLOR_PROP_MAP = {
@@ -57,6 +60,7 @@ export const PREFIX_COLOR_PROP_MAP = {
   'border-': `borderColor`,
   'text-': `textColor`,
   'decoration-': `textDecorationColor`,
+  'outline-': `outlineColor`,
 } as const;
 
 export interface TwConfig {

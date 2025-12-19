@@ -98,6 +98,8 @@ describe(`simple style mappings`, () => {
     [`box-border`, { boxSizing: `border-box` }],
     [`box-content`, { boxSizing: `content-box` }],
 
+    [`outline`, { outlineStyle: `solid` }],
+
     // default box-shadow implementations
     [
       `shadow-sm`,
