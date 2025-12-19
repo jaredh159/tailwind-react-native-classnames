@@ -92,6 +92,9 @@ describe(`simple style mappings`, () => {
     [`align-bottom`, { verticalAlign: `bottom` }],
     [`align-middle`, { verticalAlign: `middle` }],
 
+    [`cursor-auto`, { cursor: `auto` }],
+    [`cursor-pointer`, { cursor: `pointer` }],
+
     [`box-border`, { boxSizing: `border-box` }],
     [`box-content`, { boxSizing: `content-box` }],
 
