@@ -115,6 +115,9 @@ const defaultStyles: Array<[string, StyleIR]> = [
   [`align-bottom`, complete({ verticalAlign: `bottom` })],
   [`align-middle`, complete({ verticalAlign: `middle` })],
 
+  [`cursor-auto`, complete({ cursor: `auto` })],
+  [`cursor-pointer`, complete({ cursor: `pointer` })],
+
   [`box-border`, complete({ boxSizing: `border-box` })],
   [`box-content`, complete({ boxSizing: `content-box` })],
 
