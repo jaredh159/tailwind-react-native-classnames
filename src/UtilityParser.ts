@@ -440,7 +440,25 @@ export default class UtilityParser {
 
     // loop through the prefixes ONE time, extracting useful info
     for (const prefix of prefixes) {
-      if (widthBreakpoints[prefix]) {
+      if (prefix.startsWith(`max-`) && prefix.slice(4) in widthBreakpoints) {
+        const breakpoint = widthBreakpoints[prefix.slice(4)];
+        if (!breakpoint) {
+          this.isNull = true;
+          continue;
+        }
+
+        const windowWidth = device.windowDimensions?.width;
+        if (!windowWidth) {
+          this.isNull = true;
+          continue;
+        }
+
+        if (windowWidth < breakpoint[0]) {
+          this.incrementOrder();
+        } else {
+          this.isNull = true;
+        }
+      } else if (widthBreakpoints[prefix]) {
         const breakpointOrder = widthBreakpoints[prefix]?.[2];
         if (breakpointOrder !== undefined) {
           this.order = (this.order ?? 0) + breakpointOrder;

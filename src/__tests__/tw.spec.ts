@@ -56,6 +56,27 @@ describe(`tw`, () => {
     expect(tw.style(utilities)).toMatchObject({ fontSize: 24 });
     tw.setWindowDimensions({ width: 1280, height: 500 });
     expect(tw.style(utilities)).toMatchObject({ fontSize: 30 });
+    // default max breakpoints variants
+    const maxUtilities = `text-3xl max-lg:text-2xl max-md:text-lg max-sm:text-base`;
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 30 });
+    tw.setWindowDimensions({ width: 500, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 16 });
+    tw.setWindowDimensions({ width: 639, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 16 });
+    tw.setWindowDimensions({ width: 640, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 18 });
+    tw.setWindowDimensions({ width: 767, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 18 });
+    tw.setWindowDimensions({ width: 768, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 24 });
+    tw.setWindowDimensions({ width: 1023, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 24 });
+    tw.setWindowDimensions({ width: 1024, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 30 });
+    tw.setWindowDimensions({ width: 1279, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 30 });
+    tw.setWindowDimensions({ width: 1280, height: 500 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 30 });
     // custom breakpoints
     tw = create({ theme: { screens: { custom: `555px` } } });
     tw.setWindowDimensions({ width: 554, height: 500 });
