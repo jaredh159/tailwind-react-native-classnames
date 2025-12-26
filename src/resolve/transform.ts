@@ -3,6 +3,7 @@ import type { DependentStyle, ParseContext, Style, StyleIR } from '../types';
 import { isString, Unit } from '../types';
 import {
   complete,
+  isArbitraryValue,
   parseNumericValue,
   parseStyleVal,
   parseUnconfigged,
@@ -244,10 +245,6 @@ function createStyle(
       style.transform = transform;
     },
   };
-}
-
-function isArbitraryValue(value: string): boolean {
-  return value.startsWith(`[`) && value.endsWith(`]`);
 }
 
 function parseOriginValue(
