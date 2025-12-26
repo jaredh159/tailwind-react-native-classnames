@@ -64,15 +64,15 @@ describe(`tw`, () => {
     tw.setWindowDimensions({ width: 639, height: 500 });
     expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 16 });
     tw.setWindowDimensions({ width: 640, height: 500 });
-    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 18 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 16 });
     tw.setWindowDimensions({ width: 767, height: 500 });
     expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 18 });
     tw.setWindowDimensions({ width: 768, height: 500 });
-    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 24 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 18 });
     tw.setWindowDimensions({ width: 1023, height: 500 });
     expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 24 });
     tw.setWindowDimensions({ width: 1024, height: 500 });
-    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 30 });
+    expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 24 });
     tw.setWindowDimensions({ width: 1279, height: 500 });
     expect(tw.style(maxUtilities)).toMatchObject({ fontSize: 30 });
     tw.setWindowDimensions({ width: 1280, height: 500 });
@@ -83,6 +83,13 @@ describe(`tw`, () => {
     expect(tw`text-xs custom:text-lg`).toMatchObject({ fontSize: 12 });
     tw.setWindowDimensions({ width: 555, height: 500 });
     expect(tw`text-xs custom:text-lg`).toMatchObject({ fontSize: 18 });
+    // custom max breakpoints
+    tw.setWindowDimensions({ width: 554, height: 500 });
+    expect(tw`text-xl max-custom:text-sm`).toMatchObject({ fontSize: 14 });
+    tw.setWindowDimensions({ width: 555, height: 500 });
+    expect(tw`text-xl max-custom:text-sm`).toMatchObject({ fontSize: 14 });
+    tw.setWindowDimensions({ width: 556, height: 500 });
+    expect(tw`text-xl max-custom:text-sm`).toMatchObject({ fontSize: 20 });
   });
 
   test(`multiple media queries`, () => {

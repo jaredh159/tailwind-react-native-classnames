@@ -453,7 +453,7 @@ export default class UtilityParser {
           continue;
         }
 
-        if (windowWidth < breakpoint[0]) {
+        if (windowWidth <= breakpoint[0]) {
           this.incrementOrder();
         } else {
           this.isNull = true;
