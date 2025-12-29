@@ -1,14 +1,14 @@
 import type { TwTheme } from '../tw-config';
 import type { StyleIR } from '../types';
 import { Unit } from '../types';
-import { parseNumericValue, complete, toStyleVal } from '../helpers';
+import { parseNumericValue, complete, toStyleVal, isArbitraryValue } from '../helpers';
 
 export default function lineHeight(
   value: string,
   config?: TwTheme['lineHeight'],
 ): StyleIR | null {
   const parseValue =
-    config?.[value] ?? (value.startsWith(`[`) ? value.slice(1, -1) : value);
+    config?.[value] ?? (isArbitraryValue(value) ? value.slice(1, -1) : value);
 
   const parsed = parseNumericValue(parseValue);
   if (!parsed) {

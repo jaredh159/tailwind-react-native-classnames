@@ -1,6 +1,6 @@
 import type { TwTheme } from '../tw-config';
 import type { ParseContext, StyleIR } from '../types';
-import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle } from '../helpers';
+import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle, isArbitraryValue } from '../helpers';
 
 export function flexGrowShrink(
   type: 'Grow' | 'Shrink',
@@ -8,7 +8,7 @@ export function flexGrowShrink(
   config?: TwTheme['flexGrow'] | TwTheme['flexShrink'],
 ): StyleIR | null {
   value = value.replace(/^-/, ``);
-  if (value[0] === `[` && value.endsWith(`]`)) {
+  if (isArbitraryValue(value)) {
     value = value.slice(1, -1);
   }
   const configKey = value === `` ? `DEFAULT` : value;

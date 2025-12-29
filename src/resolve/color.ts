@@ -1,7 +1,7 @@
 import type { ColorStyleType, Style, StyleIR } from '../types';
 import type { TwColors } from '../tw-config';
 import { isObject, isString } from '../types';
-import { warn } from '../helpers';
+import { isArbitraryValue, warn } from '../helpers';
 
 export function color(
   type: ColorStyleType,
@@ -23,7 +23,7 @@ export function color(
   if (value.startsWith(`[#`) || value.startsWith(`[rgb`) || value.startsWith(`[hsl`)) {
     color = value.slice(1, -1);
     // arbitrary named colors: `bg-[lemonchiffon]`
-  } else if (value.startsWith(`[`) && value.slice(1, -1).match(/^[a-z]{3,}$/)) {
+  } else if (isArbitraryValue(value) && value.slice(1, -1).match(/^[a-z]{3,}$/)) {
     color = value.slice(1, -1);
   } else {
     color = configColor(value, config) ?? ``;
