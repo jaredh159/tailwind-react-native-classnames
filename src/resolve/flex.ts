@@ -1,6 +1,12 @@
 import type { TwTheme } from '../tw-config';
 import type { ParseContext, StyleIR } from '../types';
-import { getCompleteStyle, complete, parseStyleVal, unconfiggedStyle, isArbitraryValue } from '../helpers';
+import {
+  getCompleteStyle,
+  complete,
+  parseStyleVal,
+  unconfiggedStyle,
+  isArbitraryValue,
+} from '../helpers';
 
 export function flexGrowShrink(
   type: 'Grow' | 'Shrink',

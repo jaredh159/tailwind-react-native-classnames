@@ -1,7 +1,12 @@
 import type { TwTheme } from '../tw-config';
 import type { Direction, ParseContext, StyleIR } from '../types';
 import { Unit } from '../types';
-import { isArbitraryValue, parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
+import {
+  isArbitraryValue,
+  parseNumericValue,
+  parseUnconfigged,
+  toStyleVal,
+} from '../helpers';
 
 export default function spacing(
   type: 'margin' | 'padding',
