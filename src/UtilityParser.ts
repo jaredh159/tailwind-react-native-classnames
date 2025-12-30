@@ -28,6 +28,15 @@ import pointerEvents from './resolve/pointer-events';
 import userSelect from './resolve/user-select';
 import textDecorationStyle from './resolve/text-decoration-style';
 import { outlineOffset, outlineStyle, outlineWidth } from './resolve/outline';
+import {
+  filterBrightness,
+  filterContrast,
+  filterGrayscale,
+  filterHueRotate,
+  filterInvert,
+  filterSaturate,
+  filterSepia,
+} from './resolve/filter';
 
 export default class UtilityParser {
   private position = 0;
@@ -373,6 +382,41 @@ export default class UtilityParser {
       if (style) return style;
 
       style = color(`outline`, this.rest, theme?.colors);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`brightness-`)) {
+      style = filterBrightness(this.rest, this.context, theme?.brightness);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`contrast-`)) {
+      style = filterContrast(this.rest, this.context, theme?.contrast);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`saturate-`)) {
+      style = filterSaturate(this.rest, this.context, theme?.saturate);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`hue-rotate-`)) {
+      style = filterHueRotate(this.rest, this.context, theme?.hueRotate);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`grayscale`)) {
+      style = filterGrayscale(this.rest, this.context, theme?.grayscale);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`invert`)) {
+      style = filterInvert(this.rest, this.context, theme?.invert);
+      if (style) return style;
+    }
+
+    if (this.consumePeeked(`sepia`)) {
+      style = filterSepia(this.rest, this.context, theme?.sepia);
       if (style) return style;
     }
 

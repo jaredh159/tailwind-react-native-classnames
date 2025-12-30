@@ -1,7 +1,12 @@
 import type { TwTheme } from '../tw-config';
 import type { Direction, ParseContext, StyleIR } from '../types';
 import { Unit } from '../types';
-import { parseNumericValue, parseUnconfigged, toStyleVal } from '../helpers';
+import {
+  isArbitraryValue,
+  parseNumericValue,
+  parseUnconfigged,
+  toStyleVal,
+} from '../helpers';
 
 export default function spacing(
   type: 'margin' | 'padding',
@@ -11,7 +16,7 @@ export default function spacing(
   config?: TwTheme['margin'] | TwTheme['padding'],
 ): StyleIR | null {
   let numericValue = ``;
-  if (value[0] === `[`) {
+  if (isArbitraryValue(value)) {
     numericValue = value.slice(1, -1);
   } else {
     const configValue = config?.[value];
