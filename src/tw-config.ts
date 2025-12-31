@@ -45,14 +45,23 @@ export interface TwTheme {
   transformOrigin?: Record<string, string>;
   outlineOffset?: Record<string, string>;
   outlineWidth?: Record<string, string>;
-  extend?: Omit<TwTheme, 'extend'>;
-  //
+
+  brightness?: Record<string, string>;
+  contrast?: Record<string, string>;
+  grayscale?: Record<string, string>;
+  saturate?: Record<string, string>;
+  invert?: Record<string, string>;
+  sepia?: Record<string, string>;
+  hueRotate?: Record<string, string>;
+
   colors?: TwColors;
   backgroundColor?: TwColors; // bg-
   borderColor?: TwColors; // border-
   textColor?: TwColors; // text-
   textDecorationColor?: TwColors; // decoration-
   outlineColor?: TwColors; // outline-
+
+  extend?: Omit<TwTheme, 'extend'>;
 }
 
 export const PREFIX_COLOR_PROP_MAP = {

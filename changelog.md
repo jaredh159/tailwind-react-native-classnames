@@ -6,6 +6,14 @@ on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), and this project ad
 
 [comment]: # 'Section Titles: Added/Fixed/Changed/Removed'
 
+## [4.16.0] - 2025-12-30
+
+### Added
+
+- Add support for `filter` style properties: `grayscale`, `invert`, `sepia`, `contrast`,
+  `brightness`, `saturate`, and `hue-rotate` (thanks @Simek)
+  [(#379)](https://github.com/jaredh159/tailwind-react-native-classnames/pull/379).
+
 ## [4.15.0] - 2025-12-19
 
 ### Added

@@ -226,6 +226,10 @@ function unconfiggedStyleVal(
   return toStyleVal(number, unit, context);
 }
 
+export function isArbitraryValue(value: string): boolean {
+  return value.startsWith(`[`) && value.endsWith(`]`);
+}
+
 function consoleWarn(...args: any[]): void {
   console.warn(...args); // eslint-disable-line no-console
 }
