@@ -44,6 +44,9 @@ describe(`tw.prefixMatch()`, () => {
     expect(tw.prefixMatch(`md`)).toBe(true);
     expect(tw.prefixMatch(`lg`)).toBe(true);
     expect(tw.prefixMatch(`xl`)).toBe(false);
+    expect(tw.prefixMatch(`max-md`)).toBe(false);
+    expect(tw.prefixMatch(`max-lg`)).toBe(false);
+    expect(tw.prefixMatch(`max-xl`)).toBe(true);
     expect(tw.prefixMatch(`landscape`)).toBe(true);
     expect(tw.prefixMatch(`portrait`)).toBe(false);
   });
