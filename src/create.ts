@@ -209,7 +209,7 @@ export function create(
     // Fall back to attempting style parsing
     let toStyle = utils;
 
-    if (!/^(bg-|text-|border-)/.test(utils)) {
+    if (!/^\s*(?:[^\s:]+:)*(bg-|text-|border-)/.test(utils)) {
       toStyle = utils
         .split(/\s+/g)
         .map((util) => util.replace(/^(bg|text|border)-/, ``))

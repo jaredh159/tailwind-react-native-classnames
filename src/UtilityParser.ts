@@ -500,7 +500,7 @@ export default class UtilityParser {
           this.isNull = true;
         }
       } else if (isPlatform(prefix)) {
-        this.isNull = prefix !== device.platform;
+        this.isNull = this.isNull || prefix !== device.platform;
       } else if (isOrientation(prefix)) {
         if (!device.windowDimensions) {
           this.isNull = true;

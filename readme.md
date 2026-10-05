@@ -146,6 +146,7 @@ a tailwind color. Especially useful if you're using a customized color palette.
 ```js
 tw.color('blue-100'); // `bg|text|border-blue-100` also work
 // -> "rgba(219, 234, 254, 1)"
+tw.color('dark:text-white'); // resolves only when dark mode is active
 ```
 
 You can import the main `tw` function and reach for `tw.style` only when you need it:
