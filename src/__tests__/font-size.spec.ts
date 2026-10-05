@@ -33,6 +33,75 @@ describe(`font size`, () => {
     expect(tw`text-sm/6`).toMatchObject({ fontSize: 14, lineHeight: 24 });
   });
 
+  test.each<[string, number, number]>([
+    [`text-xl/[1]`, 20, 20],
+    [`text-2xl/none`, 24, 24],
+    [`text-xs/tight`, 12, 15],
+    [`text-sm/snug`, 14, 19.25],
+    [`text-lg/normal`, 18, 27],
+    [`text-xl/relaxed`, 20, 32.5],
+    [`text-base/loose`, 16, 32],
+    [`text-[13px]/[1.5]`, 13, 19.5],
+    [`text-xl/[0]`, 20, 0],
+    [`text-[0px]/none`, 0, 0],
+  ])(`relative line-height shorthand %s`, (utility, fontSize, lineHeight) => {
+    expect(tw.style(utility)).toEqual({ fontSize, lineHeight });
+  });
+
+  test(`relative shorthand preserves other configured font properties`, () => {
+    tw = create({
+      theme: {
+        extend: {
+          fontSize: {
+            brand: [
+              `1.25rem`,
+              { lineHeight: `2rem`, letterSpacing: `1px`, fontWeight: `700` },
+            ],
+          },
+          lineHeight: { brand: `1.25` },
+        },
+      },
+    });
+    expect(tw`text-brand/brand`).toEqual({
+      fontSize: 20,
+      lineHeight: 25,
+      letterSpacing: 1,
+      fontWeight: 700,
+    });
+  });
+
+  test(`relative shorthand does not change a cached font-size style`, () => {
+    const original = tw`text-xl`;
+    expect(tw`text-xl/none`).toEqual({ fontSize: 20, lineHeight: 20 });
+    expect(tw`text-xl`).toBe(original);
+    expect(original).toEqual({ fontSize: 20, lineHeight: 28 });
+  });
+
+  test(`relative shorthand follows viewport-dependent font sizes`, () => {
+    tw.setWindowDimensions({ width: 800, height: 600 });
+    expect(tw`text-[10vw]/[1.5]`).toEqual({ fontSize: 80, lineHeight: 120 });
+    tw.setWindowDimensions({ width: 400, height: 600 });
+    expect(tw`text-[10vw]/[1.5]`).toEqual({ fontSize: 40, lineHeight: 60 });
+  });
+
+  test(`relative shorthand composes with explicit line-height utilities`, () => {
+    expect(tw`text-xl/none leading-8`).toEqual({ fontSize: 20, lineHeight: 32 });
+    expect(tw`leading-8 text-xl/none`).toEqual({ fontSize: 20, lineHeight: 20 });
+    expect(tw`text-xl/[30px]`).toEqual({ fontSize: 20, lineHeight: 30 });
+  });
+
+  test(`color opacity remains separate from font-size shorthand`, () => {
+    expect(tw`text-red-500/50`).toEqual({ color: `rgba(239, 68, 68, 0.5)` });
+    expect(tw`text-[#ff0000]/50`).toEqual({ color: `rgba(255, 0, 0, 0.5)` });
+  });
+
+  test(`invalid font-size and line-height shorthand stays unsupported`, () => {
+    expect(tw`text-missing/none`).toEqual({});
+    expect(tw`text-xl/not-a-line-height`).toEqual({});
+    tw = create({ theme: { fontSize: { ratio: `100%` } } });
+    expect(tw`text-ratio/none`).toEqual({});
+  });
+
   test(`font-sizes with relative line-height`, () => {
     const config: TwConfig = {
       theme: {

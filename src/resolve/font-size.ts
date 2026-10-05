@@ -26,6 +26,12 @@ export default function fontSize(
         style: { ...fs.style, ...lh.style },
       };
     }
+    if (fs?.kind === `complete` && lh?.kind === `dependent`) {
+      const resolvedStyle = { ...fs.style };
+      if (!lh.complete(resolvedStyle)) {
+        return complete(resolvedStyle);
+      }
+    }
   }
 
   const configValue = config?.fontSize?.[value];
